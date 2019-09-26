@@ -19,5 +19,5 @@ use Caprice\Template;
 require 'vendor/autoload.php';
 
 
-$parser = new Template("index.cap.php");
+$parser = new Template("test.cap.php");
 $parser->generateParsedFile("index.php");

@@ -2,5 +2,5 @@
 .idea
 composer.lock
 *.cache
-.*.cap.php
+*.cap.php
 index.php
