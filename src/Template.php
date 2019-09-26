@@ -69,7 +69,7 @@ class Template
      */
     public function parseEcho()
     {
-        $pattern = "/\(\-{1}([\$\w\s\+\=\%\~\-\/\*]+)\-{1}\)/s";
+        $pattern = "/\(\-{1}([\$\w\s\+\=\%\~\-\/\*\|]+)\-{1}\)/s";
 
         $this->file = $this->parse($pattern, function($match) use ($pattern){
 
@@ -135,7 +135,21 @@ class Template
 
         $this->file = $this->parse($pattern, function($match) use($pattern){
 
-            return preg_replace($pattern, '<?php while($1):?>$2<?php endwhile;?>', $match[0]);;
+            return preg_replace($pattern, '<?php while($1):?>$2<?php endwhile;?>', $match[0]);
+        }, $this->file);
+    }
+
+    /**
+     * for while
+     *
+     * @return void
+     */
+    public function parseIf()
+    {
+        $pattern  = '/#if\s*\((.*?)\)(.*?)#endif/s';
+
+        $this->file = $this->parse($pattern, function($match) use($pattern){
+            return preg_replace($pattern, '<?php if($1):?> $2 <?php endif;?>', $match[0]);
         }, $this->file);
     }
 
@@ -166,6 +180,7 @@ class Template
         $this->parseForInKeyValue();
         $this->parseForInValueOnly();
         $this->parseWhile();
+        $this->parseIf();
 
         $file = preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
         return file_put_contents($name, $file);
