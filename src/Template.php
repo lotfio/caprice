@@ -53,7 +53,7 @@ class Template
      */
     public function parseEchoEscaped()
     {
-        $pattern = "/\(\-{2}([\$\w\s]+)\-{2}\)/s";
+        $pattern = "/\(\-{2}([\$\w\s\+\=\%\~\-\/\*]+)\-{2}\)/s";
 
         $this->file = $this->parse($pattern, function($match) use($pattern){
 
@@ -69,7 +69,7 @@ class Template
      */
     public function parseEcho()
     {
-        $pattern = "/\(\-{1}([\$\w\s]+)\-{1}\)/s";
+        $pattern = "/\(\-{1}([\$\w\s\+\=\%\~\-\/\*]+)\-{1}\)/s";
 
         $this->file = $this->parse($pattern, function($match) use ($pattern){
 
@@ -125,6 +125,22 @@ class Template
     }
 
     /**
+     * for while
+     *
+     * @return void
+     */
+    public function parseWhile()
+    {
+        $pattern  = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.+?)#endwhile/s';
+
+        $this->file = $this->parse($pattern, function($match) use($pattern){
+
+            return preg_replace($pattern, '<?php while($1):?>$2<?php endwhile;?>', $match[0]);;
+        }, $this->file);
+    }
+
+
+    /**
      * parse definition block
      *
      * @return void
@@ -149,6 +165,7 @@ class Template
         $this->parseFor();
         $this->parseForInKeyValue();
         $this->parseForInValueOnly();
+        $this->parseWhile();
 
         $file = preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
         return file_put_contents($name, $file);
