@@ -156,6 +156,12 @@ class Template
             return '<?php while('.trim($match[1]).'):?>'.trim($match[2]).'<?php endwhile;?>';
 
         }, $this->file);
+
+        $pattern = '/#continue/s';
+        $this->file = $this->parse($pattern, function($match){ return '<?php continue;?>';}, $this->file);
+        
+        $pattern = '/#break/s';
+        $this->file = $this->parse($pattern, function($match){ return '<?php break;?>';}, $this->file);
     }
 
     /**
@@ -191,6 +197,7 @@ class Template
         $this->parseForInKeyValue();
         $this->parseForInValueOnly();
         $this->parseWhile();
+        $this->parseDoWhile();
         $this->parseIf();
 
         $file = preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
