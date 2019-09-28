@@ -19,5 +19,20 @@ use Caprice\Template;
 require 'vendor/autoload.php';
 
 
-$parser = new Template("test.cap.php");
-$parser->generateParsedFile("index.php");
+$file = "test.cap.php";
+
+$template  = filemtime($file);
+$generated = @filemtime(md5($file) . ".php");
+
+
+if($template != $generated)
+{
+    $parser = new Template($file);
+    $parser->generateParsedFile(md5($file) . ".php");
+    touch($file,time());
+
+    echo "new file generated ";
+}else{
+    
+    echo "no generated file";
+}
