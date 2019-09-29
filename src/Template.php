@@ -102,7 +102,7 @@ class Template
     public function parseFor()
     {
         $pattern  = '/#for\s*\((\$\w+\s*=\s*[\$\w+]+\s*\;)(\s*\$\w+\s*[<=>!]+\s*[\$\w+]+\s*\;\s*)(\$\w+[+-=\/\*\s\w\$]+)\)(.*?)#endfor/s';
-        
+
         $this->file = $this->parse($pattern, function($match){
 
             return '<?php for('.trim($match[1]).''. trim($match[2]).''.trim($match[3]).'):?>'.trim($match[4]).'<?php endfor;?>';
@@ -118,7 +118,7 @@ class Template
     public function parseForInKeyValue()
     {
         $pattern  = '/#for\s*\((\$\w+\s*=>\s*\$\w+\s*)(\s*in\s*)(\$\w+\s*)\)(.*?)#endfor/s';
-        
+
         $this->file = $this->parse($pattern, function($match){
 
             return '<?php foreach('.trim($match[3]).' as '.trim($match[1]).'):?>'.trim($match[4]).'<?php endforeach;?>';
@@ -134,11 +134,11 @@ class Template
     public function parseForInValueOnly()
     {
         $pattern  = '/#for\s*\((\$\w+\s*)(\s*in\s*)(\$\w+\s*)\)(.*?)#endfor/s';
-        
+
         $this->file = $this->parse($pattern, function($match){
 
             return '<?php foreach('.trim($match[3]).' as '.trim($match[1]).'):?>'.trim($match[4]).'<?php endforeach;?>';
-        
+
         }, $this->file);
     }
 
@@ -150,7 +150,7 @@ class Template
     public function parseWhile()
     {
         $pattern  = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.+?)#endwhile/s';
-        
+
         $this->file = $this->parse($pattern, function($match){
 
             return '<?php while('.trim($match[1]).'):?>'.trim($match[2]).'<?php endwhile;?>';
@@ -159,9 +159,28 @@ class Template
 
         $pattern = '/#continue/s';
         $this->file = $this->parse($pattern, function($match){ return '<?php continue;?>';}, $this->file);
-        
+
         $pattern = '/#break/s';
         $this->file = $this->parse($pattern, function($match){ return '<?php break;?>';}, $this->file);
+    }
+
+    /**
+     * parse include or require
+     *
+     * @return void
+     */
+    public function parseInclude()
+    {
+        $pattern = '/(#include|#require)\s*\((.*?)\)/s';
+        $this->file = $this->parse($pattern, function($match){
+
+            $file = str_replace("'", NULL, $match[2]);
+            $file = str_replace('"', NULL, $file);
+            $file = str_replace('.cap.php', NULL, $file);
+            $file = str_replace('.', '/', $file) . '.php';
+
+            return '<?php '. trim($match[1], '#') .'("' . $file . '");?>';
+        }, $this->file);
     }
 
     /**
@@ -197,8 +216,8 @@ class Template
         $this->parseForInKeyValue();
         $this->parseForInValueOnly();
         $this->parseWhile();
-        $this->parseDoWhile();
         $this->parseIf();
+        $this->parseInclude();
 
         $file = preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
         return file_put_contents($name, $file);
