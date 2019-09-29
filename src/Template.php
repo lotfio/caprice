@@ -190,12 +190,12 @@ class Template
      */
     public function parseIf()
     {
-        $pattern    = '/(#if)\s*\((.*?)\)/';
+        $pattern    = '/(#if)\s*\((.*)\)/';
         $this->file = $this->parse($pattern, function($match){
             return '<?php if('.trim($match[2]).'):?>';
         }, $this->file);
 
-        $pattern    = '/(#elif)\s*\((.*?)\)/';
+        $pattern    = '/(#elif)\s*\((.*)\)/';
         $this->file = $this->parse($pattern, function($match){
             return '<?php elseif('.trim($match[2]).'):?>';
         }, $this->file);
