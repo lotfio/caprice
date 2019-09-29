@@ -73,7 +73,7 @@ class Template
 
         $this->file = $this->parse($pattern, function($match){
 
-            return '<?="'.trim($match[1]).'"?>';
+            return '<?='.trim($match[1]).'?>';
 
         }, $this->file);
     }
