@@ -14,7 +14,16 @@
 
 namespace Caprice\Contracts;
 
-interface ParserInterface
+interface DirectiveInterface
 {
-    public function parse(DirectiveInterface $directive, string $file);
+    /**
+     * replace method
+     * 
+     * This method is a callback that returns a
+     * string wich will be replace the directive
+     *
+     * @param  array $match
+     * @return void
+     */
+    public function replace(array $match) : string;
 }

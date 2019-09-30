@@ -13,12 +13,20 @@
  */
 
 use Caprice\Template;
+use Caprice\Parser;
 
 
 require 'vendor/autoload.php';
 
 
-$file = "test.cap.php";
+$parser = new Parser;
+
+
+$file = file_get_contents("test.cap.php");
+
+$parser($file);
+
+die;
 
 /*
 $template  = filemtime($file);
