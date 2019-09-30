@@ -89,7 +89,7 @@ class Template
 
         $this->file = $this->parse($pattern, function($match){
 
-            return '<?=htmlentities("'.trim($match[1]).'", ENT_QUOTES, \'UTF-8\');?>';
+            return '<?=htmlentities('.trim($match[1]).', ENT_QUOTES, \'UTF-8\');?>';
 
         }, $this->file);
     }
@@ -207,6 +207,19 @@ class Template
         $this->file = $this->parse($pattern, function($match){return '<?php endif;?>';}, $this->file);
     }
 
+    /**
+     * array access parse method
+     *
+     * @return void
+     */
+    public function parseArrayAccess()
+    {
+        $pattern = '/((\$\w+)\.(\w+)(\s*\;*))/m';
+        $this->file = $this->parse($pattern, function($match){
+            return $match[2].'["'.$match[3].'"]'.$match[4];
+        }, $this->file);
+    }
+
     public function generateParsedFile(string $name)
     {
         $this->parseBlock();
@@ -218,6 +231,7 @@ class Template
         $this->parseWhile();
         $this->parseIf();
         $this->parseInclude();
+        $this->parseArrayAccess();
 
         $file = preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
         return file_put_contents($name, $file);
