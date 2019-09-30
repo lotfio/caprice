@@ -1,4 +1,4 @@
-<?php
+<?php namespace Caprice;
 
 /*
  * This file is a part of Caprice package
@@ -12,13 +12,31 @@
  *
  */
 
-namespace Caprice;
-
 use Caprice\Contracts\ParserInterface;
 use Caprice\Contracts\DirectiveInterface;
 
 class Parser implements ParserInterface
 {
+    /**
+     * file to be parsed
+     *
+     * @var string
+     */
+    private $file;
+
+    /**
+     * constructor
+     *
+     * @param string $file
+     */
+    public function __construct(string $file)
+    {
+        // chech if file not .cap 
+        // throw exception and if not exists also 
+        // check for a better way to load file
+        $this->file = file_get_contents($file);
+    }
+
     /**
      * parse method
      *
@@ -26,15 +44,13 @@ class Parser implements ParserInterface
      * @param  string $file
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file)
+    public function parse(DirectiveInterface $directive, $file)
     {
-        $this->file = $file;
-
-        preg_replace_callback($directive->pattern, function(array $match) use ($directive){
+        $this->file = preg_replace_callback($directive->pattern, function(array $match) use ($directive){
 
             return $directive->replace($match);
 
-        }, $this->file, $limit = '-1');
+        }, $file, $limit = -1);
     }
 
     /**
@@ -43,7 +59,7 @@ class Parser implements ParserInterface
      * @param string $file
      * @return void
      */
-    public function __invoke(string $file)
+    public function __invoke()
     {
         foreach(glob(__DIR__."/Directives/*.php") as $class)
         {
@@ -52,10 +68,10 @@ class Parser implements ParserInterface
 
             if(class_exists($class))
             {
-                $this->parse(new $class, $file);
+                $this->parse(new $class, $this->file);
             }
         }
 
-        echo $this->file;
+        return $this->file;
     }
 }

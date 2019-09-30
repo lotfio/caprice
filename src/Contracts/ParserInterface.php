@@ -1,4 +1,4 @@
-<?php
+<?php namespace Caprice\Contracts;
 
 /*
  * This file is a part of Caprice package
@@ -12,9 +12,19 @@
  *
  */
 
-namespace Caprice\Contracts;
-
 interface ParserInterface
 {
+    /**
+     * parse method
+     * 
+     * This method gets a directive as first parameter
+     * and a file string as the second parameter 
+     * this method replaced the file based on the directive 
+     * given
+     * 
+     * @param  DirectiveInterface $directive
+     * @param  string $file
+     * @return void
+     */
     public function parse(DirectiveInterface $directive, string $file);
 }

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Caprice; 
 
 /*
  * This file is a part of Caprice package
@@ -11,8 +11,6 @@
  * @link        https://github.com/lotfio/caprice
  *
  */
-
-namespace Caprice;
 
 class Template
 {

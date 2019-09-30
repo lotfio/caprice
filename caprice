@@ -18,13 +18,10 @@ use Caprice\Parser;
 
 require 'vendor/autoload.php';
 
+$file = "test.cap.php";
+$parser = new Parser($file);
 
-$parser = new Parser;
-
-
-$file = file_get_contents("test.cap.php");
-
-$parser($file);
+echo $parser();
 
 die;
 
