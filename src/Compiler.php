@@ -48,18 +48,36 @@ class Compiler implements CompilerInterface
 
         if(!$this->isSame($fileName, $cacheFile)) // not same time
         {
-            file_put_contents($cacheFile, $this->file);
+            file_put_contents($cacheFile, $this->removeExtraLines($this->file));
             touch($fileName, time());
         }
 
         return $cacheFile;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $file
+     * @param string $cached
+     * @return boolean
+     */
     public function isSame(string $file, string $cached)
     {
         $template  = filemtime($file);
         $generated = @filemtime($cached); // just ignore and generate a file if no file exists
 
         return $template === $generated;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $file
+     * @return void
+     */
+    public function removeExtraLines(string $file)
+    {
+        return preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
     }
 }

@@ -12,15 +12,11 @@
  *
  */
 
-use Caprice\Compiler;
-use Caprice\Parser;
-
-
 require 'vendor/autoload.php';
 
 $file     = __DIR__."/test.cap.php";
 
-$compiler = new Compiler;
+$compiler = new Caprice\Compiler;
 $compiled = $compiler->compile($file, "./cache");
 
 

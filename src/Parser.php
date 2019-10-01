@@ -52,8 +52,9 @@ class Parser implements ParserInterface
 
         foreach(glob(__DIR__."/Directives/*.php") as $class)
         {
-            $class = trim((rtrim(explode("Directives", $class)[1], ".php")), "/");
+            $class = trim((explode("Directives", $class)[1]), "/");
             $class = "Caprice\\Directives\\" . ucfirst($class);
+            $class = substr($class, 0, strpos($class, ".php"));
 
             if(class_exists($class))
             {
