@@ -12,33 +12,16 @@
  *
  */
 
-use Caprice\Template;
+use Caprice\Compiler;
 use Caprice\Parser;
 
 
 require 'vendor/autoload.php';
 
-$file = "test.cap.php";
-$parser = new Parser($file);
+$file     = __DIR__."/test.cap.php";
 
-echo $parser();
+$compiler = new Compiler;
+$compiled = $compiler->compile($file, "./cache");
 
-die;
 
-/*
-$template  = filemtime($file);
-$generated = @filemtime(md5($file) . ".php");
-
-*/
-/*if($template != $generated)
-{
-    $parser = new Template($file);
-    $parser->generateParsedFile(md5($file) . ".php");
-    touch($file,time());
-
-}*/
-
-$parser = new Template($file);
-$parser->generateParsedFile(md5($file) . ".php");
-
-require md5($file) . '.php';
+return require $compiled;

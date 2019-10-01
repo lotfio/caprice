@@ -16,9 +16,9 @@ interface DirectiveInterface
 {
     /**
      * replace method
-     * 
+     *
      * This method is a callback that returns a
-     * string wich will be replace the directive
+     * string which will replace the directive
      *
      * @param  array $match
      * @return void

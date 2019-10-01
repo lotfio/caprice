@@ -14,7 +14,7 @@
 
 use Caprice\Contracts\DirectiveInterface;
 
-class EchoStatment implements DirectiveInterface
+class EchoStatement implements DirectiveInterface
 {
     /**
      * pattern property

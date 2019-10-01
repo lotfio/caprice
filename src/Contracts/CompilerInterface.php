@@ -16,14 +16,14 @@ interface CompilerInterface
 {
     /**
      * compile method
-     * 
+     *
      * This method gets a parsed string from parsed file
-     * and it compiles it and generates a PHP file based 
-     * on the .cap file 
-     * This compile method generates a file only if the .cap 
+     * and it compiles it and generates a PHP file based
+     * on the .cap file
+     * This compile method generates a file only if the .cap
      * file is modified
      *
      * @return void
      */
-    public function compile();
+    public function compile(string $file, string $cache);
 }

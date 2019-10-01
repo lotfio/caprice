@@ -25,19 +25,6 @@ class Parser implements ParserInterface
     private $file;
 
     /**
-     * constructor
-     *
-     * @param string $file
-     */
-    public function __construct(string $file)
-    {
-        // chech if file not .cap 
-        // throw exception and if not exists also 
-        // check for a better way to load file
-        $this->file = file_get_contents($file);
-    }
-
-    /**
      * parse method
      *
      * @param  DirectiveInterface $directive
@@ -59,8 +46,10 @@ class Parser implements ParserInterface
      * @param string $file
      * @return void
      */
-    public function __invoke()
+    public function __invoke(string $file)
     {
+        $this->file = $file;
+
         foreach(glob(__DIR__."/Directives/*.php") as $class)
         {
             $class = trim((rtrim(explode("Directives", $class)[1], ".php")), "/");
