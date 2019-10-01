@@ -1,4 +1,4 @@
-<?php namespace Caprice; 
+<?php namespace Caprice;
 
 /*
  * This file is a part of Caprice package
