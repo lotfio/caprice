@@ -12,72 +12,76 @@
  *
  */
 
- use Caprice\Contracts\CompilerInterface;
+use Caprice\Contracts\CompilerInterface;
+use Caprice\Exception\FileNotFoundException;
+use Caprice\Exception\DirNotFoundException;
 
 class Compiler implements CompilerInterface
 {
     /**
-     * Undocumented variable
+     * file to compile
      *
-     * @var [type]
+     * @var string
      */
     private $file;
 
     /**
-     * Undocumented function
+     * compile caprice file method
      *
-     * @param string $file
-     * @param string $cache
-     * @return void
+     * @param  string $file
+     * @param  string $cache
+     * @return string compiled file
      */
-    public function compile(string $fileName, string $cache)
+    public function compile(string $fileName, string $cache) : string
     {
-        $this->file  = file_get_contents($fileName);
-
-        // get parsed content and compile it to a file
-        //check if not changed do not compile again
-
-        $parser     = new Parser;
-        $this->file = $parser($this->file);
+        if(!file_exists($fileName))
+            throw new FileNotFoundException("file $fileName not found", 4);
 
         if(!is_dir($cache))
-            die("please provide a correct cache directory");
+            throw new DirNotFoundException("$cache is not a valid directory", 4);
 
-        $cacheFile = $cache .'/'. md5($fileName) . '.php';
+        //cache file
+        $cacheFile  = $cache .'/'. md5($fileName) . '.php';
 
-
-        if(!$this->isSame($fileName, $cacheFile)) // not same time
+        if($this->isModified($fileName, $cacheFile)) // if modifed recompile
         {
+            // read caprice file    
+            $this->file  = file_get_contents($fileName);
+
+            // parse caprice file
+            $parser     = new Parser;
+            $this->file = $parser->parseFile($this->file);
+
             file_put_contents($cacheFile, $this->removeExtraLines($this->file));
-            touch($fileName, time());
+            touch($fileName, time()); // update caprice time to be the same as cahed file to detect any changes later
         }
 
         return $cacheFile;
     }
 
     /**
-     * Undocumented function
+     * check if caprice file eis modified
      *
-     * @param string $file
-     * @param string $cached
+     * @param  string $file
+     * @param  string $cached
      * @return boolean
      */
-    public function isSame(string $file, string $cached)
+    public function isModified(string $file, string $cached) : bool
     {
         $template  = filemtime($file);
         $generated = @filemtime($cached); // just ignore and generate a file if no file exists
 
-        return $template === $generated;
+        return $template !== $generated;
     }
 
     /**
-     * Undocumented function
+     * remove extra lines on a file
      *
      * @param string $file
      * @return void
      */
-    public function removeExtraLines(string $file)
+    public function removeExtraLines(string $file) : string
     {
-        return preg_replace("~[\r\n]+~", "\r\n", trim($this->file)); //remove white spaces minify from this i can create a package
+        return preg_replace("~[\r\n]+~", "\r\n", trim($file)); //remove white spaces minify from this i can create a package
     }
 }
