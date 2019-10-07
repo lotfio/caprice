@@ -26,7 +26,7 @@ interface ParserInterface
      * @param  string $file
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file) : void;
+    public function parse(DirectiveInterface $directive, string $file) : string;
 
     /**
      * parse file method

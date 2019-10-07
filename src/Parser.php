@@ -31,9 +31,9 @@ class Parser implements ParserInterface
      * @param  string $file
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file) : void
+    public function parse(DirectiveInterface $directive, string $file) : string
     {
-        $this->file = preg_replace_callback($directive->pattern, function(array $match) use ($directive){
+        return preg_replace_callback($directive->pattern, function(array $match) use ($directive){
 
             return $directive->replace($match);
 
@@ -58,7 +58,7 @@ class Parser implements ParserInterface
 
             if(class_exists($class))
             {
-                $this->parse(new $class, $this->file);
+               $this->file = $this->parse(new $class, $this->file);
             }
         }
 
