@@ -35,7 +35,14 @@ introduction
 
 ### :pencil2: Usage :
 ```php
-  // basic usage example
+  require 'vendor/autoload.php';
+
+  $file     = "test.cap.php"; // caprice file example 
+
+  $compiler = new Caprice\Compiler;
+  $compiled = $compiler->compile($file, "./cacheLocation/"); // this will return a path to the compiled file
+
+  require $compiled; // require your compiled file 
 ```
 
 ### :inbox_tray: Short explanation :
