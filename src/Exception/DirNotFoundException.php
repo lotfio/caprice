@@ -12,7 +12,7 @@
  *
  */
 
- class CapFileNotFoundException extends \Exception
+ class DirNotFoundException extends \Exception
  {
 
  }
