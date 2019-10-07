@@ -26,7 +26,7 @@ class ForLoop implements DirectiveInterface
     /**
      * string to replace the pattern
      *
-     * @return void
+     * @return string
      */
     public function replace(array $match) : string
     {
