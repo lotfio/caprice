@@ -31,7 +31,7 @@ class Parser implements ParserInterface
      * @param  string $file
      * @return void
      */
-    public function parse(DirectiveInterface $directive, $file)
+    public function parse(DirectiveInterface $directive, string $file) : void
     {
         $this->file = preg_replace_callback($directive->pattern, function(array $match) use ($directive){
 
@@ -41,12 +41,12 @@ class Parser implements ParserInterface
     }
 
     /**
-     * Undocumented function
+     * parse caprice syntax using all the directives
      *
-     * @param string $file
+     * @param  string $file
      * @return void
      */
-    public function __invoke(string $file)
+    public function parseFile(string $file) : string
     {
         $this->file = $file;
 
