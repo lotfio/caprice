@@ -21,7 +21,7 @@ class WhileLoop implements DirectiveInterface
      *
      * @var string
      */
-    public $pattern = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.+?)#endwhile/s';
+    public $pattern = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.*?)#endwhile/s';
 
     /**
      * string to replace the pattern

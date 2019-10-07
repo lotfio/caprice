@@ -14,7 +14,10 @@
 
 use PHPUnit\Framework\TestCase;
 
-class CompilerTest implements TestCase
+class CompilerTest extends TestCase
 {
-
+    public function testNothing()
+    {
+        $this->assertTrue(TRUE);
+    }
 }
