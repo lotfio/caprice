@@ -32,6 +32,7 @@ class IncludeStatement implements DirectiveInterface
     {
         $file = str_replace("'", NULL, $match[2]);
         $file = str_replace('"', NULL, $file);
+        $file = str_replace('.php', NULL, $file);
         $file = str_replace('.cap.php', NULL, $file);
         $file = str_replace('.', '/', $file) . '.php';
 

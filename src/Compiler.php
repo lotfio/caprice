@@ -82,6 +82,6 @@ class Compiler implements CompilerInterface
      */
     public function removeExtraLines(string $file) : string
     {
-        return preg_replace("~[\r\n]+~", "\r\n", trim($file)); //remove white spaces minify from this i can create a package
+        return preg_replace("~[\r\n]+~", "\r\n", trim($file)); //remove extra lines
     }
 }
