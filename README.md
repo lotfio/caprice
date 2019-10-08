@@ -80,17 +80,17 @@ caprice compiles the syntax and generate php files which means no performance lo
         (- $name -)
     #endfor
 
-    // for in loop
+    // for loop
     #for ($name => $age in $names)
         (- $name . "=>" . $age -)
     #endfor
 
-    // for in loop
+    // for loop
     #for ($i = 0; $i <= 10; $i++)
         (- $i . "<br>" -)
     #endfor
 
-    // while in loop
+    // while loop
     #while (True)
         // do something
     #endwhile
