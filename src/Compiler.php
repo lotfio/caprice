@@ -42,7 +42,11 @@ class Compiler implements CompilerInterface
 
         //cache file
         $cacheFile  = $cache .'/'. md5($fileName) . '.php';
-
+        
+        // create cache file if not exists to prevent filemtime check error
+        if(!file_exists($cacheFile))
+            touch($cacheFile);
+        
         if($this->isModified($fileName, $cacheFile)) // if modifed recompile
         {
             // read caprice file    
