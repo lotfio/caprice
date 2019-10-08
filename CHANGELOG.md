@@ -1,5 +1,4 @@
 # Changelog
 
 ## 0.1.0
-
-- initial project structure
+-  caprice templating engine first realease

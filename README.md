@@ -14,23 +14,22 @@
 </p>
 
 ### :fire: Introduction :
-introduction
+Caprice is PHP templating engine that aims to write clean PHP syntax along side with HTML code.
+caprice compiles the syntax and generate php files which means no performance loss but a clean html files with a friendly syntax. 
 
 ### :pushpin: Requirements :
 - PHP 7.2 or newer versions
 - PHPUnit >= 8 (for testing purpose)
 
 ### :ok_hand: Features :
-- Feature here
+- easy to use.
+- friendly syntax.
+- caching (one time compilation only when files get edited).
+- no performance loss.
 
 ### :rocket: Installation & Use :
 ```php
     composer require lotfio/caprice
-```
-
-### :wrench: Configuration:
-```php
-  // configuration example
 ```
 
 ### :pencil2: Usage :
@@ -45,9 +44,16 @@ introduction
   require $compiled; // require your compiled file 
 ```
 
-### :inbox_tray: Short explanation :
+### :inbox_tray: available syntax directives:
 ```php
-  // additional details
+    // code blocks          => compilation
+    (( echo "hello" ))      =>  <?php echo "hello"?>
+
+    // echo statment
+    (- "hello caprice" -)   => <?="hello caprice"?>
+
+    // echo escaped statement
+    (= "hello caprice" =)   => <?=htmlentities("hello caprice", ENT_QUOTES, "UTF-8");?>
 ```
 
 ### :computer: Contributing
