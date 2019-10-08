@@ -44,16 +44,36 @@ caprice compiles the syntax and generate php files which means no performance lo
   require $compiled; // require your compiled file 
 ```
 
-### :inbox_tray: available syntax directives:
+### :inbox_tray: Available syntax directives:
 ```php
     // code blocks          => compilation
     (( echo "hello" ))      =>  <?php echo "hello"?>
+
+    (( function test(){ return "test";} )) => <?php function test(){ return "test";} ?>
 
     // echo statment
     (- "hello caprice" -)   => <?="hello caprice"?>
 
     // echo escaped statement
     (= "hello caprice" =)   => <?=htmlentities("hello caprice", ENT_QUOTES, "UTF-8");?>
+
+    // array access statement
+    $variable.key           => $variable["key"];
+
+    // if statement
+    #if ($condition)        => <?php if($condition):?>
+
+       // logic
+
+    #elif ($condition2)     => <?php elseif($condition2):>
+
+      // elseif logic
+
+    #else                   => <?php else:?>
+
+        // else logic
+
+    #endif                  => <?php endif;?>
 ```
 
 ### :computer: Contributing
