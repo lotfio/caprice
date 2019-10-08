@@ -20,3 +20,9 @@
 ```php
     (= " hello caprice " =)
 ```
+
+# array access
+- you can access array keys using dot notation
+```php
+    $array.key  // evaluates $array["key"]
+```
