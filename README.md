@@ -45,69 +45,56 @@ caprice compiles the syntax and generate php files which means no performance lo
 ```
 
 ### :inbox_tray: Available syntax directives:
-```php
-    // code blocks          => compilation
-    (( echo "hello" ))      =>  <?php echo "hello"?>
-```
-```php
-    (( function test(){ return "test";} )) => <?php function test(){ return "test";} ?>
-```
-```php
-    // echo statment
-    (- "hello caprice" -)   => <?="hello caprice"?>
-```
-```php
-    // echo escaped statement
-    (= "hello caprice" =)   => <?=htmlentities("hello caprice", ENT_QUOTES, "UTF-8");?>
-```
-```php
-    // array access statement
-    $variable.key           => $variable["key"];
-```
-```php
-    // if statement
-    #if ($condition)        => <?php if($condition):?&gt;
-```
-```php
-       // logic
+```cpp
+    // code blocks
+    (( echo "hello" ))      
 
-    #elif ($condition2)     => <?php elseif($condition2):>
-```
-```php
+    (( function test(){ return "test";} ))
+
+    // echo statment 
+    (- "hello caprice" -)
+
+    // echo escaped statement
+    (= "hello caprice" =)
+
+    // array access statement
+    $variable.key 
+
+    // if statement
+    #if ($condition)
+
+      // logic
+
+    #elif ($condition2)
+
       // elseif logic
 
-    #else                   => <?php else:?>
-```
-```php
-        // else logic
+    #else               
 
-    #endif                  => <?php endif;?>
-```
-```php
+      // else logic
+
+    #endif               
+
     // for in loop
     #for ($name in $names)
         (- $name -)
     #endfor
-```
-```php
+
     // for in loop
     #for ($name => $age in $names)
         (- $name . "=>" . $age -)
     #endfor
-```
-```php
+
     // for in loop
     #for ($i = 0; $i <= 10; $i++)
         (- $i . "<br>" -)
     #endfor
-```
-```php
+
     // while in loop
     #while (True)
         // do something
     #endwhile
-```
-```php
+
     // include/require statments
     // you can remove .php extension for both
     // you use . to access folder instead of /
