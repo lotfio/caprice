@@ -1,7 +1,7 @@
 # code block
 - you can write any php inside code blocks
 
-```php
+```js
     ((  
         $var1 = "foo";
         $var2 = "bar";
@@ -11,25 +11,25 @@
 
 # echo statement
 - you sould use single quotes or duble quotes for strings otherwise it will be evaluated as a constant
-```cpp
+```js
     (- " hello caprice " -)
 ```
 
 # echo escaped statement
 - echo with escape using UTF-8 charset
-```cpp
+```js
     (= " hello caprice " =)
 ```
 
 # array access
 - you can access array keys using dot notation
-```cpp
+```js
     $array.key  // evaluates $array["key"]
 ```
 
 # if statement
 - if only
-```cpp
+```js
    // if statement
     #if ($condition)
 
@@ -37,7 +37,7 @@
     #endif
 ```
 - if else 
-```cpp
+```js
    // if statement
     #if ($condition)
         // if logic
@@ -46,7 +46,7 @@
     #endif
 ```
 - if elseif 
-```cpp
+```js
     #if ($condiftion)
      // iflogic
 
@@ -60,14 +60,14 @@
 
 # for in loop
 - for in loop value only
-```cpp
+```js
     // for in loop
     #for ($name in $array)
         (- $name -)
     #endfor
 ```
 - for in loop key, value
-```cpp
+```js
     // for in loop
     #for ($name => $age in $array)
         (- $name . '-' . $age -)
