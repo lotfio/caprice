@@ -1,4 +1,6 @@
-<?php namespace Caprice\Directives;
+<?php
+
+namespace Caprice\Directives;
 
 /*
  * This file is a part of Caprice package
@@ -17,14 +19,14 @@ use Caprice\Contracts\DirectiveInterface;
 class ForInValueOnlyStatement implements DirectiveInterface
 {
     /**
-     * pattern property
+     * pattern property.
      *
      * @var string
      */
     public $pattern = '/#for\s*\((\$\w+\s*)(\s*in\s*)(\$\w+\s*)\)(.*?)#endfor/s';
 
     /**
-     * string to replace the pattern
+     * string to replace the pattern.
      *
      * @return string
      */

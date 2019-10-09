@@ -1,4 +1,6 @@
-<?php namespace Caprice\Contracts;
+<?php
+
+namespace Caprice\Contracts;
 
 /*
  * This file is a part of Caprice package
@@ -15,12 +17,13 @@
 interface DirectiveInterface
 {
     /**
-     * replace method
+     * replace method.
      *
      * This method is a callback that returns a
      * string which will replace the directive
      *
-     * @param  array $match
+     * @param array $match
+     *
      * @return void
      */
     public function replace(array $match) : string;

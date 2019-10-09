@@ -1,4 +1,6 @@
-<?php namespace Caprice\Directives;
+<?php
+
+namespace Caprice\Directives;
 
 /*
  * This file is a part of Caprice package
@@ -17,14 +19,14 @@ use Caprice\Contracts\DirectiveInterface;
 class ContinueStatement implements DirectiveInterface
 {
     /**
-     * pattern property
+     * pattern property.
      *
      * @var string
      */
     public $pattern = '/#continue/s';
 
     /**
-     * string to replace the pattern
+     * string to replace the pattern.
      *
      * @return string
      */

@@ -1,4 +1,6 @@
-<?php namespace Caprice\Directives;
+<?php
+
+namespace Caprice\Directives;
 
 /*
  * This file is a part of Caprice package
@@ -17,25 +19,25 @@ use Caprice\Contracts\DirectiveInterface;
 class IncludeStatement implements DirectiveInterface
 {
     /**
-     * pattern property
+     * pattern property.
      *
      * @var string
      */
     public $pattern = '/(#include|#require)\s*\((.*?)\)/s';
 
     /**
-     * string to replace the pattern
+     * string to replace the pattern.
      *
      * @return string
      */
     public function replace(array $match) : string
     {
-        $file = str_replace("'", NULL, $match[2]);
-        $file = str_replace('"', NULL, $file);
-        $file = str_replace('.php', NULL, $file);
-        $file = str_replace('.cap.php', NULL, $file);
-        $file = str_replace('.', '/', $file) . '.php';
+        $file = str_replace("'", null, $match[2]);
+        $file = str_replace('"', null, $file);
+        $file = str_replace('.php', null, $file);
+        $file = str_replace('.cap.php', null, $file);
+        $file = str_replace('.', '/', $file).'.php';
 
-        return '<?php '. trim($match[1], '#') .'("' . $file . '");?>';
+        return '<?php '.trim($match[1], '#').'("'.$file.'");?>';
     }
 }
