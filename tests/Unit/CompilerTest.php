@@ -43,7 +43,7 @@ class CompilerTest extends TestCase
     public function testCompileFileNotExists()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->compiler->compile(dirname(__DIR__) ."/stub/test.cap.php.no", dirname(__DIR__) ."/stub/");
+        $this->compiler->compile(dirname(__DIR__) ."/stub/test.cap.no", dirname(__DIR__) ."/stub/");
     }
 
     /**
@@ -54,7 +54,7 @@ class CompilerTest extends TestCase
     public function testCompileCacheDirNotExists()
     {
         $this->expectException(DirNotFoundException::class);
-        $this->compiler->compile(dirname(__DIR__) ."/stub/test.cap.php", dirname(__DIR__) ."/stubsss/");
+        $this->compiler->compile(dirname(__DIR__) ."/stub/test.cap", dirname(__DIR__) ."/stubsss/");
     }
 
     /**
@@ -64,7 +64,7 @@ class CompilerTest extends TestCase
      */
     public function testCompileMethodCompileFile()
     {
-        $compiled = $this->compiler->compile(dirname(__DIR__) ."/stub/test.cap.php", dirname(__DIR__) ."/stub/");
+        $compiled = $this->compiler->compile(dirname(__DIR__) ."/stub/test.cap", dirname(__DIR__) ."/stub/");
         $this->assertFileExists($compiled);
     }
 }
