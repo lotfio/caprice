@@ -1,4 +1,6 @@
-<?php namespace Caprice;
+<?php
+
+namespace Caprice;
 
 /*
  * This file is a part of Caprice package
@@ -13,47 +15,48 @@
  */
 
 use Caprice\Contracts\CompilerInterface;
-use Caprice\Exception\FileNotFoundException;
 use Caprice\Exception\DirNotFoundException;
+use Caprice\Exception\FileNotFoundException;
 
 class Compiler implements CompilerInterface
 {
     /**
-     * file to compile
+     * file to compile.
      *
      * @var string
      */
     private $file;
 
     /**
-     * compile caprice file method
+     * compile caprice file method.
      *
-     * @param  string $file
-     * @param  string $cache
+     * @param string $file
+     * @param string $cache
+     *
      * @return string compiled file
      */
     public function compile(string $fileName, string $cache) : string
     {
-        if(!file_exists($fileName))
+        if (!file_exists($fileName)) {
             throw new FileNotFoundException("file $fileName not found", 4);
-
-        if(!is_dir($cache))
+        }
+        if (!is_dir($cache)) {
             throw new DirNotFoundException("$cache is not a valid directory", 4);
-
+        }
         //cache file
-        $cacheFile  = $cache .'/'. md5($fileName) . '.php';
-        
+        $cacheFile = $cache.'/'.md5($fileName).'.php';
+
         // create cache file if not exists to prevent filemtime check error
-        if(!file_exists($cacheFile))
+        if (!file_exists($cacheFile)) {
             touch($cacheFile);
-        
-        if($this->isModified($fileName, $cacheFile)) // if modifed recompile
-        {
-            // read caprice file    
-            $this->file  = file_get_contents($fileName);
+        }
+
+        if ($this->isModified($fileName, $cacheFile)) { // if modifed recompile
+            // read caprice file
+            $this->file = file_get_contents($fileName);
 
             // parse caprice file
-            $parser     = new Parser;
+            $parser = new Parser();
             $this->file = $parser->parseFile($this->file);
 
             file_put_contents($cacheFile, $this->removeExtraLines($this->file));
@@ -64,24 +67,26 @@ class Compiler implements CompilerInterface
     }
 
     /**
-     * check if caprice file eis modified
+     * check if caprice file eis modified.
      *
-     * @param  string $file
-     * @param  string $cached
-     * @return boolean
+     * @param string $file
+     * @param string $cached
+     *
+     * @return bool
      */
     public function isModified(string $file, string $cached) : bool
     {
-        $template  = filemtime($file);
+        $template = filemtime($file);
         $generated = @filemtime($cached); // just ignore and generate a file if no file exists
 
         return $template !== $generated;
     }
 
     /**
-     * remove extra lines on a file
+     * remove extra lines on a file.
      *
      * @param string $file
+     *
      * @return void
      */
     public function removeExtraLines(string $file) : string

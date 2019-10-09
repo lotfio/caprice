@@ -1,4 +1,6 @@
-<?php namespace Caprice\Directives;
+<?php
+
+namespace Caprice\Directives;
 
 /*
  * This file is a part of Caprice package
@@ -17,14 +19,14 @@ use Caprice\Contracts\DirectiveInterface;
 class WhileLoop implements DirectiveInterface
 {
     /**
-     * pattern property
+     * pattern property.
      *
      * @var string
      */
     public $pattern = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.*?)#endwhile/s';
 
     /**
-     * string to replace the pattern
+     * string to replace the pattern.
      *
      * @return string
      */

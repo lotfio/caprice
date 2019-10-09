@@ -1,4 +1,6 @@
-<?php namespace Caprice\Contracts;
+<?php
+
+namespace Caprice\Contracts;
 
 /*
  * This file is a part of Caprice package
@@ -15,7 +17,7 @@
 interface CompilerInterface
 {
     /**
-     * compile method
+     * compile method.
      *
      * This method gets a parsed string from parsed file
      * and it compiles it and generates a PHP file based
