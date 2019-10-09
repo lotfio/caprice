@@ -1,4 +1,6 @@
-<?php namespace Caprice\Directives;
+<?php
+
+namespace Caprice\Directives;
 
 /*
  * This file is a part of Caprice package
@@ -17,19 +19,19 @@ use Caprice\Contracts\DirectiveInterface;
 class CodeBlock implements DirectiveInterface
 {
     /**
-     * pattern property
+     * pattern property.
      *
      * @var string
      */
     public $pattern = '/\({2}(.*?)\){2}/s';
 
     /**
-     * string to replace the pattern
+     * string to replace the pattern.
      *
      * @return string
      */
     public function replace(array $match) : string
     {
-        return '<?php '. trim($match[1]) .'?>';
+        return '<?php '.trim($match[1]).'?>';
     }
 }

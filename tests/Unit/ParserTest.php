@@ -1,4 +1,6 @@
-<?php namespace Tests\Unit;
+<?php
+
+namespace Tests\Unit;
 
 /*
  * This file is a part of Caprice package
@@ -12,211 +14,211 @@
  *
  */
 
+use Caprice\Directives;
 use Caprice\Parser;
 use PHPUnit\Framework\TestCase;
-use Caprice\Directives;
 
 class ParserTest extends TestCase
 {
     /**
-     * init parser
+     * init parser.
      *
      * @return void
      */
     public function setUp() : void
     {
-        $this->parser = new Parser;
+        $this->parser = new Parser();
     }
 
     /**
-     * test code block
+     * test code block.
      *
      * @return void
      */
     public function testCodeBlock()
     {
-        $directive = new Directives\CodeBlock;
-        $string    = '(( $var = "my variable" ))';
+        $directive = new Directives\CodeBlock();
+        $string = '(( $var = "my variable" ))';
         $this->assertSame('<?php $var = "my variable"?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test echo statement
+     * test echo statement.
      *
      * @return void
      */
     public function testEchoStatement()
     {
-        $directive = new Directives\EchoStatement;
-        $string    = '(- "my echo" -)';
+        $directive = new Directives\EchoStatement();
+        $string = '(- "my echo" -)';
         $this->assertSame('<?="my echo"?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test echo escaped
+     * test echo escaped.
      *
      * @return void
      */
     public function testEchoEscapedStatement()
     {
-        $directive = new Directives\EchoEscapedStatement;
-        $string    = '(= "my echo escaped" =)';
+        $directive = new Directives\EchoEscapedStatement();
+        $string = '(= "my echo escaped" =)';
         $this->assertSame('<?=htmlentities("my echo escaped", ENT_QUOTES, \'UTF-8\');?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test array access directive
+     * test array access directive.
      *
      * @return void
      */
     public function testParseArrayAccessStatement()
     {
-        $directive = new Directives\ArrayAccessStatement;
-        $string    = '$array.property';
+        $directive = new Directives\ArrayAccessStatement();
+        $string = '$array.property';
         $this->assertSame('$array["property"]', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test if statement
+     * test if statement.
      *
      * @return void
      */
     public function testIfStatement()
     {
-        $directive = new Directives\IfStatement;
-        $string    = '#if (is_int(10))';
+        $directive = new Directives\IfStatement();
+        $string = '#if (is_int(10))';
         $this->assertSame('<?php if(is_int(10)):?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test else statement
+     * test else statement.
      *
      * @return void
      */
     public function testElseStatement()
     {
-        $directive = new Directives\ElseStatement;
-        $string    = '#else';
+        $directive = new Directives\ElseStatement();
+        $string = '#else';
         $this->assertSame('<?php else:?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test elseif statement
+     * test elseif statement.
      *
      * @return void
      */
     public function testElseIfStatement()
     {
-        $directive = new Directives\ElseIfStatement;
-        $string    = '#elif (is_string(10))';
+        $directive = new Directives\ElseIfStatement();
+        $string = '#elif (is_string(10))';
         $this->assertSame('<?php elseif(is_string(10)):?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test end if statement
+     * test end if statement.
      *
      * @return void
      */
     public function testEndIfStatement()
     {
-        $directive = new Directives\EndIfStatement;
-        $string    = '#endif';
+        $directive = new Directives\EndIfStatement();
+        $string = '#endif';
         $this->assertSame('<?php endif;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test for in statement
+     * test for in statement.
      *
      * @return void
      */
     public function testForInStatement()
     {
-        $directive = new Directives\ForInStatement;
-        $string    = '#for ($name => $last_name in $names)#endfor';
+        $directive = new Directives\ForInStatement();
+        $string = '#for ($name => $last_name in $names)#endfor';
         $this->assertSame('<?php foreach($names as $name => $last_name):?><?php endforeach;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test for in statement value only no key
+     * test for in statement value only no key.
      *
      * @return void
      */
     public function testForInValueOnlyStatement()
     {
-        $directive = new Directives\ForInValueOnlyStatement;
-        $string    = '#for ($name in $names)#endfor';
+        $directive = new Directives\ForInValueOnlyStatement();
+        $string = '#for ($name in $names)#endfor';
         $this->assertSame('<?php foreach($names as $name):?><?php endforeach;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test for loop
+     * test for loop.
      *
      * @return void
      */
     public function testForLoop()
     {
-        $directive = new Directives\ForLoop;
-        $string    = '#for ($i = 0; $i <=10; $i++)#endfor';
+        $directive = new Directives\ForLoop();
+        $string = '#for ($i = 0; $i <=10; $i++)#endfor';
         $this->assertSame('<?php for($i = 0;$i <=10;$i++):?><?php endfor;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test while loop
+     * test while loop.
      *
      * @return void
      */
     public function testWhileLoop()
     {
-        $directive = new Directives\WhileLoop;
-        $string    = '#while (TRUE)#endwhile';
+        $directive = new Directives\WhileLoop();
+        $string = '#while (TRUE)#endwhile';
         $this->assertSame('<?php while(TRUE):?><?php endwhile;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test break statement
+     * test break statement.
      *
      * @return void
      */
     public function testBreakStatement()
     {
-        $directive = new Directives\BreakStatement;
-        $string    = '#break';
+        $directive = new Directives\BreakStatement();
+        $string = '#break';
         $this->assertSame('<?php break;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test continue statement
+     * test continue statement.
      *
      * @return void
      */
     public function testContinueStatement()
     {
-        $directive = new Directives\ContinueStatement;
-        $string    = '#continue';
+        $directive = new Directives\ContinueStatement();
+        $string = '#continue';
         $this->assertSame('<?php continue;?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test include statement
+     * test include statement.
      *
      * @return void
      */
     public function testIncludeStatement()
     {
-        $directive = new Directives\IncludeStatement;
-        $string    = '#include("file")';
+        $directive = new Directives\IncludeStatement();
+        $string = '#include("file")';
         $this->assertSame('<?php include("file.php");?>', $this->parser->parse($directive, $string));
     }
 
     /**
-     * test require statement
+     * test require statement.
      *
      * @return void
      */
     public function testRequireStatement()
     {
-        $directive = new Directives\IncludeStatement;
-        $string    = '#require("file")';
+        $directive = new Directives\IncludeStatement();
+        $string = '#require("file")';
         $this->assertSame('<?php require("file.php");?>', $this->parser->parse($directive, $string));
     }
 }

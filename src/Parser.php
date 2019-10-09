@@ -1,4 +1,6 @@
-<?php namespace Caprice;
+<?php
+
+namespace Caprice;
 
 /*
  * This file is a part of Caprice package
@@ -12,53 +14,51 @@
  *
  */
 
-use Caprice\Contracts\ParserInterface;
 use Caprice\Contracts\DirectiveInterface;
+use Caprice\Contracts\ParserInterface;
 
 class Parser implements ParserInterface
 {
     /**
-     * file to be parsed
+     * file to be parsed.
      *
      * @var string
      */
     private $file;
 
     /**
-     * parse method
+     * parse method.
      *
-     * @param  DirectiveInterface $directive
-     * @param  string $file
+     * @param DirectiveInterface $directive
+     * @param string             $file
+     *
      * @return void
      */
     public function parse(DirectiveInterface $directive, string $file) : string
     {
-        return preg_replace_callback($directive->pattern, function(array $match) use ($directive){
-
+        return preg_replace_callback($directive->pattern, function (array $match) use ($directive) {
             return $directive->replace($match);
-
         }, $file, $limit = -1);
     }
 
     /**
-     * parse caprice syntax using all the directives
+     * parse caprice syntax using all the directives.
      *
-     * @param  string $file
+     * @param string $file
+     *
      * @return void
      */
     public function parseFile(string $file) : string
     {
         $this->file = $file;
 
-        foreach(glob(__DIR__."/Directives/*.php") as $class)
-        {
-            $class = trim((explode("Directives", $class)[1]), "/");
-            $class = "Caprice\\Directives\\" . ucfirst($class);
-            $class = substr($class, 0, strpos($class, ".php"));
+        foreach (glob(__DIR__.'/Directives/*.php') as $class) {
+            $class = trim((explode('Directives', $class)[1]), '/');
+            $class = 'Caprice\\Directives\\'.ucfirst($class);
+            $class = substr($class, 0, strpos($class, '.php'));
 
-            if(class_exists($class))
-            {
-               $this->file = $this->parse(new $class, $this->file);
+            if (class_exists($class)) {
+                $this->file = $this->parse(new $class(), $this->file);
             }
         }
 

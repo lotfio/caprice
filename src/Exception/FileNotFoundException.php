@@ -1,4 +1,6 @@
-<?php namespace Caprice\Exception;
+<?php
+
+namespace Caprice\Exception;
 
 /*
  * This file is a part of Caprice package
@@ -14,5 +16,4 @@
 
  class FileNotFoundException extends \Exception
  {
-
  }
