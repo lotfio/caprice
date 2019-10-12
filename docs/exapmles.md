@@ -61,14 +61,14 @@
 # for in loop
 - for in loop value only
 ```js
-    // for in loop
+    // for in loop key only
     #for ($name in $array)
         (- $name -)
     #endfor
 ```
 - for in loop key, value
 ```js
-    // for in loop
+    // for in loop key value
     #for ($name => $age in $array)
         (- $name . '-' . $age -)
     #endfor
@@ -95,9 +95,29 @@
 # include / require statements
 - while loop syntax
 ```js
- // include/require statments
-    // you can remove .php extension for both
+    // include/require statments
+    // you can remove .cap.php extension for both
     // you use . to access folder instead of /
-    #require("file.php")
-    #include("file.php")
+    #require("file.cap.php")
+    #include("file.cap.php")
+```
+
+# layout directives
+```js
+    // extends a base layout 
+    #extends("layout.cap.php")
+    // load a section 
+    #yield("sectionName")
+
+    // define a section
+    #section("sectionName")
+        // section content
+    #endsection
+```
+
+# available functions
+```js
+    // functions
+    // dump
+    #dump($variable) OR #dd($variable)
 ```

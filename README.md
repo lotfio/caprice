@@ -104,7 +104,7 @@ caprice compiles the syntax and generate php files which means no performance lo
         // section content
     #endsection
 
-    // function 
+    // functions
     // dump
     #dump($variable) OR #dd($variable)
 
