@@ -35,12 +35,7 @@ class IncludeStatement implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir) : string
     {
-        $file = str_replace("'", null, $match[2]);
-        $file = str_replace('"', null, $file);
-        $file = str_replace('.php', null, $file);
-        $file = str_replace('.cap.php', null, $file);
-        $file = str_replace('.', '/', $file).'.php';
-
+        $file = $filesDir . dotPath($match[2]);
         return '<?php '.trim($match[1], '#').'("'.$file.'");?>';
     }
 }

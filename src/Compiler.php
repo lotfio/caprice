@@ -51,8 +51,8 @@ class Compiler implements CompilerInterface
             throw new DirNotFoundException("$cacheDir is not a valid directory", 4);
         }
 
-        $this->filesDir = rtrim($filesDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        $this->cacheDir = rtrim($cacheDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $this->filesDir = rtrim(rtrim($filesDir, "\\"), "/") . DIRECTORY_SEPARATOR;
+        $this->cacheDir = rtrim(rtrim($cacheDir, "\\"), "/") . DIRECTORY_SEPARATOR;
     }
 
     /**
