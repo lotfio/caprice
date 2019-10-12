@@ -36,8 +36,12 @@ class Parser implements ParserInterface
      */
     public function parse(DirectiveInterface $directive, string $file) : string
     {
-        return preg_replace_callback($directive->pattern, function (array $match) use ($directive) {
-            return $directive->replace($match);
+        return preg_replace_callback($directive->pattern, function (array $match) use ($directive, $file) {
+
+            // $file param is the original file
+            // can be used if an extra match is nedded
+            return $directive->replace($match, $file);
+
         }, $file, $limit = -1);
     }
 
@@ -62,6 +66,6 @@ class Parser implements ParserInterface
             }
         }
 
-        return $this->file;
+        return Utils::hideSections($this->file);
     }
 }

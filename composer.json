@@ -18,6 +18,9 @@
     },
 
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Caprice\\": "src/"
         }

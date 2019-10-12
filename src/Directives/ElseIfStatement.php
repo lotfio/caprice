@@ -30,7 +30,7 @@ class ElseIfStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match) : string
+    public function replace(array $match, string $file) : string
     {
         return '<?php elseif('.trim($match[2]).'):?>';
     }

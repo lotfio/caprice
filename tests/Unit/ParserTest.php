@@ -221,4 +221,16 @@ class ParserTest extends TestCase
         $string = '#require("file")';
         $this->assertSame('<?php require("file.php");?>', $this->parser->parse($directive, $string));
     }
+
+    /**
+     * test require statement.
+     *
+     * @return void
+     */
+    public function testExtendsStatement()
+    {
+        $directive = new Directives\ExtendsStatement();
+        $string = '#extends('.dirname(__DIR__) . '/stub/test.cap' . ')';
+        $this->assertSame('extendedFile', $this->parser->parse($directive, $string));
+    }
 }

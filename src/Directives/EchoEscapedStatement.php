@@ -30,7 +30,7 @@ class EchoEscapedStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match) : string
+    public function replace(array $match, string $file) : string
     {
         return '<?=htmlentities('.trim($match[1]).', ENT_QUOTES, \'UTF-8\');?>';
     }

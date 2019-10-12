@@ -30,7 +30,7 @@ class EchoStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match) : string
+    public function replace(array $match, string $file) : string
     {
         return '<?='.trim($match[1]).'?>';
     }

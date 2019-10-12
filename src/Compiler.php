@@ -51,7 +51,7 @@ class Compiler implements CompilerInterface
             touch($cacheFile);
         }
 
-        if ($this->isModified($fileName, $cacheFile)) { // if modifed recompile
+       // if ($this->isModified($fileName, $cacheFile)) { // if modifed recompile
             // read caprice file
             $this->file = file_get_contents($fileName);
 
@@ -61,7 +61,7 @@ class Compiler implements CompilerInterface
 
             file_put_contents($cacheFile, $this->removeExtraLines($this->file));
             touch($fileName, time()); // update caprice time to be the same as cahed file to detect any changes later
-        }
+        //}
 
         return $cacheFile;
     }

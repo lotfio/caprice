@@ -30,7 +30,7 @@ class ForLoop implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match) : string
+    public function replace(array $match, string $file) : string
     {
         return '<?php for('.trim($match[1]).''.trim($match[2]).''.trim($match[3]).'):?>'.trim($match[4]).'<?php endfor;?>';
     }

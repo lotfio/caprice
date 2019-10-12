@@ -22,9 +22,9 @@ interface DirectiveInterface
      * This method is a callback that returns a
      * string which will replace the directive
      *
-     * @param array $match
-     *
+     * @param  array  $match
+     * @param  string $file  : original file if any additional content is nedded
      * @return void
      */
-    public function replace(array $match) : string;
+    public function replace(array $match, string $file) : string;
 }

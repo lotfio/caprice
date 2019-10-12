@@ -30,7 +30,7 @@ class IfStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match) : string
+    public function replace(array $match, string $file) : string
     {
         return '<?php if('.trim($match[2]).'):?>';
     }

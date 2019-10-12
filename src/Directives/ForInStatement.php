@@ -30,7 +30,7 @@ class ForInStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match) : string
+    public function replace(array $match, string $file) : string
     {
         return '<?php foreach('.trim($match[3]).' as '.trim($match[1]).'):?>'.trim($match[4]).'<?php endforeach;?>';
     }
