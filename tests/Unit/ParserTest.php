@@ -223,7 +223,7 @@ class ParserTest extends TestCase
     }
 
     /**
-     * test require statement.
+     * test extends statement.
      *
      * @return void
      */
@@ -232,5 +232,31 @@ class ParserTest extends TestCase
         $directive = new Directives\ExtendsStatement();
         $string = '#extends('.dirname(__DIR__) . '/stub/test.cap' . ')';
         $this->assertSame('extendedFile', $this->parser->parse($directive, $string));
+    }
+
+    /**
+     * test yield not found statement.
+     *
+     * @return void
+     */
+    public function testYieldStatementNotFound()
+    {
+        $directive = new Directives\YieldStatement();
+        $string = '#yield("caprice")';
+        $this->assertSame('section caprice not found', $this->parser->parse($directive, $string));
+    }
+
+        /**
+     * test yield found statement.
+     *
+     * @return void
+     */
+    public function testYieldStatementFound()
+    {
+        $directive = new Directives\YieldStatement();
+        $string  = '#yield("caprice")';
+        $string .= '#section("caprice")#endsection';
+
+        $this->assertSame('#section("caprice")#endsection', $this->parser->parse($directive, $string));
     }
 }
