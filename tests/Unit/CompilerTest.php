@@ -21,20 +21,14 @@ use PHPUnit\Framework\TestCase;
 
 class CompilerTest extends TestCase
 {
-    public function setUp() : void
-    {
-        $this->compiler = new Compiler();
-    }
-
     /**
-     * test is modified is returning bool.
+     * setup method
      *
      * @return void
      */
-    public function testIsModifiedMethod()
+    public function setUp() : void
     {
-        $check = $this->compiler->isModified(dirname(__DIR__).'/stub/fileOne', dirname(__DIR__).'/stub/fileTwo');
-        $this->assertIsBool($check);
+        $this->compiler = new Compiler(dirname(__DIR__).'/stub/', dirname(__DIR__).'/stub/');
     }
 
     /**
@@ -45,7 +39,18 @@ class CompilerTest extends TestCase
     public function testCompileFileNotExists()
     {
         $this->expectException(FileNotFoundException::class);
-        $this->compiler->compile(dirname(__DIR__).'/stub/test.cap.no', dirname(__DIR__).'/stub/');
+        $this->compiler->compile('test.cap.no');
+    }
+
+    /**
+     * test compile method cache dir not exists.
+     *
+     * @return void
+     */
+    public function testCompileFilesDirNotExists()
+    {
+        $this->expectException(DirNotFoundException::class);
+        $this->compiler = new Compiler('FilesDir', dirname(__DIR__) . '/stub');
     }
 
     /**
@@ -56,7 +61,18 @@ class CompilerTest extends TestCase
     public function testCompileCacheDirNotExists()
     {
         $this->expectException(DirNotFoundException::class);
-        $this->compiler->compile(dirname(__DIR__).'/stub/test.cap', dirname(__DIR__).'/stubsss/');
+        $this->compiler = new Compiler(dirname(__DIR__) . '/stub', "cachedir");
+    }
+
+    /**
+     * test is modified is returning bool.
+     *
+     * @return void
+     */
+    public function testIsModifiedMethod()
+    {
+        $check = $this->compiler->isModified(dirname(__DIR__) . '/stub/fileOne', dirname(__DIR__).'/stub/fileTwo');
+        $this->assertIsBool($check);
     }
 
     /**
@@ -66,7 +82,7 @@ class CompilerTest extends TestCase
      */
     public function testCompileMethodCompileFile()
     {
-        $compiled = $this->compiler->compile(dirname(__DIR__).'/stub/test.cap', dirname(__DIR__).'/stub/');
+        $compiled = $this->compiler->compile('test.cap.php');
         $this->assertFileExists($compiled);
     }
 }

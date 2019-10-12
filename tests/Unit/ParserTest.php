@@ -27,7 +27,7 @@ class ParserTest extends TestCase
      */
     public function setUp() : void
     {
-        $this->parser = new Parser();
+        $this->parser = new Parser(dirname(__DIR__) . '/stub/');
     }
 
     /**
@@ -230,8 +230,8 @@ class ParserTest extends TestCase
     public function testExtendsStatement()
     {
         $directive = new Directives\ExtendsStatement();
-        $string = '#extends('.dirname(__DIR__) . '/stub/test.cap' . ')';
-        $this->assertSame('extendedFile', $this->parser->parse($directive, $string));
+        $string = '#extends("ex")';
+        $this->assertSame('', $this->parser->parse($directive, $string));
     }
 
     /**
