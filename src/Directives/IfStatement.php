@@ -26,8 +26,10 @@ class IfStatement implements DirectiveInterface
     public $pattern = '/(#if)\s*\((.*)\)/';
 
     /**
-     * string to replace the pattern.
+     * directive replace method
      *
+     * @param  array  $match
+     * @param  string $file original file
      * @return string
      */
     public function replace(array $match, string $file) : string

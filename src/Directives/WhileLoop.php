@@ -26,8 +26,10 @@ class WhileLoop implements DirectiveInterface
     public $pattern = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.*?)#endwhile/s';
 
     /**
-     * string to replace the pattern.
+     * directive replace method
      *
+     * @param  array  $match
+     * @param  string $file original file
      * @return string
      */
     public function replace(array $match, string $file) : string

@@ -11,19 +11,3 @@
  * @link        https://github.com/lotfio/caprice
  *
  */
-
-use Caprice\Utils;
-
-if (!function_exists("extend"))
-{
-    /**
-     * extend template method
-     *
-     * @param  string $file
-     * @return string
-     */
-    function extend(string $file) : string
-    {
-        return Utils::extend($file);
-    }
-}

@@ -26,8 +26,10 @@ class ForInValueOnlyStatement implements DirectiveInterface
     public $pattern = '/#for\s*\((\$\w+\s*)(\s*in\s*)(\$\w+\s*)\)(.*?)#endfor/s';
 
     /**
-     * string to replace the pattern.
+     * directive replace method
      *
+     * @param  array  $match
+     * @param  string $file original file
      * @return string
      */
     public function replace(array $match, string $file) : string

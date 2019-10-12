@@ -26,8 +26,10 @@ class IncludeStatement implements DirectiveInterface
     public $pattern = '/(#include|#require)\s*\((.*?)\)/s';
 
     /**
-     * string to replace the pattern.
+     * directive replace method
      *
+     * @param  array  $match
+     * @param  string $file original file
      * @return string
      */
     public function replace(array $match, string $file) : string
