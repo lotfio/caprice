@@ -206,8 +206,8 @@ class ParserTest extends TestCase
     public function testIncludeStatement()
     {
         $directive = new Directives\IncludeStatement();
-        $string = '#include("file")';
-        $this->assertSame('<?php include("'. dirname(__DIR__) . '/stub/' .'file.cap.php");?>', $this->parser->parse($directive, $string));
+        $string = '#include("ex")';
+        $this->assertSame('', $this->parser->parse($directive, $string));
     }
 
     /**
@@ -218,8 +218,8 @@ class ParserTest extends TestCase
     public function testRequireStatement()
     {
         $directive = new Directives\IncludeStatement();
-        $string = '#require("file")';
-        $this->assertSame('<?php require("'. dirname(__DIR__) . '/stub/' .'file.cap.php");?>', $this->parser->parse($directive, $string));
+        $string = '#require("ex")';
+        $this->assertSame('', $this->parser->parse($directive, $string));
     }
 
     /**

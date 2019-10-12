@@ -36,6 +36,6 @@ class IncludeStatement implements DirectiveInterface
     public function replace(array $match, string $file, string $filesDir) : string
     {
         $file = $filesDir . dotPath($match[2]);
-        return '<?php '.trim($match[1], '#').'("'.$file.'");?>';
+        return file_get_contents($file);
     }
 }

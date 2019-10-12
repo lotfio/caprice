@@ -85,8 +85,9 @@ class Compiler implements CompilerInterface
 
             // parse caprice file
             $parser     = new Parser($this->filesDir);
-            $this->file = $parser->parseFile($this->file);
-            $this->file = $parser->parseFile($this->file); // if extends recompile
+            for($i =0; $i <= 6; $i++) // loop to parse several times (necessary to parse extends and includes)
+                $this->file = $parser->parseFile($this->file);
+
 
             file_put_contents($cacheFile, $this->removeExtraLines($this->file));
             touch($capFile, time()); // update caprice time to be the same as cahed file to detect any changes later
