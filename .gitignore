@@ -3,5 +3,3 @@
 composer.lock
 *.cache
 index.php
-test.cap.php
-caprice
