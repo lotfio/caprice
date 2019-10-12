@@ -12,6 +12,26 @@
  *
  */
 
+if (!function_exists("dotPath"))
+{
+
+    /**
+     * dot path helper function 
+     * allow dots as separators
+     *
+     * @param  string $filePath
+     * @return string
+     */
+    function dotPath(string $filePath) : string
+    {
+        $path = preg_replace('/\'|"/', NULL, $filePath);
+        $path = preg_replace("/(.php|.cap.php)/", NULL, $path);
+        $path = str_replace(".", "/", $path);
+
+        return $path . ".cap.php";
+    }
+}
+
 if (!function_exists("dump"))
 {
     /**

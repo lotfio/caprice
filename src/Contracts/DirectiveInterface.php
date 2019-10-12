@@ -24,7 +24,8 @@ interface DirectiveInterface
      *
      * @param  array  $match
      * @param  string $file  : original file if any additional content is nedded
+     * @param  string $filesDir : directory wheere files are located
      * @return void
      */
-    public function replace(array $match, string $file) : string;
+    public function replace(array $match, string $file, string $filesDir) : string;
 }

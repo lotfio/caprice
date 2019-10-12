@@ -30,9 +30,10 @@ class YieldStatement implements DirectiveInterface
      *
      * @param  array  $match
      * @param  string $file original file
+     * @param  string $filesDir .cap files dir
      * @return string
      */
-    public function replace(array $match, string $file) : string
+    public function replace(array $match, string $file, string $filesDir) : string
     {
         $sectionName = preg_replace("/[^\w\.\/]/", NULL, $match[1]);
         $secPattern = '/#section\s*\(("' . $sectionName . '")\)(.*?)#endsection/s';

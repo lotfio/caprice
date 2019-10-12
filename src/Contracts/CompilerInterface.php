@@ -27,5 +27,5 @@ interface CompilerInterface
      *
      * @return void
      */
-    public function compile(string $file, string $cache) : string;
+    public function compile(string $file) : string;
 }

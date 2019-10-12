@@ -30,11 +30,13 @@ class ExtendsStatement implements DirectiveInterface
      *
      * @param  array  $match
      * @param  string $file original file
+     * @param  string $filesDir c=.cap files dir
      * @return string
      */
-    public function replace(array $match, string $file) : string
+    public function replace(array $match, string $file, string $filesDir) : string
     {
-        $content = file_get_contents($match[1]);
+        $content = $filesDir . dotPath($match[1]);
+        $content = file_get_contents("$content");
         
         return $content;
     }

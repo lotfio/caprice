@@ -21,11 +21,39 @@ use Caprice\Exception\FileNotFoundException;
 class Compiler implements CompilerInterface
 {
     /**
+     * files directory.
+     *
+     * @var string
+     */
+    private $filesDir;
+
+    /**
+     * cache directory.
+     *
+     * @var string
+     */
+    private $cacheDir;
+
+    /**
      * file to compile.
      *
      * @var string
      */
     private $file;
+
+
+    public function __construct(string $filesDir, string $cacheDir)
+    {
+        if (!is_dir($filesDir)) {
+            throw new DirNotFoundException("$filesDir is not a valid directory", 4);
+        }
+        if (!is_dir($cacheDir)) {
+            throw new DirNotFoundException("$cacheDir is not a valid directory", 4);
+        }
+
+        $this->filesDir = rtrim($filesDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $this->cacheDir = rtrim($cacheDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    }
 
     /**
      * compile caprice file method.
@@ -35,32 +63,32 @@ class Compiler implements CompilerInterface
      *
      * @return string compiled file
      */
-    public function compile(string $fileName, string $cache) : string
+    public function compile(string $fileName) : string
     {
-        if (!file_exists($fileName)) {
-            throw new FileNotFoundException("file $fileName not found", 4);
+        $capFile = $this->filesDir . $fileName;
+
+        if (!file_exists($capFile)) {
+            throw new FileNotFoundException("file $capFile not found", 4);
         }
-        if (!is_dir($cache)) {
-            throw new DirNotFoundException("$cache is not a valid directory", 4);
-        }
+
         //cache file
-        $cacheFile = $cache.'/'.md5($fileName).'.php';
+        $cacheFile = $this->cacheDir . md5($capFile).'.php';
 
         // create cache file if not exists to prevent filemtime check error
         if (!file_exists($cacheFile)) {
             touch($cacheFile);
         }
 
-        if ($this->isModified($fileName, $cacheFile)) { // if modifed recompile
+        if ($this->isModified($capFile, $cacheFile)) { // if modifed recompile
             // read caprice file
-            $this->file = file_get_contents($fileName);
+            $this->file = file_get_contents($capFile);
 
             // parse caprice file
-            $parser = new Parser();
+            $parser = new Parser($this->filesDir);
             $this->file = $parser->parseFile($this->file);
 
             file_put_contents($cacheFile, $this->removeExtraLines($this->file));
-            touch($fileName, time()); // update caprice time to be the same as cahed file to detect any changes later
+            touch($capFile, time()); // update caprice time to be the same as cahed file to detect any changes later
         }
 
         return $cacheFile;
@@ -76,7 +104,7 @@ class Compiler implements CompilerInterface
      */
     public function isModified(string $file, string $cached) : bool
     {
-        $template = filemtime($file);
+        $template  = filemtime($file);
         $generated = @filemtime($cached); // just ignore and generate a file if no file exists
 
         return $template !== $generated;

@@ -30,9 +30,10 @@ class CodeBlock implements DirectiveInterface
      *
      * @param  array  $match
      * @param  string $file original file
+     * @param  string $filesDir .cap files dir
      * @return string
      */
-    public function replace(array $match, string $file) : string
+    public function replace(array $match, string $file, string $filesDir) : string
     {
         return '<?php '.trim($match[1]).'?>';
     }

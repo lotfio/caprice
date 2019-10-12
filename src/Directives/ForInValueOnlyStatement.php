@@ -30,9 +30,10 @@ class ForInValueOnlyStatement implements DirectiveInterface
      *
      * @param  array  $match
      * @param  string $file original file
+     * @param  string $filesDir .cap files dir
      * @return string
      */
-    public function replace(array $match, string $file) : string
+    public function replace(array $match, string $file, string $filesDir) : string
     {
         return '<?php foreach('.trim($match[3]).' as '.trim($match[1]).'):?>'.trim($match[4]).'<?php endforeach;?>';
     }
