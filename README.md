@@ -36,10 +36,9 @@ caprice compiles the syntax and generate php files which means no performance lo
 ```php
   require 'vendor/autoload.php';
 
-  $file     = "test.cap.php"; // caprice file example 
+  $compiler = new Caprice\Compiler("filesDirectory", "cacheDirectory");
 
-  $compiler = new Caprice\Compiler;
-  $compiled = $compiler->compile($file, "./cacheLocation/"); // this will return a path to the compiled file
+  $compiled = $compiler->compile("test.cap.php"); // file to compile
 
   require $compiled; // require your compiled file 
 ```
@@ -62,25 +61,19 @@ caprice compiles the syntax and generate php files which means no performance lo
 
     // if statement
     #if ($condition)
-
       // logic
-
     #elif ($condition2)
-
       // elseif logic
-
     #else               
-
       // else logic
-
     #endif               
 
-    // for in loop
+    // for in loop key only
     #for ($name in $names)
         (- $name -)
     #endfor
 
-    // for loop
+    // for in loop key + value
     #for ($name => $age in $names)
         (- $name . "=>" . $age -)
     #endfor
@@ -91,15 +84,29 @@ caprice compiles the syntax and generate php files which means no performance lo
     #endfor
 
     // while loop
-    #while (True)
+    #while (TRUE)
         // do something
     #endwhile
 
     // include/require statments
-    // you can remove .php extension for both
+    // you can remove .cap.php extension for both
     // you use . to access folder instead of /
-    #require("file.php")
-    #include("file.php")
+    #require("file.cap.php")
+    #include("file.cap.php")
+
+    // extends a base layout 
+    #extends("layout.cap.php")
+    // load a section 
+    #yield("sectionName")
+
+    // define a section
+    #section("sectionName")
+        // section content
+    #endsection
+
+    // function 
+    // dump
+    #dump($variable) OR #dd($variable)
 
 ```
 ### :computer: Contributing
