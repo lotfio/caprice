@@ -11,3 +11,17 @@
  * @link        https://github.com/lotfio/caprice
  *
  */
+
+if (!function_exists("dump"))
+{
+    /**
+     * dump data method
+     *
+     * @param  mixed $variable
+     * @return void
+     */
+    function dump($variable)
+    {
+        echo  "<pre>"; print_r($variable); echo "</pre>";
+    }
+}

@@ -246,7 +246,7 @@ class ParserTest extends TestCase
         $this->assertSame('section caprice not found', $this->parser->parse($directive, $string));
     }
 
-        /**
+    /**
      * test yield found statement.
      *
      * @return void
@@ -258,5 +258,17 @@ class ParserTest extends TestCase
         $string .= '#section("caprice")#endsection';
 
         $this->assertSame('#section("caprice")#endsection', $this->parser->parse($directive, $string));
+    }
+
+     /**
+     * test dump found statement.
+     *
+     * @return void
+     */
+    public function testDumpStatementFound()
+    {
+        $directive = new Directives\DumpStatement();
+        $string    = '#dump ($var) #dd($var)';
+        $this->assertSame('<?= dump($var);?> <?= dump($var);?>', $this->parser->parse($directive, $string));
     }
 }
