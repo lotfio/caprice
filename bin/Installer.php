@@ -6,7 +6,7 @@ namespace Bin;
  * This file is a part of Caprice package
  *
  * @package     caprice
- * @version     0.1.0
+ * @version     0.2.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2018
  * @license     MIT
