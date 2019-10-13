@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class CompilerTest extends TestCase
 {
     /**
-     * setup method
+     * setup method.
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class CompilerTest extends TestCase
     public function testCompileFilesDirNotExists()
     {
         $this->expectException(DirNotFoundException::class);
-        $this->compiler = new Compiler('FilesDir', dirname(__DIR__) . '/stub');
+        $this->compiler = new Compiler('FilesDir', dirname(__DIR__).'/stub');
     }
 
     /**
@@ -61,7 +61,7 @@ class CompilerTest extends TestCase
     public function testCompileCacheDirNotExists()
     {
         $this->expectException(DirNotFoundException::class);
-        $this->compiler = new Compiler(dirname(__DIR__) . '/stub', "cachedir");
+        $this->compiler = new Compiler(dirname(__DIR__).'/stub', 'cachedir');
     }
 
     /**
@@ -71,7 +71,7 @@ class CompilerTest extends TestCase
      */
     public function testIsModifiedMethod()
     {
-        $check = $this->compiler->isModified(dirname(__DIR__) . '/stub/fileOne', dirname(__DIR__).'/stub/fileTwo');
+        $check = $this->compiler->isModified(dirname(__DIR__).'/stub/fileOne', dirname(__DIR__).'/stub/fileTwo');
         $this->assertIsBool($check);
     }
 

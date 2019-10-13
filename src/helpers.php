@@ -12,36 +12,38 @@
  *
  */
 
-if (!function_exists("dotPath"))
-{
+if (!function_exists('dotPath')) {
 
     /**
-     * dot path helper function 
-     * allow dots as separators
+     * dot path helper function
+     * allow dots as separators.
      *
-     * @param  string $filePath
+     * @param string $filePath
+     *
      * @return string
      */
     function dotPath(string $filePath) : string
     {
-        $path = preg_replace('/\'|"/', NULL, $filePath);
-        $path = preg_replace("/(.php|.cap.php)/", NULL, $path);
-        $path = str_replace(".", "/", $path);
+        $path = preg_replace('/\'|"/', null, $filePath);
+        $path = preg_replace('/(.php|.cap.php)/', null, $path);
+        $path = str_replace('.', '/', $path);
 
-        return $path . ".cap.php";
+        return $path.'.cap.php';
     }
 }
 
-if (!function_exists("dump"))
-{
+if (!function_exists('dump')) {
     /**
-     * dump data method
+     * dump data method.
      *
-     * @param  mixed $variable
+     * @param mixed $variable
+     *
      * @return void
      */
     function dump($variable)
     {
-        echo  "<pre>"; print_r($variable); echo "</pre>";
+        echo  '<pre>';
+        print_r($variable);
+        echo '</pre>';
     }
 }
