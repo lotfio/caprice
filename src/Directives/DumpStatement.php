@@ -23,7 +23,7 @@ class DumpStatement implements DirectiveInterface
      *
      * @var string
      */
-    public $pattern = '/(#dump|#dd)\s*\((.*?)\)+/';
+    public $pattern = '/(#dump|#dd)\s*\((.*)\)/';
 
     /**
      * directive replace method
