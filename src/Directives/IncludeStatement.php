@@ -27,20 +27,22 @@ class IncludeStatement implements DirectiveInterface
     public $pattern = '/(#include|#require)\s*\((.*?)\)/s';
 
     /**
-     * directive replace method
+     * directive replace method.
      *
-     * @param  array  $match
-     * @param  string $file original file
-     * @param  string $filesDir .cap files dir
+     * @param array  $match
+     * @param string $file     original file
+     * @param string $filesDir .cap files dir
+     *
      * @return string
      */
     public function replace(array $match, string $file, string $filesDir) : string
     {
-        $file = $filesDir . dotPath($match[2]);
+        $file = $filesDir.dotPath($match[2]);
 
-        if(!file_exists($file))
+        if (!file_exists($file)) {
             throw new FileNotFoundException("file $file not found", 4);
-            
+        }
+
         return file_get_contents($file);
     }
 }

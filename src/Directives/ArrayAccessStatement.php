@@ -26,11 +26,12 @@ class ArrayAccessStatement implements DirectiveInterface
     public $pattern = '/((\$\w+)\.(\w+)(\s*\;*))/m';
 
     /**
-     * directive replace method
+     * directive replace method.
      *
-     * @param  array  $match
-     * @param  string $file original file
-     * @param  string $filesDir .cap files dir
+     * @param array  $match
+     * @param string $file     original file
+     * @param string $filesDir .cap files dir
+     *
      * @return string
      */
     public function replace(array $match, string $file, string $filesDir) : string

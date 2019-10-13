@@ -27,7 +27,7 @@ class ParserTest extends TestCase
      */
     public function setUp() : void
     {
-        $this->parser = new Parser(dirname(__DIR__) . '/stub/');
+        $this->parser = new Parser(dirname(__DIR__).'/stub/');
     }
 
     /**
@@ -254,13 +254,13 @@ class ParserTest extends TestCase
     public function testYieldStatementFound()
     {
         $directive = new Directives\YieldStatement();
-        $string  = '#yield("caprice")';
+        $string = '#yield("caprice")';
         $string .= '#section("caprice")#endsection';
 
         $this->assertSame('#section("caprice")#endsection', $this->parser->parse($directive, $string));
     }
 
-     /**
+    /**
      * test dump found statement.
      *
      * @return void
@@ -268,7 +268,7 @@ class ParserTest extends TestCase
     public function testDumpStatementFound()
     {
         $directive = new Directives\DumpStatement();
-        $string    = '#dump ($var) #dd($var)';
+        $string = '#dump ($var) #dd($var)';
         $this->assertSame('<?= dump($var);?> <?= dump($var);?>', $this->parser->parse($directive, $string));
     }
 }

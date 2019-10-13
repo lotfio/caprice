@@ -26,19 +26,20 @@ class YieldStatement implements DirectiveInterface
     public $pattern = '/#yield\s*\((.+?)\)/';
 
     /**
-     * directive replace method
+     * directive replace method.
      *
-     * @param  array  $match
-     * @param  string $file original file
-     * @param  string $filesDir .cap files dir
+     * @param array  $match
+     * @param string $file     original file
+     * @param string $filesDir .cap files dir
+     *
      * @return string
      */
     public function replace(array $match, string $file, string $filesDir) : string
     {
-        $secPattern = '/#section\s*\((' . trim($match[1]) . ')\)(.*?)#endsection/s';
-        
+        $secPattern = '/#section\s*\(('.trim($match[1]).')\)(.*?)#endsection/s';
+
         preg_match($secPattern, $file, $mt);
 
-        return isset($mt[2]) ? trim($mt[2]) : "section " . trim($match[1]) . " not found";
+        return isset($mt[2]) ? trim($mt[2]) : 'section '.trim($match[1]).' not found';
     }
 }
