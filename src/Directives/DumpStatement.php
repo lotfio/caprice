@@ -23,7 +23,7 @@ class DumpStatement implements DirectiveInterface
      *
      * @var string
      */
-    public $pattern = '/(#dump|#dd)\s*\((.*)\)/';
+    public $pattern = '/(#dump|#dd)\s*\((.+?)(\)*)\)/';
 
     /**
      * directive replace method
@@ -35,6 +35,6 @@ class DumpStatement implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir) : string
     {
-        return '<?= dump('. trim($match[2]) .');?>';
+        return '<?= dump('. trim($match[2]) . trim($match[3]) . ');?>';
     }
 }
