@@ -38,6 +38,9 @@ caprice compiles the syntax and generate php files which means no performance lo
 
   $compiler = new Caprice\Compiler("filesDirectory", "cacheDirectory");
 
+  // if production do not forget to enable production mode
+  //$comoiler->setProductionMode();
+
   $compiled = $compiler->compile("test.cap.php"); // file to compile
 
   require $compiled; // require your compiled file 
@@ -109,6 +112,9 @@ caprice compiles the syntax and generate php files which means no performance lo
     #dump($variable) OR #dd($variable)
 
 ```
+### :helicopter: TODO
+- Adding support for custom directives.
+
 ### :computer: Contributing
 
 - Thank you for considering to contribute to ***Caprice***. All the contribution guidelines are mentioned [here](CONTRIBUTING.md).

@@ -41,7 +41,19 @@ class Compiler implements CompilerInterface
      */
     private $file;
 
+    /**
+     * caprice mode.
+     *
+     * @var string
+     */
+    private $productionMode = FALSE;
 
+    /**
+     * compiler constructor
+     *
+     * @param string $filesDir
+     * @param string $cacheDir
+     */
     public function __construct(string $filesDir, string $cacheDir)
     {
         if (!is_dir($filesDir)) {
@@ -73,13 +85,12 @@ class Compiler implements CompilerInterface
 
         //cache file
         $cacheFile = $this->cacheDir . md5($capFile).'.php';
-
         // create cache file if not exists to prevent filemtime check error
         if (!file_exists($cacheFile)) {
             touch($cacheFile);
         }
 
-        if ($this->isModified($capFile, $cacheFile)) { // if modifed recompile
+        if ($this->productionMode == FALSE) { // if development recompile
             // read caprice file
             $this->file = file_get_contents($capFile);
 
@@ -88,7 +99,6 @@ class Compiler implements CompilerInterface
             for($i =0; $i <= 6; $i++) // loop to parse several times (necessary to parse extends and includes)
                 $this->file = $parser->parseFile($this->file);
 
-
             file_put_contents($cacheFile, $this->removeExtraLines($this->file));
             touch($capFile, time()); // update caprice time to be the same as cahed file to detect any changes later
         }
@@ -96,6 +106,15 @@ class Compiler implements CompilerInterface
         return $cacheFile;
     }
 
+    /**
+     * enable production mode
+     *
+     * @return void
+     */
+    public function setProductionMode() : bool
+    {
+        return $this->productionMode = TRUE;
+    }
     /**
      * check if caprice file eis modified.
      *

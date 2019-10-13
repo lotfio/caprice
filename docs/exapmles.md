@@ -105,7 +105,8 @@
 # layout directives
 ```js
     // extends a base layout 
-    #extends("layout.cap.php")
+    // here we are extending master.cap.php from layouts folder
+    #extends("layouts.master")
     // load a section 
     #yield("sectionName")
 
