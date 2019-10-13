@@ -35,10 +35,10 @@ class YieldStatement implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir) : string
     {
-        $sectionName = preg_replace("/[^\w\.\/]/", NULL, $match[1]);
-        $secPattern = '/#section\s*\(("' . $sectionName . '")\)(.*?)#endsection/s';
+        $secPattern = '/#section\s*\((' . trim($match[1]) . ')\)(.*?)#endsection/s';
+        
         preg_match($secPattern, $file, $mt);
 
-        return isset($mt[2]) ? trim($mt[2]) : "section $sectionName not found";
+        return isset($mt[2]) ? trim($mt[2]) : "section " . trim($match[1]) . " not found";
     }
 }

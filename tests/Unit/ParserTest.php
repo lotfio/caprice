@@ -243,7 +243,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\YieldStatement();
         $string = '#yield("caprice")';
-        $this->assertSame('section caprice not found', $this->parser->parse($directive, $string));
+        $this->assertSame('section "caprice" not found', $this->parser->parse($directive, $string));
     }
 
     /**

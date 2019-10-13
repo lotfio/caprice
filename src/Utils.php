@@ -24,6 +24,6 @@ class Utils
      */
     public static function hideSections(string $file) : string
     {
-        return preg_replace('/#section\s*\((".*?")\)(.*?)#endsection/s', NULL, $file);
+        return preg_replace('/#section\s*\((.*?)\)(.*?)#endsection/s', NULL, $file);
     }
 }
