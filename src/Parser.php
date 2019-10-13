@@ -19,7 +19,6 @@ use Caprice\Contracts\ParserInterface;
 
 class Parser implements ParserInterface
 {
-
     /**
      * base files directory.
      *
@@ -35,7 +34,7 @@ class Parser implements ParserInterface
     private $file;
 
     /**
-     * constructor
+     * constructor.
      *
      * @param string $filesDir
      */
@@ -59,7 +58,6 @@ class Parser implements ParserInterface
             // $file param is the original file
             // can be used if an extra match is nedded
             return $directive->replace($match, $file, $this->filesDir);
-
         }, $file, $limit = -1);
     }
 

@@ -26,11 +26,12 @@ class ElseStatement implements DirectiveInterface
     public $pattern = '/#else*/';
 
     /**
-     * directive replace method
+     * directive replace method.
      *
-     * @param  array  $match
-     * @param  string $file original file
-     * @param  string $filesDir .cap files dir
+     * @param array  $match
+     * @param string $file     original file
+     * @param string $filesDir .cap files dir
+     *
      * @return string
      */
     public function replace(array $match, string $file, string $filesDir) : string

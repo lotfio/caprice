@@ -17,13 +17,14 @@ namespace Caprice;
 class Utils
 {
     /**
-     * hide sections
+     * hide sections.
      *
-     * @param  string $file
+     * @param string $file
+     *
      * @return string
      */
     public static function hideSections(string $file) : string
     {
-        return preg_replace('/#section\s*\((.*?)\)(.*?)#endsection/s', NULL, $file);
+        return preg_replace('/#section\s*\((.*?)\)(.*?)#endsection/s', null, $file);
     }
 }
