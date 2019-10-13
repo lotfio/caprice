@@ -15,6 +15,7 @@ namespace Caprice\Directives;
  */
 
 use Caprice\Contracts\DirectiveInterface;
+use Caprice\Exception\FileNotFoundException;
 
 class IncludeStatement implements DirectiveInterface
 {
@@ -36,6 +37,10 @@ class IncludeStatement implements DirectiveInterface
     public function replace(array $match, string $file, string $filesDir) : string
     {
         $file = $filesDir . dotPath($match[2]);
+
+        if(!file_exists($file))
+            throw new FileNotFoundException("file $file not found", 4);
+            
         return file_get_contents($file);
     }
 }
