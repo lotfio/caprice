@@ -39,7 +39,7 @@ caprice compiles the syntax and generate php files which means no performance lo
   $compiler = new Caprice\Compiler("filesDirectory", "cacheDirectory");
 
   // if production do not forget to enable production mode
-  //$comoiler->setProductionMode();
+  //$compiler->setProductionMode();
 
   $compiled = $compiler->compile("test.cap.php"); // file to compile
 
