@@ -65,17 +65,6 @@ class CompilerTest extends TestCase
     }
 
     /**
-     * test is modified is returning bool.
-     *
-     * @return void
-     */
-    public function testIsModifiedMethod()
-    {
-        $check = $this->compiler->isModified(dirname(__DIR__).'/stub/fileOne', dirname(__DIR__).'/stub/fileTwo');
-        $this->assertIsBool($check);
-    }
-
-    /**
      * test compile cap file.
      *
      * @return void
