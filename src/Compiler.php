@@ -118,22 +118,6 @@ class Compiler implements CompilerInterface
     }
 
     /**
-     * check if caprice file eis modified.
-     *
-     * @param string $file
-     * @param string $cached
-     *
-     * @return bool
-     */
-    public function isModified(string $file, string $cached) : bool
-    {
-        $template = filemtime($file);
-        $generated = @filemtime($cached); // just ignore and generate a file if no file exists
-
-        return $template !== $generated;
-    }
-
-    /**
      * remove extra lines on a file.
      *
      * @param string $file
