@@ -47,7 +47,7 @@ caprice compiles the syntax and generate php files which means no performance lo
 ```
 
 ### :inbox_tray: Available syntax directives:
-- check the documentation here [ChangeLog](docs/examples.md).
+- check the documentation here [Docs](https://github.com/lotfio/caprice/blob/master/docs/exapmles.md).
 
 ### :helicopter: TODO
 - Adding support for custom directives.
