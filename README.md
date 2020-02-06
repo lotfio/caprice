@@ -15,7 +15,7 @@
 
 ### :fire: Introduction :
 Caprice is PHP templating engine that aims to write clean PHP syntax along side with HTML code.
-caprice compiles the syntax and generate php files which means no performance loss but a clean html files with a friendly syntax. 
+caprice compiles the syntax and generate php files which means no performance loss but a clean html files with a friendly syntax.
 
 ### :pushpin: Requirements :
 - PHP 7.2 or newer versions
@@ -43,75 +43,12 @@ caprice compiles the syntax and generate php files which means no performance lo
 
   $compiled = $compiler->compile("test.cap.php"); // file to compile
 
-  require $compiled; // require your compiled file 
+  require $compiled; // require your compiled file
 ```
 
 ### :inbox_tray: Available syntax directives:
-```cpp
-    // code blocks
-    (( echo "hello" ))      
+- check the documentation here [ChangeLog](docs/examples.md).
 
-    (( function test(){ return "test";} ))
-
-    // echo statment 
-    (- "hello caprice" -)
-
-    // echo escaped statement
-    (= "hello caprice" =)
-
-    // array access statement
-    $variable.key 
-
-    // if statement
-    #if ($condition)
-      // logic
-    #elif ($condition2)
-      // elseif logic
-    #else               
-      // else logic
-    #endif               
-
-    // for in loop key only
-    #for ($name in $names)
-        (- $name -)
-    #endfor
-
-    // for in loop key + value
-    #for ($name => $age in $names)
-        (- $name . "=>" . $age -)
-    #endfor
-
-    // for loop
-    #for ($i = 0; $i <= 10; $i++)
-        (- $i . "<br>" -)
-    #endfor
-
-    // while loop
-    #while (TRUE)
-        // do something
-    #endwhile
-
-    // include/require statments
-    // you can remove .cap.php extension for both
-    // you use . to access folder instead of /
-    #require("file.cap.php")
-    #include("file.cap.php")
-
-    // extends a base layout 
-    #extends("layout.cap.php")
-    // load a section 
-    #yield("sectionName")
-
-    // define a section
-    #section("sectionName")
-        // section content
-    #endsection
-
-    // functions
-    // dump
-    #dump($variable) OR #dd($variable)
-
-```
 ### :helicopter: TODO
 - Adding support for custom directives.
 
