@@ -41,6 +41,9 @@ caprice compiles the syntax and generate php files which means no performance lo
   // if production do not forget to enable production mode
   //$compiler->setProductionMode();
 
+  // add custom directives
+  //$compiler->extendDirectives($dir);
+
   $compiled = $compiler->compile("test.cap.php"); // file to compile
 
   require $compiled; // require your compiled file

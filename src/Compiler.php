@@ -49,6 +49,13 @@ class Compiler implements CompilerInterface
     private $productionMode = false;
 
     /**
+     * extended directives
+     *
+     * @var array
+     */
+    private $extendedDirectives = NULL;
+
+    /**
      * compiler constructor.
      *
      * @param string $filesDir
@@ -67,6 +74,18 @@ class Compiler implements CompilerInterface
         $this->cacheDir = rtrim(rtrim($cacheDir, '\\'), '/').DIRECTORY_SEPARATOR;
     }
 
+
+    /**
+     * set extended directives
+     *
+     * @param string $dir
+     * @return void
+     */
+    public function extendDirectives(string $dir) : void
+    {
+        $this->extendedDirectives  = $dir;
+    }
+
     /**
      * compile caprice file method.
      *
@@ -82,26 +101,20 @@ class Compiler implements CompilerInterface
         if (!file_exists($capFile)) {
             throw new FileNotFoundException("file $capFile not found", 4);
         }
-
         //cache file
         $cacheFile = $this->cacheDir.md5($capFile).'.php';
-        // create cache file if not exists to prevent filemtime check error
-        if (!file_exists($cacheFile)) {
-            touch($cacheFile);
-        }
 
         if ($this->productionMode == false) { // if development recompile
             // read caprice file
             $this->file = file_get_contents($capFile);
 
             // parse caprice file
-            $parser = new Parser($this->filesDir);
+            $parser = new Parser($this->filesDir, $this->extendedDirectives);
             for ($i = 0; $i <= 6; $i++) { // loop to parse several times (necessary to parse extends and includes)
                 $this->file = $parser->parseFile($this->file);
             }
 
-            file_put_contents($cacheFile, $this->removeExtraLines($this->file));
-            touch($capFile, time()); // update caprice time to be the same as cahed file to detect any changes later
+            file_put_contents($cacheFile, Utils::removeExtraLines($this->file));
         }
 
         return $cacheFile;
@@ -115,17 +128,5 @@ class Compiler implements CompilerInterface
     public function setProductionMode() : bool
     {
         return $this->productionMode = true;
-    }
-
-    /**
-     * remove extra lines on a file.
-     *
-     * @param string $file
-     *
-     * @return void
-     */
-    public function removeExtraLines(string $file) : string
-    {
-        return preg_replace("~[\r\n]+~", "\r\n", trim($file)); //remove extra lines
     }
 }

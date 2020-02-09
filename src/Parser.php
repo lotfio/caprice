@@ -20,6 +20,15 @@ use Caprice\Contracts\ParserInterface;
 class Parser implements ParserInterface
 {
     /**
+     *  directives to apply for parsing
+     *
+     * @var array
+     */
+    private $directives = array(
+
+    );
+
+    /**
      * base files directory.
      *
      * @var string
@@ -38,9 +47,13 @@ class Parser implements ParserInterface
      *
      * @param string $filesDir
      */
-    public function __construct(string $filesDir)
+    public function __construct(string $filesDir, $extendDirectives = NULL)
     {
-        $this->filesDir = $filesDir;
+        $this->filesDir     = $filesDir;
+
+        $this->directives   = Utils::scanForDirectives(__DIR__ . '/Directives');
+        if(!is_null($extendDirectives))
+            $this->directives = array_merge($this->directives, Utils::scanForDirectives($extendDirectives));
     }
 
     /**
@@ -72,10 +85,9 @@ class Parser implements ParserInterface
     {
         $this->file = $file;
 
-        foreach (glob(__DIR__.'/Directives/*.php') as $class) {
-            $class = trim((explode('Directives', $class)[1]), '/');
-            $class = 'Caprice\\Directives\\'.ucfirst($class);
-            $class = substr($class, 0, strpos($class, '.php'));
+        foreach ($this->directives as $class) {
+
+            $class = trim($class, '::class');
 
             if (class_exists($class)) {
                 $this->file = $this->parse(new $class(), $this->file);
