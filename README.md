@@ -3,7 +3,7 @@
   <p align="center">
     <img src="https://img.shields.io/badge/Licence-MIT-ffd32a.svg" alt="License">
     <img src="https://img.shields.io/badge/PHP-7.2-808e9b.svg" alt="PHP version">
-    <img src="https://img.shields.io/badge/Version-0.2.0-f53b57.svg" alt="Version">
+    <img src="https://img.shields.io/badge/Version-0.3.0-f53b57.svg" alt="Version">
     <img src="https://img.shields.io/badge/coverage-10%25-27ae60.svg" alt="Coverage">
     <img src="https://travis-ci.org/lotfio/caprice.svg?branch=master" alt="Build Status">
     <img src="https://github.styleci.io/repos/211069554/shield?branch=master" alt="StyleCi">
@@ -15,7 +15,7 @@
 
 ### :fire: Introduction :
 Caprice is PHP templating engine that aims to write clean PHP syntax along side with HTML code.
-caprice compiles the syntax and generate php files which means no performance loss but a clean html files with a friendly syntax. 
+caprice compiles the syntax and generate php files which means no performance loss but a clean html files with a friendly syntax.
 
 ### :pushpin: Requirements :
 - PHP 7.2 or newer versions
@@ -39,79 +39,19 @@ caprice compiles the syntax and generate php files which means no performance lo
   $compiler = new Caprice\Compiler("filesDirectory", "cacheDirectory");
 
   // if production do not forget to enable production mode
-  //$comoiler->setProductionMode();
+  //$compiler->setProductionMode();
+
+  // add custom directives
+  //$compiler->extendDirectives($dir);
 
   $compiled = $compiler->compile("test.cap.php"); // file to compile
 
-  require $compiled; // require your compiled file 
+  require $compiled; // require your compiled file
 ```
 
 ### :inbox_tray: Available syntax directives:
-```cpp
-    // code blocks
-    (( echo "hello" ))      
+- check the documentation here [Docs](https://github.com/lotfio/caprice/blob/master/docs/exapmles.md).
 
-    (( function test(){ return "test";} ))
-
-    // echo statment 
-    (- "hello caprice" -)
-
-    // echo escaped statement
-    (= "hello caprice" =)
-
-    // array access statement
-    $variable.key 
-
-    // if statement
-    #if ($condition)
-      // logic
-    #elif ($condition2)
-      // elseif logic
-    #else               
-      // else logic
-    #endif               
-
-    // for in loop key only
-    #for ($name in $names)
-        (- $name -)
-    #endfor
-
-    // for in loop key + value
-    #for ($name => $age in $names)
-        (- $name . "=>" . $age -)
-    #endfor
-
-    // for loop
-    #for ($i = 0; $i <= 10; $i++)
-        (- $i . "<br>" -)
-    #endfor
-
-    // while loop
-    #while (TRUE)
-        // do something
-    #endwhile
-
-    // include/require statments
-    // you can remove .cap.php extension for both
-    // you use . to access folder instead of /
-    #require("file.cap.php")
-    #include("file.cap.php")
-
-    // extends a base layout 
-    #extends("layout.cap.php")
-    // load a section 
-    #yield("sectionName")
-
-    // define a section
-    #section("sectionName")
-        // section content
-    #endsection
-
-    // functions
-    // dump
-    #dump($variable) OR #dd($variable)
-
-```
 ### :helicopter: TODO
 - Adding support for custom directives.
 

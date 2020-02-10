@@ -16,14 +16,14 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class EndIfStatement implements DirectiveInterface
+class HtmlCommentStatement implements DirectiveInterface
 {
     /**
      * pattern property.
      *
      * @var string
      */
-    public $pattern = '/#endif/';
+    public $pattern = '/<!--(.*?)-->/s';
 
     /**
      * directive replace method.
@@ -36,6 +36,6 @@ class EndIfStatement implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir): string
     {
-        return '<?php endif;?>';
+        return '';
     }
 }

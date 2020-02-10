@@ -26,7 +26,7 @@ class CompilerTest extends TestCase
      *
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->compiler = new Compiler(dirname(__DIR__).'/stub/', dirname(__DIR__).'/stub/');
     }
@@ -62,17 +62,6 @@ class CompilerTest extends TestCase
     {
         $this->expectException(DirNotFoundException::class);
         $this->compiler = new Compiler(dirname(__DIR__).'/stub', 'cachedir');
-    }
-
-    /**
-     * test is modified is returning bool.
-     *
-     * @return void
-     */
-    public function testIsModifiedMethod()
-    {
-        $check = $this->compiler->isModified(dirname(__DIR__).'/stub/fileOne', dirname(__DIR__).'/stub/fileTwo');
-        $this->assertIsBool($check);
     }
 
     /**

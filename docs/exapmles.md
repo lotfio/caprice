@@ -2,7 +2,7 @@
 - you can write any php inside code blocks
 
 ```js
-    ((  
+    ((
         $var1 = "foo";
         $var2 = "bar";
         echo $var1 . " and " . $var2;
@@ -36,7 +36,7 @@
       // logic
     #endif
 ```
-- if else 
+- if else
 ```js
    // if statement
     #if ($condition)
@@ -45,7 +45,7 @@
       // else logic
     #endif
 ```
-- if elseif 
+- if elseif
 ```js
     #if ($condiftion)
      // iflogic
@@ -53,7 +53,7 @@
     #elif ($condition2)
 
       // elseif logic
-    #else               
+    #else
       // else logic
     #endif
 ```
@@ -104,10 +104,10 @@
 
 # layout directives
 ```js
-    // extends a base layout 
+    // extends a base layout
     // here we are extending master.cap.php from layouts folder
     #extends("layouts.master")
-    // load a section 
+    // load a section
     #yield("sectionName")
 
     // define a section

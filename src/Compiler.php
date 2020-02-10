@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.2.0
+ * @version     0.3.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -49,6 +49,13 @@ class Compiler implements CompilerInterface
     private $productionMode = false;
 
     /**
+     * extended directives.
+     *
+     * @var array
+     */
+    private $extendedDirectives = null;
+
+    /**
      * compiler constructor.
      *
      * @param string $filesDir
@@ -68,6 +75,18 @@ class Compiler implements CompilerInterface
     }
 
     /**
+     * set extended directives.
+     *
+     * @param string $dir
+     *
+     * @return void
+     */
+    public function extendDirectives(string $dir): void
+    {
+        $this->extendedDirectives = $dir;
+    }
+
+    /**
      * compile caprice file method.
      *
      * @param string $file
@@ -75,33 +94,27 @@ class Compiler implements CompilerInterface
      *
      * @return string compiled file
      */
-    public function compile(string $fileName) : string
+    public function compile(string $fileName): string
     {
         $capFile = $this->filesDir.$fileName;
 
         if (!file_exists($capFile)) {
             throw new FileNotFoundException("file $capFile not found", 4);
         }
-
         //cache file
         $cacheFile = $this->cacheDir.md5($capFile).'.php';
-        // create cache file if not exists to prevent filemtime check error
-        if (!file_exists($cacheFile)) {
-            touch($cacheFile);
-        }
 
         if ($this->productionMode == false) { // if development recompile
             // read caprice file
             $this->file = file_get_contents($capFile);
 
             // parse caprice file
-            $parser = new Parser($this->filesDir);
+            $parser = new Parser($this->filesDir, $this->extendedDirectives);
             for ($i = 0; $i <= 6; $i++) { // loop to parse several times (necessary to parse extends and includes)
                 $this->file = $parser->parseFile($this->file);
             }
 
-            file_put_contents($cacheFile, $this->removeExtraLines($this->file));
-            touch($capFile, time()); // update caprice time to be the same as cahed file to detect any changes later
+            file_put_contents($cacheFile, Utils::removeExtraLines($this->file));
         }
 
         return $cacheFile;
@@ -112,36 +125,8 @@ class Compiler implements CompilerInterface
      *
      * @return void
      */
-    public function setProductionMode() : bool
+    public function setProductionMode(): bool
     {
         return $this->productionMode = true;
-    }
-
-    /**
-     * check if caprice file eis modified.
-     *
-     * @param string $file
-     * @param string $cached
-     *
-     * @return bool
-     */
-    public function isModified(string $file, string $cached) : bool
-    {
-        $template = filemtime($file);
-        $generated = @filemtime($cached); // just ignore and generate a file if no file exists
-
-        return $template !== $generated;
-    }
-
-    /**
-     * remove extra lines on a file.
-     *
-     * @param string $file
-     *
-     * @return void
-     */
-    public function removeExtraLines(string $file) : string
-    {
-        return preg_replace("~[\r\n]+~", "\r\n", trim($file)); //remove extra lines
     }
 }
