@@ -271,4 +271,16 @@ class ParserTest extends TestCase
         $string = '#dump ($var) #dd($var)';
         $this->assertSame('<?= dump($var);?> <?= dump($var);?>', $this->parser->parse($directive, $string));
     }
+
+    /**
+     * test dump found statement.
+     *
+     * @return void
+     */
+    public function testRemoveHtmlComment()
+    {
+        $directive = new Directives\HtmlCommentStatement();
+        $string = '<!-- this is html comment that should be removed :) -->';
+        $this->assertSame('', $this->parser->parse($directive, $string));
+    }
 }

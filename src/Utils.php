@@ -14,6 +14,7 @@ namespace Caprice;
  *
  */
 use Caprice\Exception\FileNotFoundException;
+use Caprice\Exception\DirNotFoundException;
 
 class Utils
 {
@@ -52,7 +53,7 @@ class Utils
         $ns = NULL;
 
         if(!file_exists($file))
-            throw new FileNotFoundException("can scan for namespace file not found ", 4);
+            throw new FileNotFoundException("can not scan for namespace file not found ", 4);
         $handle = fopen($file, "r");
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
@@ -79,6 +80,8 @@ class Utils
         // directives
         $directives = array();
 
+        if(!is_dir($directory))
+            throw new DirNotFoundException("directory $directory not found ", 4);
         // scan directives folder
         $dir = scandir($directory);
         $dir = array_filter($dir, function($elem){
@@ -93,7 +96,7 @@ class Utils
 
             // mach all directives to their namespace
             foreach ($dir as $directive) {
-                $directives[] = $namespace . '\\' . ucfirst(rtrim($directive, '.php')) . "::class";
+                $directives[] = $namespace . '\\' . ucfirst(str_replace('.php', NULL, $directive)) . "::class";
             }
         }
         // return an associative array of directives with the namespace
