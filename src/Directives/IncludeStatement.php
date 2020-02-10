@@ -35,7 +35,7 @@ class IncludeStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match, string $file, string $filesDir) : string
+    public function replace(array $match, string $file, string $filesDir): string
     {
         $file = $filesDir.dotPath($match[2]);
 

@@ -19,10 +19,10 @@ interface CompilerInterface
     /**
      * compile method.
      *
-     * This method gets a string file, compiles it 
+     * This method gets a string file, compiles it
      * and generates a PHP file based on the .cap file
      *
      * @return string
      */
-    public function compile(string $file) : string;
+    public function compile(string $file): string;
 }

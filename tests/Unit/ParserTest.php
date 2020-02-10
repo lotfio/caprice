@@ -25,7 +25,7 @@ class ParserTest extends TestCase
      *
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->parser = new Parser(dirname(__DIR__).'/stub/');
     }

@@ -34,7 +34,7 @@ class WhileLoop implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match, string $file, string $filesDir) : string
+    public function replace(array $match, string $file, string $filesDir): string
     {
         return '<?php while('.trim($match[1]).'):?>'.trim($match[2]).'<?php endwhile;?>';
     }

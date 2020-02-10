@@ -34,7 +34,7 @@ class CodeBlock implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match, string $file, string $filesDir) : string
+    public function replace(array $match, string $file, string $filesDir): string
     {
         return '<?php '.trim($match[1]).'?>';
     }

@@ -20,13 +20,13 @@ use Caprice\Contracts\ParserInterface;
 class Parser implements ParserInterface
 {
     /**
-     *  directives to apply for parsing
+     *  directives to apply for parsing.
      *
      * @var array
      */
-    private $directives = array(
+    private $directives = [
 
-    );
+    ];
 
     /**
      * base files directory.
@@ -47,13 +47,14 @@ class Parser implements ParserInterface
      *
      * @param string $filesDir
      */
-    public function __construct(string $filesDir, $extendDirectives = NULL)
+    public function __construct(string $filesDir, $extendDirectives = null)
     {
-        $this->filesDir     = $filesDir;
+        $this->filesDir = $filesDir;
 
-        $this->directives   = Utils::scanForDirectives(__DIR__ . '/Directives');
-        if(!is_null($extendDirectives))
+        $this->directives = Utils::scanForDirectives(__DIR__.'/Directives');
+        if (!is_null($extendDirectives)) {
             $this->directives = array_merge($this->directives, Utils::scanForDirectives($extendDirectives));
+        }
     }
 
     /**
@@ -64,7 +65,7 @@ class Parser implements ParserInterface
      *
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file) : string
+    public function parse(DirectiveInterface $directive, string $file): string
     {
         return preg_replace_callback($directive->pattern, function (array $match) use ($directive, $file) {
 
@@ -81,12 +82,11 @@ class Parser implements ParserInterface
      *
      * @return void
      */
-    public function parseFile(string $file) : string
+    public function parseFile(string $file): string
     {
         $this->file = $file;
 
         foreach ($this->directives as $class) {
-
             $class = rtrim($class, '::class');
 
             if (class_exists($class)) {

@@ -14,41 +14,41 @@ namespace Tests\Unit;
  *
  */
 
+use Caprice\Exception\DirNotFoundException;
+use Caprice\Exception\FileNotFoundException;
 use Caprice\Utils;
 use PHPUnit\Framework\TestCase;
-use Caprice\Exception\FileNotFoundException;
-use Caprice\Exception\DirNotFoundException;
 
 class UtilsTest extends TestCase
 {
     /**
-     * assert hide sections works
+     * assert hide sections works.
      *
      * @return void
      */
     public function testHideSectionsMethod()
     {
-        $string  = "#section('test')
+        $string = "#section('test')
                         section content here
                     #endsection";
 
-        $parse  = Utils::hideSections($string);
+        $parse = Utils::hideSections($string);
         $this->assertEmpty($parse);
     }
 
     /**
-     * assert remove extra lines
+     * assert remove extra lines.
      *
      * @return void
      */
     public function testRemoveExtraLines()
     {
-        $parse  = Utils::removeExtraLines("\n");
-        $this->assertSame("", $parse);
+        $parse = Utils::removeExtraLines("\n");
+        $this->assertSame('', $parse);
     }
 
-     /**
-     * test get namespace file not noud
+    /**
+     * test get namespace file not noud.
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class UtilsTest extends TestCase
     }
 
     /**
-     * test get namespace on file that doesn't have a namespace
+     * test get namespace on file that doesn't have a namespace.
      *
      * @return void
      */
@@ -69,7 +69,7 @@ class UtilsTest extends TestCase
     }
 
     /**
-     * test get namespace correct namespace
+     * test get namespace correct namespace.
      *
      * @return void
      */
@@ -79,7 +79,7 @@ class UtilsTest extends TestCase
     }
 
     /**
-     * test scanForDirectives when directory not exists
+     * test scanForDirectives when directory not exists.
      *
      * @return void
      */
@@ -90,7 +90,7 @@ class UtilsTest extends TestCase
     }
 
     /**
-     * test scanForDirectives on empty dir
+     * test scanForDirectives on empty dir.
      *
      * @return void
      */
@@ -101,7 +101,7 @@ class UtilsTest extends TestCase
     }
 
     /**
-     * test scanForDirectives
+     * test scanForDirectives.
      *
      * @return void
      */
@@ -113,5 +113,4 @@ class UtilsTest extends TestCase
         $dvs = Utils::scanForDirectives(dirname(__DIR__).'/stub/ns', 'customNameSpace');
         $this->assertEquals('customNameSpace\Namespace::class', $dvs[1]);
     }
-
 }
