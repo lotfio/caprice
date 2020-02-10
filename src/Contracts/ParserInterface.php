@@ -29,7 +29,7 @@ interface ParserInterface
      *
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file) : string;
+    public function parse(DirectiveInterface $directive, string $file): string;
 
     /**
      * parse file method.
@@ -41,5 +41,5 @@ interface ParserInterface
      *
      * @return string
      */
-    public function parseFile(string $file) : string;
+    public function parseFile(string $file): string;
 }

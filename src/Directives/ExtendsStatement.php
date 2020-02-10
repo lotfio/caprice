@@ -35,7 +35,7 @@ class ExtendsStatement implements DirectiveInterface
      *
      * @return string
      */
-    public function replace(array $match, string $file, string $filesDir) : string
+    public function replace(array $match, string $file, string $filesDir): string
     {
         $content = $filesDir.dotPath($match[1]);
 

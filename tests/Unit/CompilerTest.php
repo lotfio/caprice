@@ -26,7 +26,7 @@ class CompilerTest extends TestCase
      *
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->compiler = new Compiler(dirname(__DIR__).'/stub/', dirname(__DIR__).'/stub/');
     }

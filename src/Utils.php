@@ -13,8 +13,8 @@ namespace Caprice;
  * @link        https://github.com/lotfio/caprice
  *
  */
-use Caprice\Exception\FileNotFoundException;
 use Caprice\Exception\DirNotFoundException;
+use Caprice\Exception\FileNotFoundException;
 
 class Utils
 {
@@ -25,7 +25,7 @@ class Utils
      *
      * @return string
      */
-    public static function hideSections(string $file) : string
+    public static function hideSections(string $file): string
     {
         return preg_replace('/#section\s*\((.*?)\)(.*?)#endsection/s', null, $file);
     }
@@ -37,24 +37,26 @@ class Utils
      *
      * @return void
      */
-    public static function removeExtraLines(string $file) : string
+    public static function removeExtraLines(string $file): string
     {
         return preg_replace("~[\r\n]+~", "\r\n", trim($file)); //remove extra lines
     }
 
     /**
-     * extract php file namespace
+     * extract php file namespace.
      *
-     * @param  string $file
+     * @param string $file
+     *
      * @return ?string
      */
-    public static function getNamespace(string $file) : ?string
+    public static function getNamespace(string $file): ?string
     {
-        $ns = NULL;
+        $ns = null;
 
-        if(!file_exists($file))
-            throw new FileNotFoundException("can not scan for namespace file not found ", 4);
-        $handle = fopen($file, "r");
+        if (!file_exists($file)) {
+            throw new FileNotFoundException('can not scan for namespace file not found ', 4);
+        }
+        $handle = fopen($file, 'r');
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
                 if (strpos($line, 'namespace') === 0) {
@@ -65,42 +67,44 @@ class Utils
             }
             fclose($handle);
         }
+
         return $ns;
     }
 
     /**
-     * scan for directives method
+     * scan for directives method.
      *
-     * @param  string $directory
-     * @param  string $namespace
+     * @param string $directory
+     * @param string $namespace
+     *
      * @return array
      */
-    public static function scanForDirectives(string $directory, $namespace = NULL) : array
+    public static function scanForDirectives(string $directory, $namespace = null): array
     {
         // directives
-        $directives = array();
+        $directives = [];
 
-        if(!is_dir($directory))
+        if (!is_dir($directory)) {
             throw new DirNotFoundException("directory $directory not found ", 4);
+        }
         // scan directives folder
         $dir = scandir($directory);
-        $dir = array_filter($dir, function($elem){
-            return ($elem != '.' && $elem != '..' && strpos($elem, '.php') !== false) ? $elem : NULL;
+        $dir = array_filter($dir, function ($elem) {
+            return ($elem != '.' && $elem != '..' && strpos($elem, '.php') !== false) ? $elem : null;
         });
         $dir = array_values($dir);
 
         if (count($dir) > 0) {
 
             // get namespace for first or use default namespace
-            $namespace  = (is_null($namespace)) ? self::getNamespace(rtrim($directory,'/') . '/' . $dir[0]) : $namespace;
+            $namespace = (is_null($namespace)) ? self::getNamespace(rtrim($directory, '/').'/'.$dir[0]) : $namespace;
 
             // mach all directives to their namespace
             foreach ($dir as $directive) {
-                $directives[] = $namespace . '\\' . ucfirst(str_replace('.php', NULL, $directive)) . "::class";
+                $directives[] = $namespace.'\\'.ucfirst(str_replace('.php', null, $directive)).'::class';
             }
         }
         // return an associative array of directives with the namespace
         return $directives;
-
     }
 }

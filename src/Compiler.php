@@ -49,11 +49,11 @@ class Compiler implements CompilerInterface
     private $productionMode = false;
 
     /**
-     * extended directives
+     * extended directives.
      *
      * @var array
      */
-    private $extendedDirectives = NULL;
+    private $extendedDirectives = null;
 
     /**
      * compiler constructor.
@@ -74,16 +74,16 @@ class Compiler implements CompilerInterface
         $this->cacheDir = rtrim(rtrim($cacheDir, '\\'), '/').DIRECTORY_SEPARATOR;
     }
 
-
     /**
-     * set extended directives
+     * set extended directives.
      *
      * @param string $dir
+     *
      * @return void
      */
-    public function extendDirectives(string $dir) : void
+    public function extendDirectives(string $dir): void
     {
-        $this->extendedDirectives  = $dir;
+        $this->extendedDirectives = $dir;
     }
 
     /**
@@ -94,7 +94,7 @@ class Compiler implements CompilerInterface
      *
      * @return string compiled file
      */
-    public function compile(string $fileName) : string
+    public function compile(string $fileName): string
     {
         $capFile = $this->filesDir.$fileName;
 
@@ -125,7 +125,7 @@ class Compiler implements CompilerInterface
      *
      * @return void
      */
-    public function setProductionMode() : bool
+    public function setProductionMode(): bool
     {
         return $this->productionMode = true;
     }

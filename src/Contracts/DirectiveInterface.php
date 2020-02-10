@@ -28,5 +28,5 @@ interface DirectiveInterface
      *
      * @return void
      */
-    public function replace(array $match, string $file, string $filesDir) : string;
+    public function replace(array $match, string $file, string $filesDir): string;
 }
