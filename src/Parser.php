@@ -87,7 +87,7 @@ class Parser implements ParserInterface
 
         foreach ($this->directives as $class) {
 
-            $class = trim($class, '::class');
+            $class = rtrim($class, '::class');
 
             if (class_exists($class)) {
                 $this->file = $this->parse(new $class(), $this->file);
