@@ -82,7 +82,7 @@ class UtilsTest extends TestCase
      */
     public function testGetNamespaceReturnNamespace()
     {
-        $this->assertEquals('Caprice\TestGetNamespace', Utils::getNamespace(dirname(__DIR__).'/stub/namespace.php'));
+        $this->assertEquals('Caprice\TestGetNamespace', Utils::getNamespace(dirname(__DIR__).'/stub/ns/namespace.php'));
     }
 
     /**
@@ -114,11 +114,11 @@ class UtilsTest extends TestCase
      */
     public function testScanForDirectives()
     {
-        $dvs = Utils::scanForDirectives(dirname(__DIR__).'/stub');
-        $this->assertEquals('\Namespace::class', $dvs[2]);
+        $dvs = Utils::scanForDirectives(dirname(__DIR__).'/stub/ns');
+        $this->assertEquals('\NoNamespace::class', $dvs[0]);
         // custom namespace
-        $dvs = Utils::scanForDirectives(dirname(__DIR__).'/stub', 'customNameSpace');
-        $this->assertEquals('customNameSpace\Namespace::class', $dvs[2]);
+        $dvs = Utils::scanForDirectives(dirname(__DIR__).'/stub/ns', 'customNameSpace');
+        $this->assertEquals('customNameSpace\Namespace::class', $dvs[1]);
     }
 
 }
