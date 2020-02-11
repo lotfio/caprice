@@ -43,14 +43,17 @@ class UtilsTest extends TestCase
      */
     public function testRemoveExtraLines()
     {
-        $string  = "line 1
+        $string  = <<<EOT
+line 1
 
-                    line 3";
-
+line 3
+EOT;
         $parse  = Utils::removeExtraLines($string);
 
-        $expected = "line 1
-                    line 3";
+        $expected = <<<EOT
+line 1
+line 3
+EOT;
         $this->assertSame($expected, $parse);
     }
 
