@@ -23,7 +23,7 @@ class ForLoop implements DirectiveInterface
      *
      * @var string
      */
-    public $pattern = '/#for\s*\((\$\w+\s*=\s*[\$\w+]+\s*\;)(\s*\$\w+\s*[<=>!]+\s*[\$\w+]+\s*\;\s*)(\$\w+[+-=\/\*\s\w\$]+)\)(.*?)#endfor/s';
+    public $pattern = '/#for\s*\((\$\w+\s*=\s*[\$\w+]+\s*\;)(\s*.*?\s*\;\s*)(\$\w+[+-=\/\*\s\w\$]+)\)(.*?)#endfor/s';
 
     /**
      * directive replace method.
