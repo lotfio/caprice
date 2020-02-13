@@ -40,6 +40,6 @@ class YieldStatement implements DirectiveInterface
 
         preg_match($secPattern, $file, $mt);
 
-        return isset($mt[2]) ? trim($mt[2]) : 'section '.trim($match[1]).' not found';
+        return isset($mt[2]) ? trim($mt[2]) : '';
     }
 }
