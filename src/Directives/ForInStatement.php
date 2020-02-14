@@ -23,7 +23,7 @@ class ForInStatement implements DirectiveInterface
      *
      * @var string
      */
-    public $pattern = '/#for\s*\((\$\w+\s*=>\s*\$\w+\s*)(\s*in\s*)(.*?)\)(.*?)#endfor/s';
+    public $pattern = '/#for\s*\((\$\w+\s*=>\s*\$\w+\s*)(\s*in\s*)([^\r\n]+)\)(.*?)#endfor/s';
 
     /**
      * directive replace method.

@@ -157,7 +157,7 @@ class ParserTest extends TestCase
      */
     public function testForLoop()
     {
-        $directive = new Directives\ForLoop();
+        $directive = new Directives\ForLoopStatement();
         $string = '#for ($i = 0; $i <=10; $i++)#endfor';
         $this->assertSame('<?php for($i = 0;$i <=10;$i++):?><?php endfor;?>', $this->parser->parseSingle($directive, $string));
     }

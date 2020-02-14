@@ -16,14 +16,14 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class ForLoop implements DirectiveInterface
+class ForLoopStatement implements DirectiveInterface
 {
     /**
      * pattern property.
      *
      * @var string
      */
-    public $pattern = '/#for\s*\((\$\w+\s*=\s*[\$\w+]+\s*\;)(\s*.*?\s*\;\s*)(\$\w+[+-=\/\*\s\w\$]+)\)(.*?)#endfor/s';
+    public $pattern = '/#for\s*\((\$\w+\s*=\s*[\$\w+]+\s*\;)(\s*.*?\s*\;\s*)(\$\w+[^\r\n]+)\)(.*?)#endfor/s';
 
     /**
      * directive replace method.
