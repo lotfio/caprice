@@ -17,19 +17,20 @@ namespace Caprice\Contracts;
 interface ParserInterface
 {
     /**
-     * parse method.
+     * parse single method.
      *
      * This method gets a directive as first parameter
      * and a file string as the second parameter
-     * this method replaced the file based on the directive
-     * given
+     * 
+     * this method replaces the content of the file 
+     * based on the given directive pattern
      *
      * @param DirectiveInterface $directive
      * @param string             $file
      *
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file): string;
+    public function parseSingle(DirectiveInterface $directive, string $file): string;
 
     /**
      * parse file method.
@@ -41,5 +42,5 @@ interface ParserInterface
      *
      * @return string
      */
-    public function parseFile(string $file): string;
+    public function parse(string $file): string;
 }

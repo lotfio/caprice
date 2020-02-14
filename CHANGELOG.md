@@ -11,4 +11,9 @@
 ## 0.3.0
 - ability to add custom directives ($compiler->extendDirectives($dir))
 - fix dot notaion array access on for in loops
+
+## 0.4.0
+- rename parse to parseSigle (as it applies one single diretive to the given file or string)
+- rename parseFile to parse (as it applies all the directives to te given file or string)
+
 - no error when sections not found

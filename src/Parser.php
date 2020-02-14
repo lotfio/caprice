@@ -58,19 +58,17 @@ class Parser implements ParserInterface
     }
 
     /**
-     * parse method.
+     * parse single directive method.
      *
      * @param DirectiveInterface $directive
      * @param string             $file
      *
      * @return void
      */
-    public function parse(DirectiveInterface $directive, string $file): string
+    public function parseSingle(DirectiveInterface $directive, string $file): string
     {
         return preg_replace_callback($directive->pattern, function (array $match) use ($directive, $file) {
-
-            // $file param is the original file
-            // can be used if an extra match is nedded
+            // apply directive replace method
             return $directive->replace($match, $file, $this->filesDir);
         }, $file, $limit = -1);
     }
@@ -82,15 +80,17 @@ class Parser implements ParserInterface
      *
      * @return void
      */
-    public function parseFile(string $file): string
+    public function parse(string $file): string
     {
         $this->file = $file;
 
-        foreach ($this->directives as $class) {
-            $class = str_replace('::class', NULL, $class);
+        foreach ($this->directives as $directive) {
 
-            if (class_exists($class)) {
-                $this->file = $this->parse(new $class(), $this->file);
+            //remove class suffix
+            $directive = str_replace('::class', NULL, $directive);
+
+            if (class_exists($directive)) {
+                $this->file = $this->parseSingle(new $directive, $this->file);
             }
         }
 
