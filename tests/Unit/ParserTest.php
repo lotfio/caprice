@@ -37,8 +37,8 @@ class ParserTest extends TestCase
      */
     public function testCodeBlock()
     {
-        $directive = new Directives\CodeBlock();
-        $string = '(( $var = "my variable" ))';
+        $directive = new Directives\CodeBlockStatement();
+        $string = '(< $var = "my variable" >)';
         $this->assertSame('<?php $var = "my variable"?>', $this->parser->parseSingle($directive, $string));
     }
 

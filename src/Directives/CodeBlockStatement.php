@@ -16,14 +16,14 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class CodeBlock implements DirectiveInterface
+class CodeBlockStatement implements DirectiveInterface
 {
     /**
      * pattern property.
      *
      * @var string
      */
-    public $pattern = '/\({2}(.*?)\){2}/s';
+    public $pattern = '/\(\<(.*?)\>\)/s';
 
     /**
      * directive replace method.
