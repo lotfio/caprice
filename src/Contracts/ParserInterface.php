@@ -21,8 +21,8 @@ interface ParserInterface
      *
      * This method gets a directive as first parameter
      * and a file string as the second parameter
-     * 
-     * this method replaces the content of the file 
+     *
+     * this method replaces the content of the file
      * based on the given directive pattern
      *
      * @param DirectiveInterface $directive
