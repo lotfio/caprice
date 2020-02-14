@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.3.0
+ * @version     0.4.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -87,6 +87,16 @@ class Compiler implements CompilerInterface
     }
 
     /**
+     * enable production mode.
+     *
+     * @return void
+     */
+    public function setProductionMode(): bool
+    {
+        return $this->productionMode = true;
+    }
+
+    /**
      * compile caprice file method.
      *
      * @param string $file
@@ -111,22 +121,12 @@ class Compiler implements CompilerInterface
             // parse caprice file
             $parser = new Parser($this->filesDir, $this->extendedDirectives);
             for ($i = 0; $i <= 6; $i++) { // loop to parse several times (necessary to parse extends and includes)
-                $this->file = $parser->parseFile($this->file);
+                $this->file = $parser->parse($this->file);
             }
 
             file_put_contents($cacheFile, Utils::removeExtraLines($this->file));
         }
 
         return $cacheFile;
-    }
-
-    /**
-     * enable production mode.
-     *
-     * @return void
-     */
-    public function setProductionMode(): bool
-    {
-        return $this->productionMode = true;
     }
 }

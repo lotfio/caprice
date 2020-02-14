@@ -6,7 +6,7 @@ namespace Caprice\Directives;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.3.0
+ * @version     0.4.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -40,6 +40,6 @@ class YieldStatement implements DirectiveInterface
 
         preg_match($secPattern, $file, $mt);
 
-        return isset($mt[2]) ? trim($mt[2]) : 'section '.trim($match[1]).' not found';
+        return isset($mt[2]) ? trim($mt[2]) : '';
     }
 }

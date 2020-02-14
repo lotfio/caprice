@@ -6,7 +6,7 @@ namespace Caprice\Directives;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.3.0
+ * @version     0.4.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -16,14 +16,14 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class WhileLoop implements DirectiveInterface
+class DoWhileStatement implements DirectiveInterface
 {
     /**
      * pattern property.
      *
      * @var string
      */
-    public $pattern = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.*?)#endwhile/s';
+    public $pattern = '/#do(.*?)#while\s*\(([^\r\n]+)\)/s';
 
     /**
      * directive replace method.
@@ -36,6 +36,6 @@ class WhileLoop implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir): string
     {
-        return '<?php while('.trim($match[1]).'):?>'.trim($match[2]).'<?php endwhile;?>';
+        return '<?php do { ?> '.trim($match[1]).' <?php } while ( '.trim($match[2]).' );?>';
     }
 }

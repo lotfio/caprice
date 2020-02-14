@@ -3,7 +3,7 @@
   <p align="center">
     <img src="https://img.shields.io/badge/Licence-MIT-ffd32a.svg" alt="License">
     <img src="https://img.shields.io/badge/PHP-7.2-808e9b.svg" alt="PHP version">
-    <img src="https://img.shields.io/badge/Version-0.3.0-f53b57.svg" alt="Version">
+    <img src="https://img.shields.io/badge/Version-0.4.0-f53b57.svg" alt="Version">
     <img src="https://img.shields.io/badge/coverage-10%25-27ae60.svg" alt="Coverage">
     <img src="https://travis-ci.org/lotfio/caprice.svg?branch=master" alt="Build Status">
     <img src="https://github.styleci.io/repos/211069554/shield?branch=master" alt="StyleCi">
@@ -24,7 +24,7 @@ caprice compiles the syntax and generate php files which means no performance lo
 ### :ok_hand: Features :
 - easy to use.
 - friendly syntax.
-- caching (one time compilation only when files get edited).
+- caching (one time compile).
 - no performance loss.
 
 ### :rocket: Installation & Use :

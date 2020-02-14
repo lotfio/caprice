@@ -6,7 +6,7 @@ namespace Tests\Unit;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.2.0
+ * @version     0.4.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -37,9 +37,9 @@ class ParserTest extends TestCase
      */
     public function testCodeBlock()
     {
-        $directive = new Directives\CodeBlock();
-        $string = '(( $var = "my variable" ))';
-        $this->assertSame('<?php $var = "my variable"?>', $this->parser->parse($directive, $string));
+        $directive = new Directives\CodeBlockStatement();
+        $string = '(< $var = "my variable" >)';
+        $this->assertSame('<?php $var = "my variable"?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -51,7 +51,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\EchoStatement();
         $string = '(- "my echo" -)';
-        $this->assertSame('<?="my echo"?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?="my echo"?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -63,7 +63,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\EchoEscapedStatement();
         $string = '(= "my echo escaped" =)';
-        $this->assertSame('<?=htmlentities("my echo escaped", ENT_QUOTES, \'UTF-8\');?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?=htmlentities("my echo escaped", ENT_QUOTES, \'UTF-8\');?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -75,7 +75,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ArrayAccessStatement();
         $string = '$array.property';
-        $this->assertSame('$array["property"]', $this->parser->parse($directive, $string));
+        $this->assertSame('$array["property"]', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -87,7 +87,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\IfStatement();
         $string = '#if (is_int(10))';
-        $this->assertSame('<?php if(is_int(10)):?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php if(is_int(10)):?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -99,7 +99,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ElseStatement();
         $string = '#else';
-        $this->assertSame('<?php else:?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php else:?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -111,7 +111,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ElseIfStatement();
         $string = '#elif (is_string(10))';
-        $this->assertSame('<?php elseif(is_string(10)):?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php elseif(is_string(10)):?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -123,7 +123,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\EndIfStatement();
         $string = '#endif';
-        $this->assertSame('<?php endif;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php endif;?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -135,7 +135,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ForInStatement();
         $string = '#for ($name => $last_name in $names)#endfor';
-        $this->assertSame('<?php foreach($names as $name => $last_name):?><?php endforeach;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php foreach($names as $name => $last_name):?><?php endforeach;?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -147,7 +147,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ForInValueOnlyStatement();
         $string = '#for ($name in $names)#endfor';
-        $this->assertSame('<?php foreach($names as $name):?><?php endforeach;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php foreach($names as $name):?><?php endforeach;?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -157,9 +157,9 @@ class ParserTest extends TestCase
      */
     public function testForLoop()
     {
-        $directive = new Directives\ForLoop();
+        $directive = new Directives\ForLoopStatement();
         $string = '#for ($i = 0; $i <=10; $i++)#endfor';
-        $this->assertSame('<?php for($i = 0;$i <=10;$i++):?><?php endfor;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php for($i = 0;$i <=10;$i++):?><?php endfor;?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -169,9 +169,21 @@ class ParserTest extends TestCase
      */
     public function testWhileLoop()
     {
-        $directive = new Directives\WhileLoop();
+        $directive = new Directives\WhileLoopStatement();
         $string = '#while (TRUE)#endwhile';
-        $this->assertSame('<?php while(TRUE):?><?php endwhile;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php while(TRUE):?><?php endwhile;?>', $this->parser->parseSingle($directive, $string));
+    }
+
+    /**
+     * test do while loop.
+     *
+     * @return void
+     */
+    public function testDoWhileLoop()
+    {
+        $directive = new Directives\DoWhileStatement();
+        $string = '#do hello #while(TRUE)';
+        $this->assertSame('<?php do { ?> hello <?php } while ( TRUE );?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -183,7 +195,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\BreakStatement();
         $string = '#break';
-        $this->assertSame('<?php break;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php break;?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -195,7 +207,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ContinueStatement();
         $string = '#continue';
-        $this->assertSame('<?php continue;?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?php continue;?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -207,7 +219,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\IncludeStatement();
         $string = '#include("ex")';
-        $this->assertSame('', $this->parser->parse($directive, $string));
+        $this->assertSame('', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -219,7 +231,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\IncludeStatement();
         $string = '#require("ex")';
-        $this->assertSame('', $this->parser->parse($directive, $string));
+        $this->assertSame('', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -231,7 +243,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\ExtendsStatement();
         $string = '#extends("ex")';
-        $this->assertSame('', $this->parser->parse($directive, $string));
+        $this->assertSame('', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -243,7 +255,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\YieldStatement();
         $string = '#yield("caprice")';
-        $this->assertSame('section "caprice" not found', $this->parser->parse($directive, $string));
+        $this->assertSame('', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -257,7 +269,7 @@ class ParserTest extends TestCase
         $string = '#yield("caprice")';
         $string .= '#section("caprice")#endsection';
 
-        $this->assertSame('#section("caprice")#endsection', $this->parser->parse($directive, $string));
+        $this->assertSame('#section("caprice")#endsection', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -269,7 +281,7 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\DumpStatement();
         $string = '#dump ($var) #dd($var)';
-        $this->assertSame('<?= dump($var);?> <?= dump($var);?>', $this->parser->parse($directive, $string));
+        $this->assertSame('<?= dump($var);?> <?= dump($var);?>', $this->parser->parseSingle($directive, $string));
     }
 
     /**
@@ -281,6 +293,6 @@ class ParserTest extends TestCase
     {
         $directive = new Directives\HtmlCommentStatement();
         $string = '<!-- this is html comment that should be removed :) -->';
-        $this->assertSame('', $this->parser->parse($directive, $string));
+        $this->assertSame('', $this->parser->parseSingle($directive, $string));
     }
 }

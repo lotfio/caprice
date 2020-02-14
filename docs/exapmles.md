@@ -2,11 +2,11 @@
 - you can write any php inside code blocks
 
 ```js
-    ((
+    (<
         $var1 = "foo";
         $var2 = "bar";
         echo $var1 . " and " . $var2;
-     ))
+     >)
 ```
 
 # echo statement
@@ -86,14 +86,31 @@
 # while loop
 - while loop syntax
 ```js
-    // for loop
+    // while loop
     #while (TRUE)
         (- " do something" -)
     #endwhile
 ```
 
+# do while loop
+- do while syntax
+```js
+    // do while 
+    #do
+        (- " do something" -)
+    #while(TRUE)
+```
+
+# continue & break loop
+```js
+    // continue & break statments
+    #while (TRUE)
+        #if(condition) #continue
+        #if(annother_condition) #break
+    #endwhile
+```
+
 # include / require statements
-- while loop syntax
 ```js
     // include/require statments
     // you can remove .cap.php extension for both

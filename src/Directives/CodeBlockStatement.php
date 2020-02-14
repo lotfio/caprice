@@ -6,7 +6,7 @@ namespace Caprice\Directives;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.3.0
+ * @version     0.4.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -16,14 +16,14 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class CodeBlock implements DirectiveInterface
+class CodeBlockStatement implements DirectiveInterface
 {
     /**
      * pattern property.
      *
      * @var string
      */
-    public $pattern = '/\({2}(.*?)\){2}/s';
+    public $pattern = '/\(\<(.*?)\>\)/s';
 
     /**
      * directive replace method.
