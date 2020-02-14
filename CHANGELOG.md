@@ -17,3 +17,4 @@
 - rename parseFile to parse (as it applies all the directives to te given file or string)
 
 - no error when sections not found
+- fix closing parenthesis when using a function in loops
