@@ -23,7 +23,7 @@ class DoWhileStatement implements DirectiveInterface
      *
      * @var string
      */
-    public $pattern = '/#do(.*?)#while\s*\(([\$\w+\d+\s*\<\=\>\!\)\(\,\.\-\|]+)\)/s';
+    public $pattern = '/#do(.*?)#while\s*\(([^\r\n]+)\)/s';
 
     /**
      * directive replace method.

@@ -169,11 +169,22 @@ class ParserTest extends TestCase
      */
     public function testWhileLoop()
     {
-        $directive = new Directives\WhileLoop();
+        $directive = new Directives\WhileLoopStatement();
         $string = '#while (TRUE)#endwhile';
         $this->assertSame('<?php while(TRUE):?><?php endwhile;?>', $this->parser->parseSingle($directive, $string));
     }
 
+    /**
+     * test do while loop.
+     *
+     * @return void
+     */
+    public function testDoWhileLoop()
+    {
+        $directive = new Directives\DoWhileStatement();
+        $string = '#do hello #while(TRUE)';
+        $this->assertSame('<?php do { ?> hello <?php } while ( TRUE );?>', $this->parser->parseSingle($directive, $string));
+    }
     /**
      * test break statement.
      *

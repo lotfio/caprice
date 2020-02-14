@@ -16,14 +16,14 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class WhileLoop implements DirectiveInterface
+class WhileLoopStatement implements DirectiveInterface
 {
     /**
      * pattern property.
      *
      * @var string
      */
-    public $pattern = '/#while\s*\(([\$\w+\d+\s*\<\=\>\!]+)\)(.*?)#endwhile/s';
+    public $pattern = '/(#while)\s*\(([^\r\n]+)\)\s*(.*?)\s*(#endwhile)/s';
 
     /**
      * directive replace method.
@@ -36,6 +36,6 @@ class WhileLoop implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir): string
     {
-        return '<?php while('.trim($match[1]).'):?>'.trim($match[2]).'<?php endwhile;?>';
+        return '<?php while('.trim($match[2]).'):?>'.trim($match[3]).'<?php endwhile;?>';
     }
 }
