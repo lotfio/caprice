@@ -15,6 +15,6 @@
 ## 0.4.0
 - rename parse to parseSigle (as it applies one single diretive to the given file or string)
 - rename parseFile to parse (as it applies all the directives to te given file or string)
-
+- fix code block statement to avoid collision with multiple functions call
 - no error when sections not found
 - fix closing parenthesis when using a function in loops
