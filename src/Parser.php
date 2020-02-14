@@ -87,10 +87,10 @@ class Parser implements ParserInterface
         foreach ($this->directives as $directive) {
 
             //remove class suffix
-            $directive = str_replace('::class', NULL, $directive);
+            $directive = str_replace('::class', null, $directive);
 
             if (class_exists($directive)) {
-                $this->file = $this->parseSingle(new $directive, $this->file);
+                $this->file = $this->parseSingle(new $directive(), $this->file);
             }
         }
 

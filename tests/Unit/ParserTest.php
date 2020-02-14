@@ -185,6 +185,7 @@ class ParserTest extends TestCase
         $string = '#do hello #while(TRUE)';
         $this->assertSame('<?php do { ?> hello <?php } while ( TRUE );?>', $this->parser->parseSingle($directive, $string));
     }
+
     /**
      * test break statement.
      *
