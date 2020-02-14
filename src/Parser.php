@@ -87,7 +87,7 @@ class Parser implements ParserInterface
         $this->file = $file;
 
         foreach ($this->directives as $class) {
-            $class = str_replace('::class', NULL, $class);
+            $class = str_replace('::class', null, $class);
 
             if (class_exists($class)) {
                 $this->file = $this->parse(new $class(), $this->file);
