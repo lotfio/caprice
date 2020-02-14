@@ -36,6 +36,6 @@ class DoWhileStatement implements DirectiveInterface
      */
     public function replace(array $match, string $file, string $filesDir): string
     {
-        return '<?php do{ ?> '.trim($match[1]).' <?php } while ( '.trim($match[2]).' );?>';
+        return '<?php do { ?> '.trim($match[1]).' <?php } while ( '.trim($match[2]).' );?>';
     }
 }
