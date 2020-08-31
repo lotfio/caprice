@@ -14,10 +14,21 @@ namespace Caprice;
  *
  */
 
-use Caprice\Contracts\DirectiveInterface;
-use Caprice\Contracts\ParserInterface;
+use Caprice\Contracts\RulesParserInterface;
 
-class RuleParser implements RuleParserInterface
+class RulesParser implements RulesParserInterface
 {
+    /**
+     * rule parser
+     *
+     * @param array $rules
+     * @return void
+     */
+    public function parse(array $rules)
+    {
+       
 
+        print_r($rules);
+
+    }
 }

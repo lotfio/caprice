@@ -34,12 +34,26 @@ class CapriceRules
      */
     public function add(string $directive, $callback) : self
     {
+        $this->checkValidDirective($directive);
+
         $this->rules = [
-            'directive' => $directive,
+            'directive' => '~' . $directive . '(.*)~',
             'replace'   => $callback
         ];
 
         return $this;
+    }
+
+    /**
+     * check if directive is valid
+     *
+     * @param  string $directive
+     * @return void
+     */
+    public function checkValidDirective(string $directive)
+    {
+        if(preg_match('/[\~\(\)\.\*]/', $directive))
+            throw new \Exception("Directive characters not allowed.");
     }
 
     /**

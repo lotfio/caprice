@@ -30,7 +30,8 @@ class Caprice implements CapriceInterface
      */
     public function __construct()
     {
-        $this->rules = new CapriceRules;
+        $this->rules  = new CapriceRules;
+        $this->parser = new RulesParser;
     }
 
     /**
@@ -55,8 +56,10 @@ class Caprice implements CapriceInterface
     public function compile(string $inputFile, string $outputFile)
     {
         // apply parsing to al rules
+        $rules = &$this->rules->list();
 
-        \print_r($this->rules->list());
+        $this->parser->parse($rules);
+
         // generate view file
     }
 }

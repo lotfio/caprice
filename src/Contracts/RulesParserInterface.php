@@ -14,7 +14,7 @@ namespace Caprice\Contracts;
  *
  */
 
-interface RuleParserInterface
+interface RulesParserInterface
 {
-    public function parse();
+    public function parse(array $rules);
 }
