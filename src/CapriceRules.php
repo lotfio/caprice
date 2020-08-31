@@ -32,12 +32,23 @@ class CapriceRules
      * @param  mixed $callback
      * @return void
      */
-    public function add(string $directive, $callback)
+    public function add(string $directive, $callback) : self
     {
         $this->rules = [
             'directive' => $directive,
-            'callback'  => $callback
+            'replace'   => $callback
         ];
+
+        return $this;
     }
-    
+
+    /**
+     * list all available rules
+     *
+     * @return array
+     */
+    public function &list() : array
+    {
+        return $this->rules;
+    }
 }

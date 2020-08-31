@@ -13,9 +13,8 @@ namespace Caprice\Contracts;
  * @link        https://github.com/lotfio/caprice
  *
  */
-use Caprice\CapriceRules;
 
-interface CapriceInterface
+interface RuleParserInterface
 {
-    public function directive(string $directive, $callback): CapriceRules;
+    public function parse();
 }

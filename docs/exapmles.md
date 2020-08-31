@@ -10,7 +10,7 @@
 ```
 
 # echo statement
-- you sould use single quotes or duble quotes for strings otherwise it will be evaluated as a constant
+- you should use single quotes or double quotes for strings otherwise it will be evaluated as a constant
 ```js
     (- " hello caprice " -)
 ```
@@ -48,7 +48,7 @@
 - if elseif
 ```js
     #if ($condiftion)
-     // iflogic
+     // if logic
 
     #elif ($condition2)
 
@@ -103,16 +103,16 @@
 
 # continue & break loop
 ```js
-    // continue & break statments
+    // continue & break statements
     #while (TRUE)
         #if(condition) #continue
-        #if(annother_condition) #break
+        #if(another_condition) #break
     #endwhile
 ```
 
 # include / require statements
 ```js
-    // include/require statments
+    // include/require statements
     // you can remove .cap.php extension for both
     // you use . to access folder instead of /
     #require("file.cap.php")

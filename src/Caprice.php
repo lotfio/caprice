@@ -15,8 +15,6 @@ namespace Caprice;
  */
 
 use Caprice\Contracts\CapriceInterface;
-use Caprice\Exception\DirNotFoundException;
-use Caprice\Exception\FileNotFoundException;
 
 class Caprice implements CapriceInterface
 {
@@ -48,14 +46,17 @@ class Caprice implements CapriceInterface
     }
 
     /**
-     * Undocumented function
+     * compile cap file
      *
      * @param  string $inputFile
      * @param  string $outputFile
      * @return CapriceCompiler
      */
-    public function compile(string $inputFile, string $outputFile) : CapriceCompiler
+    public function compile(string $inputFile, string $outputFile)
     {
+        // apply parsing to al rules
 
+        \print_r($this->rules->list());
+        // generate view file
     }
 }

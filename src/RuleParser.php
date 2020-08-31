@@ -1,6 +1,6 @@
 <?php
 
-namespace Caprice\Contracts;
+namespace Caprice;
 
 /*
  * This file is a part of Caprice package
@@ -13,9 +13,11 @@ namespace Caprice\Contracts;
  * @link        https://github.com/lotfio/caprice
  *
  */
-use Caprice\CapriceRules;
 
-interface CapriceInterface
+use Caprice\Contracts\DirectiveInterface;
+use Caprice\Contracts\ParserInterface;
+
+class RuleParser implements RuleParserInterface
 {
-    public function directive(string $directive, $callback): CapriceRules;
+
 }
