@@ -16,5 +16,5 @@ namespace Caprice\Contracts;
 
 interface RulesParserInterface
 {
-    public function parse(array $rules);
+    public function parse(string $file, array $rules);
 }

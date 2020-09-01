@@ -24,11 +24,12 @@ class RulesParser implements RulesParserInterface
      * @param array $rules
      * @return void
      */
-    public function parse(array $rules)
+    public function parse(string $file, array $rules)
     {
-       
+        return preg_replace_callback($rules['directive'], function($match) use ($rules)
+        {
+            return \call_user_func($rules['replace'], $match[1]);
 
-        print_r($rules);
-
+        }, $file);
     }
 }
