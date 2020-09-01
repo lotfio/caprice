@@ -63,14 +63,23 @@ class Caprice implements CapriceInterface
             #if (10 == 10)
 
             #endif
+
+            #if (10 == 10)
+
+            #endif
+
+            #dump('hello')
         
+            #for(name in names)
+                (= name =)
+            #endfor
         ";
 
 
         foreach($rules as $rule)
-           $a = $this->parser->parse($file, $rule);
+           $file = $this->parser->parse($file, $rule);
 
-        echo $a;
+        echo $file;
         // generate view file
     }
 }

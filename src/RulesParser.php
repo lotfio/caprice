@@ -28,7 +28,7 @@ class RulesParser implements RulesParserInterface
     {
         return preg_replace_callback($rules['directive'], function($match) use ($rules)
         {
-            return \call_user_func($rules['replace'], $match[1]);
+            return \call_user_func($rules['replace'], trim($match[1]));
 
         }, $file);
     }
