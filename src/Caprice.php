@@ -73,6 +73,12 @@ class Caprice implements CapriceInterface
             #for(name in names)
                 (= name =)
             #endfor
+
+            #for((\$i = 0); \$i <= 10; \$i++)
+
+            #endfor
+
+            {{}}
         ";
 
 
