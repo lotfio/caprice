@@ -37,8 +37,8 @@ class CapriceRules
         $this->checkValidDirective($directive);
 
         $this->rules[] = [
-            'directive' => '~' . $directive . '(.*)~',
-            'replace'   => $callback
+            'directive' => '~' . $directive . '(\s*\(((.*))\))?~',
+            'replace'   =>       $callback
         ];
 
         return $this;

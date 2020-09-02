@@ -70,15 +70,14 @@ class Caprice implements CapriceInterface
 
             #dump('hello')
         
-            #for(name in names)
-                (= name =)
+            #for((name + 5) in names)
+               {{ }}
             #endfor
 
             #for((\$i = 0); \$i <= 10; \$i++)
 
             #endfor
 
-            {{}}
         ";
 
 
