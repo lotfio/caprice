@@ -19,23 +19,13 @@ use Caprice\Contracts\DirectiveInterface;
 class IfStatement implements DirectiveInterface
 {
     /**
-     * pattern property.
+     * replace
      *
-     * @var string
-     */
-    public $pattern = '/(#if)\s*\((.*)\)/';
-
-    /**
-     * directive replace method.
-     *
-     * @param array  $match
-     * @param string $file     original file
-     * @param string $filesDir .cap files dir
-     *
+     * @param  string $expression
      * @return string
      */
-    public function replace(array $match, string $file, string $filesDir): string
+    public function replace(string $expression): string
     {
-        return '<?php if('.trim($match[2]).'):?>';
+        return "<?php if" . ($expression) . ":?>";
     }
 }

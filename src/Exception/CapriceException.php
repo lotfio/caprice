@@ -14,6 +14,6 @@ namespace Caprice\Exception;
  *
  */
 
- class DirNotFoundException extends \Exception
+ class CapriceException extends \Exception
  {
  }

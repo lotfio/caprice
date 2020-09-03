@@ -1,6 +1,6 @@
 <?php
 
-namespace Caprice\Exception;
+namespace Caprice\Contracts;
 
 /*
  * This file is a part of Caprice package
@@ -14,6 +14,7 @@ namespace Caprice\Exception;
  *
  */
 
- class FileNotFoundException extends \Exception
- {
- }
+interface  DirectiveInterface
+{
+    public function replace(string $expression) : string;
+}

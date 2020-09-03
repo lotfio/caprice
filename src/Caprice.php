@@ -57,29 +57,7 @@ class Caprice implements CapriceInterface
     {
         // apply parsing to al rules
         $rules = &$this->rules->list();
-
-        $file = "
-        
-            #if (10 == 10)
-
-            #endif
-
-            #if (10 == 10)
-
-            #endif
-
-            #dump('hello')
-        
-            #for((name + 5) in names)
-               {{ }}
-            #endfor
-
-            #for((\$i = 0); \$i <= 10; \$i++)
-
-            #endfor
-
-        ";
-
+        $file  = \file_get_contents('caprice.php');
 
         foreach($rules as $rule)
            $file = $this->parser->parse($file, $rule);
