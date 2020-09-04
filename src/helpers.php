@@ -47,3 +47,17 @@ if (!function_exists('dump')) {
         echo '</pre>';
     }
 }
+
+if (!function_exists('__escape')) {
+    /**
+     * dump data method.
+     *
+     * @param mixed $variable
+     *
+     * @return void
+     */
+    function __escape($variable)
+    {
+        return htmlentities($variable, ENT_QUOTES, 'UTF-8');
+    }
+}

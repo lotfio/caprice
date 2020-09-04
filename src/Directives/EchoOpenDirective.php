@@ -26,6 +26,6 @@ class EchoOpenDirective implements DirectiveInterface
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        return '<?=';
+        return '<?=__escape(';
     }
 }
