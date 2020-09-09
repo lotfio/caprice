@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.4.0
+ * @version     1.0.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -32,28 +32,14 @@ class CapriceRules
      * @param  mixed $callback
      * @return void
      */
-    public function add(string $directive, $callback) : self
+    public function add(string $directive, $callback, $custom) : self
     {
-        $this->checkValidDirective($directive);
-
         $this->rules[] = [
-            'directive' => '~' . $directive . '(\s*\(((.*))\))?~',
-            'replace'   =>       $callback
+            'directive' => $custom ? $directive : '~' . $directive . '(\s*\(((.*))\))?~',
+            'replace'   => $callback
         ];
 
         return $this;
-    }
-
-    /**
-     * check if directive is valid
-     *
-     * @param  string $directive
-     * @return void
-     */
-    public function checkValidDirective(string $directive)
-    {
-        if(preg_match('/[\~\(\)\.\*]/', $directive))
-            throw new \Exception("Directive characters not allowed.");
     }
 
     /**

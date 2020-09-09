@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     0.4.0
+ * @version     1.0.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -15,15 +15,37 @@ namespace Caprice;
  */
 
 use Caprice\Contracts\CapriceInterface;
+use Caprice\Exception\CapriceException;
 
 class Caprice implements CapriceInterface
-{
+{    
     /**
-     * caprice rules
+     * rules array
      *
      * @var array
      */
     protected $rules;
+
+    /**
+     * parser 
+     *
+     * @var object
+     */
+    protected $parser;
+
+    /**
+     * compile from directory
+     *
+     * @var  string
+     */
+    protected $compileFromDir;
+
+    /**
+     * compile to directory
+     *
+     * @var  string
+     */
+    protected $compileToDir;
 
     /**
      * set up
@@ -37,32 +59,56 @@ class Caprice implements CapriceInterface
     /**
      * add directive method 
      *
-     * @param  string $directive
-     * @param  mixed $callback
-     * @return CapriceRules
+     * @param   string $directive
+     * @param   mixed $callback
+     * @param   bool $custom 
+     * @return  CapriceRules
      */
-    public function directive(string $directive, $callback) : CapriceRules
+    public function directive(string $directive, $callback, $custom = false) : CapriceRules
     {
-        return $this->rules->add($directive, $callback);
+        return $this->rules->add($directive, $callback, $custom);
+    }
+
+    /**
+     * set compile locations
+     *
+     * @param string $compileFromDir
+     * @param string $compileToDir
+     * @return void
+     */
+    public function setLocations(string $compileFromDir, string $compileToDir) : void
+    {
+        if(!is_dir($compileFromDir) || !is_writable($compileFromDir))
+            throw new CapriceException("input location $compileFromDir is not a valid writable directory.");
+
+        if(!is_dir($compileToDir) || !is_writable($compileToDir))
+            throw new CapriceException("input location $compileToDir is not a valid writable directory.");
+
+        $this->compileFromDir = $compileFromDir;
+        $this->compileToDir   = $compileToDir;
+    }
+
+    /**
+     * load predefined directives
+     *
+     * @return void
+     */
+    public function loadDirectives() : void
+    {
+        $caprice = $this;
+        require_once 'rules.php';
     }
 
     /**
      * compile cap file
      *
-     * @param  string $inputFile
-     * @param  string $outputFile
-     * @return CapriceCompiler
+     * @param string $filename
+     * @return boolean
      */
-    public function compile(string $inputFile, string $outputFile)
+    public function compile(string $filename) : string
     {
-        // apply parsing to al rules
-        $rules = &$this->rules->list();
-        $file  = \file_get_contents('caprice.php');
-
-        foreach($rules as $rule)
-           $file = $this->parser->parse($file, $rule);
-
-        echo $file;
-        // generate view file
+        $this->loadDirectives();
+        $compiler = new Compiler($this->parser, $this->rules);
+        return $compiler->compile($this->compileFromDir . $filename, $this->compileToDir);
     }
 }
