@@ -32,7 +32,7 @@ class CapriceRules
      * @param  mixed $callback
      * @return void
      */
-    public function add(string $directive, $callback, $custom) : self
+    public function add(string $directive, $callback, bool $custom) : self
     {
         $this->rules[] = [
             'directive' => $custom ? $directive : '~' . $directive . '(\s*\(((.*))\))?~',

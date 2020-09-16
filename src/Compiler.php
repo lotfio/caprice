@@ -61,21 +61,20 @@ class Compiler implements CompilerInterface
      * compile caprice file
      *
      * @param  string $filename
-     * @return string
+     * @param  string $outputLocation
+     * @return bool
      */
     public function compile(string $filename, string $outputLocation) : bool
     {
         // apply parsing to al rules
-        $rules = &$this->rules->list();
+        $rules    = $this->rules->list();
 
-        $file  = \file_get_contents('index.cap.php');
+        $content  = \file_get_contents($filename);
 
         for($i = 0; $i < count($rules); $i++)
             foreach($rules as $rule)
-                $file = $this->parser->parse($file, $rule);
-
+                $content = $this->parser->parse($content, $rule);
         
-
-        return $file;
+        return file_put_contents($outputLocation . SHA1($filename) . '.php', $content);
     }
 }

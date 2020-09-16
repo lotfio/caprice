@@ -18,7 +18,12 @@ use Caprice\Contracts\CapriceInterface;
 use Caprice\Exception\CapriceException;
 
 class Caprice implements CapriceInterface
-{    
+{   
+    /**
+     * caprice trait
+     */
+    use CapriceTrait;
+
     /**
      * rules array
      *
@@ -38,14 +43,14 @@ class Caprice implements CapriceInterface
      *
      * @var  string
      */
-    protected $compileFromDir;
+    protected $compileFromDir = './';
 
     /**
      * compile to directory
      *
      * @var  string
      */
-    protected $compileToDir;
+    protected $compileToDir   = './';
 
     /**
      * set up
@@ -70,36 +75,6 @@ class Caprice implements CapriceInterface
     }
 
     /**
-     * set compile locations
-     *
-     * @param string $compileFromDir
-     * @param string $compileToDir
-     * @return void
-     */
-    public function setLocations(string $compileFromDir, string $compileToDir) : void
-    {
-        if(!is_dir($compileFromDir) || !is_writable($compileFromDir))
-            throw new CapriceException("input location $compileFromDir is not a valid writable directory.");
-
-        if(!is_dir($compileToDir) || !is_writable($compileToDir))
-            throw new CapriceException("input location $compileToDir is not a valid writable directory.");
-
-        $this->compileFromDir = $compileFromDir;
-        $this->compileToDir   = $compileToDir;
-    }
-
-    /**
-     * load predefined directives
-     *
-     * @return void
-     */
-    public function loadDirectives() : void
-    {
-        $caprice = $this;
-        require_once 'rules.php';
-    }
-
-    /**
      * compile cap file
      *
      * @param string $filename
@@ -107,8 +82,16 @@ class Caprice implements CapriceInterface
      */
     public function compile(string $filename) : string
     {
-        $this->loadDirectives();
+        // load predefined
+        $this->loadPredefinedDirectives();
+
         $compiler = new Compiler($this->parser, $this->rules);
-        return $compiler->compile($this->compileFromDir . $filename, $this->compileToDir);
+        
+        if($compiler->compile($this->compileFromDir . $filename, $this->compileToDir) === TRUE)
+        {
+            return $this->compileToDir . SHA1($filename) . '.php';
+        }
+
+        return FALSE;
     }
 }

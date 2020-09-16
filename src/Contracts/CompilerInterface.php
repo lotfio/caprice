@@ -25,7 +25,7 @@ interface CompilerInterface
      * @param  string $file cap file
      * @param  string output location
      *
-     * @return string
+     * @return bool
      */
     public function compile(string $file, string $outputLocation): bool;
 }
