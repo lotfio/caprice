@@ -35,14 +35,22 @@ class Compiler implements CompilerInterface
     protected $parser;
 
     /**
+     * recompile mode
+     *
+     * @var  bool
+     */
+    protected $recompile = false;
+
+    /**
      * setup compiler
      *
      * @param RulesParserInterface $rules
      */
-    public function __construct(RulesParserInterface $parser, CapriceRules $rules)
+    public function __construct(RulesParserInterface $parser, CapriceRules $rules, bool $recompile)
     {
-        $this->parser = $parser;
-        $this->rules  = $rules;
+        $this->parser    = $parser;
+        $this->rules     = $rules;
+        $this->recompile = $recompile;
     }
 
     /**
@@ -75,8 +83,7 @@ class Compiler implements CompilerInterface
         $content  = \file_get_contents($filename);
         $tempFile = $outputLocation . SHA1($filename) . '.php';
 
-
-        if($this->isModified($filename, $tempFile)) // if cap file is modified or doesn't exists
+        if($this->recompile || $this->isModified($filename, $tempFile)) // if cap file is modified or doesn't exists
         {
             for($i = 0; $i < count($rules); $i++)
                 foreach($rules as $rule)

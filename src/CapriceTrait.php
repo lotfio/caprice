@@ -23,7 +23,7 @@ trait CapriceTrait
      * @param  string $compileToDir
      * @return Caprice
      */
-    public function setCompileLocations(string $compileFromDir, string $compileToDir) : self
+    public function setCompileLocations(string $compileFromDir, string $compileToDir): self
     {
         if(!is_dir($compileFromDir) || !is_writable($compileFromDir))
             throw new CapriceException("input location $compileFromDir is not a valid writable directory.");
@@ -42,10 +42,21 @@ trait CapriceTrait
      *
      * @return Caprice
      */
-    public function loadPredefinedDirectives() : self
+    public function loadPredefinedDirectives(): self
     {
         $caprice = $this;
         require_once 'rules.php';
+        return $this;
+    }
+
+    /**
+     * enable recompile 
+     *
+     * @return void
+     */
+    public function enableRecompile(): self
+    {
+        $this->recompile = TRUE; 
         return $this;
     }
 

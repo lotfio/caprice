@@ -53,6 +53,13 @@ class Caprice implements CapriceInterface
     protected $compileToDir   = './';
 
     /**
+     * recompile mode
+     *
+     * @var  bool
+     */
+    protected $recompile = false;
+
+    /**
      * set up
      */
     public function __construct()
@@ -83,7 +90,7 @@ class Caprice implements CapriceInterface
      */
     public function compile(string $filename) : string
     {
-        $compiler = new Compiler($this->parser, $this->rules);
+        $compiler = new Compiler($this->parser, $this->rules, $this->recompile);
 
         return $compiler->compile(
             $this->compileFromDir . $filename, 
