@@ -15,9 +15,8 @@ namespace Caprice;
  */
 
 use Caprice\Contracts\CompilerInterface;
-use Caprice\Exception\DirNotFoundException;
-use Caprice\Exception\FileNotFoundException;
 use Caprice\Contracts\RulesParserInterface;
+use Caprice\Exception\CapriceException;
 
 class Compiler implements CompilerInterface
 {
@@ -49,12 +48,12 @@ class Compiler implements CompilerInterface
     /**
      * check if file is modified
      *
-     * @param string $filename
+     * @param  string $filename
      * @return boolean
      */
-    protected function isModified(string $file, string $tempFile) : bool
+    protected function isModified(string $file, string $tempFile): bool
     {
-        
+        return !file_exists($tempFile) || filemtime($file) !== filemtime($tempFile);
     }
 
     /**
@@ -62,19 +61,35 @@ class Compiler implements CompilerInterface
      *
      * @param  string $filename
      * @param  string $outputLocation
-     * @return bool
+     * 
+     * @return string
      */
-    public function compile(string $filename, string $outputLocation) : bool
+    public function compile(string $filename, string $outputLocation): string
     {
+        if(!file_exists($filename))
+            throw new CapriceException("file $filename not found.");
+
         // apply parsing to al rules
         $rules    = $this->rules->list();
 
         $content  = \file_get_contents($filename);
+        $tempFile = $outputLocation . SHA1($filename) . '.php';
 
-        for($i = 0; $i < count($rules); $i++)
-            foreach($rules as $rule)
-                $content = $this->parser->parse($content, $rule);
+
+        if($this->isModified($filename, $tempFile)) // if cap file is modified or doesn't exists
+        {
+            for($i = 0; $i < count($rules); $i++)
+                foreach($rules as $rule)
+                    $content = $this->parser->parse($content, $rule);
+
+            //save file 
+            if(file_put_contents($tempFile, $content))
+                touch($filename); touch($tempFile);
+        }
         
-        return file_put_contents($outputLocation . SHA1($filename) . '.php', $content);
+        if(!file_exists($tempFile))
+            throw new CapriceException("error compiling, file $tempFile not found.");
+
+        return require_once $tempFile;
     }
 }

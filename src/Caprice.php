@@ -69,7 +69,7 @@ class Caprice implements CapriceInterface
      * @param   bool $custom 
      * @return  CapriceRules
      */
-    public function directive(string $directive, $callback, $custom = false) : CapriceRules
+    public function directive(string $directive, $callback, $custom = false): CapriceRules
     {
         return $this->rules->add($directive, $callback, $custom);
     }
@@ -77,21 +77,17 @@ class Caprice implements CapriceInterface
     /**
      * compile cap file
      *
-     * @param string $filename
-     * @return boolean
+     * @param  string $filename
+     * 
+     * @return string
      */
     public function compile(string $filename) : string
     {
-        // load predefined
-        $this->loadPredefinedDirectives();
-
         $compiler = new Compiler($this->parser, $this->rules);
-        
-        if($compiler->compile($this->compileFromDir . $filename, $this->compileToDir) === TRUE)
-        {
-            return $this->compileToDir . SHA1($filename) . '.php';
-        }
 
-        return FALSE;
+        return $compiler->compile(
+            $this->compileFromDir . $filename, 
+            $this->compileToDir
+        ); 
     }
 }
