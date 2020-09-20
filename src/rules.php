@@ -14,11 +14,13 @@
 
 $caprice->directive('#if', Caprice\Directives\IfDirective::class);
 $caprice->directive('#endif', Caprice\Directives\EndIfDirective::class);
+$caprice->directive('#elseif', Caprice\Directives\ElseIfDirective::class);
 
 $caprice->directive('{{', Caprice\Directives\EchoOpenDirective::class);
 $caprice->directive('}}', Caprice\Directives\EchoCloseDirective::class);
 
 $caprice->directive('#dump', Caprice\Directives\DumpDirective::class);
+$caprice->directive('#dd', Caprice\Directives\DumpDirective::class);
 
 $caprice->directive('#for', Caprice\Directives\ForDirective::class);
 $caprice->directive('#endforin', Caprice\Directives\EndForInDirective::class);
@@ -30,8 +32,8 @@ $caprice->directive('#endwhile', Caprice\Directives\EndWhileDirective::class);
 $caprice->directive('#do', Caprice\Directives\DoWhileDirective::class);
 $caprice->directive('#enddo', Caprice\Directives\EndDoWhileDirective::class);
 
-$caprice->directive('#break', Caprice\Directives\EndDoWhileDirective::class);
-$caprice->directive('#continue', Caprice\Directives\EndDoWhileDirective::class);
+$caprice->directive('#break', Caprice\Directives\BreakDirective::class);
+$caprice->directive('#continue', Caprice\Directives\ContinueDirective::class);
 
 $caprice->directive('#extends', Caprice\Directives\ExtendsDirective::class);
 $caprice->directive('#yield', Caprice\Directives\YieldDirective::class);
