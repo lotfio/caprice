@@ -93,7 +93,7 @@ class Caprice implements CapriceInterface
         $compiler = new Compiler($this->parser, $this->rules, $this->recompile);
 
         return $compiler->compile(
-            $this->compileFromDir . $filename, 
+            $this->compileFromDir . dotPath($filename), 
             $this->compileToDir
         ); 
     }
