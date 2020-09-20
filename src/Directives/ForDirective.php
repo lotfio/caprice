@@ -29,6 +29,6 @@ class ForDirective implements DirectiveInterface
         if(preg_match('/\(((.*)(in)(.*))\)/', $expression, $match))
             return '<?php foreach('.$match[4]." as ". $match[2] ."):?>";
     
-        return '<?php for'.$expression.";>";
+        return '<?php for'.$expression.":?>";
     }
 }
