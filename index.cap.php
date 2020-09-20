@@ -25,6 +25,7 @@
     #if($age == 15)
         - age is {{ $age }}
     #endif
+
     <hr>
     <!-- else if statement -->
     #if($age == 10)
@@ -67,7 +68,6 @@
 
     <hr>
     <!-- break and continue loop -->
-
     #for($i = 0; $i < 10; $i++)
         #if($i == 3 || $i == 4) #continue #endif
         #if($i == 8) #break #endif
@@ -80,10 +80,28 @@
     #dd($names)
 
     <hr>
-    <!-- include / require -->
-    #include(_template)
-    #require(_template)
+    <!-- layout  --
+    #require(view)
+    #include(view)
     
+    <!-- extends main layout --
+    #extends("main")
+
+    <!-- yield section content --
+    #yield("section-name")
+
+    <!-- define a section --
+    #section("section-name") 
+        <!-- section content goes here --
+    #endsection -->
+    
+    #php $name = "lotfio"  #endphp 
+    
+    #if ($name == "mahdi")
+    
+    #else
+        {{ "asem machi mahdi" }}
+    #endif
 
 </body>
 </html>
