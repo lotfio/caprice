@@ -19,6 +19,7 @@ $caprice->directive('~<!--(.*)-->~sUm', Caprice\Directives\CommentDirective::cla
 $caprice->directive('#if', Caprice\Directives\IfDirective::class);
 $caprice->directive('#endif', Caprice\Directives\EndIfDirective::class);
 $caprice->directive('#elseif', Caprice\Directives\ElseIfDirective::class);
+$caprice->directive('#else', Caprice\Directives\ElseDirective::class);
 
 // echo 
 $caprice->directive('{{', Caprice\Directives\EchoOpenDirective::class);
