@@ -90,10 +90,14 @@ class Caprice implements CapriceInterface
      */
     public function compile(string $filename) : string
     {
-        $compiler = new Compiler($this->parser, $this->rules, $this->recompile);
+        define('COMPILE_FROM', $this->compileFromDir);
+        define('COMPILE_TO'  , $this->compileToDir);
+        define('RE_COMPILE'  , $this->recompile);
+
+        $compiler = new Compiler($this->parser, $this->rules);
 
         return $compiler->compile(
-            $this->compileFromDir . $filename, 
+            $this->compileFromDir . dotPath($filename), 
             $this->compileToDir
         ); 
     }

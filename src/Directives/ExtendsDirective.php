@@ -27,11 +27,11 @@ class ExtendsDirective implements DirectiveInterface
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        $file = dotPath(trim(str_replace('.', '/', $expression), ')("\''));
+        $path = COMPILE_FROM . dotPath(trim(str_replace('.', '/', $expression), ')("\''));
 
-        if(!\file_exists($file))
-            throw new CapriceException("file $file not found");
+        if(!\file_exists($path))
+            throw new CapriceException("file $path not found");
 
-        return file_get_contents($file);
+        return file_get_contents($path);
     }
 }
