@@ -27,8 +27,8 @@ $caprice->directive('#endfor', Caprice\Directives\EndForDirective::class);
 $caprice->directive('#while', Caprice\Directives\WhileDirective::class);
 $caprice->directive('#endwhile', Caprice\Directives\EndWhileDirective::class);
 
-$caprice->directive('#dowhile', Caprice\Directives\DoWhileDirective::class);
-$caprice->directive('#enddowhile', Caprice\Directives\EndDoWhileDirective::class);
+$caprice->directive('#do', Caprice\Directives\DoWhileDirective::class);
+$caprice->directive('#enddo', Caprice\Directives\EndDoWhileDirective::class);
 
 $caprice->directive('#break', Caprice\Directives\EndDoWhileDirective::class);
 $caprice->directive('#continue', Caprice\Directives\EndDoWhileDirective::class);
@@ -41,5 +41,9 @@ $caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', Caprice\Directive
 $caprice->directive('#include', Caprice\Directives\IncludeDirective::class);
 $caprice->directive('#require', Caprice\Directives\IncludeDirective::class);
 
+$caprice->directive('#php', Caprice\Directives\PhpDirective::class);
+$caprice->directive('#endphp', Caprice\Directives\EndPhpDirective::class);
 
+// additional helpers directives
+$caprice->directive('~<!--(.*)-->~sUm', Caprice\Directives\CommentDirective::class, true);
 $caprice->directive('~[\r\n]+~', Caprice\Directives\ClearLinesDirective::class, true);
