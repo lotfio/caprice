@@ -14,25 +14,26 @@ namespace Caprice;
  *
  */
 
-use Caprice\Contracts\RulesParserInterface;
+use Caprice\Contracts\RuleParserInterface;
 use Caprice\Exception\CapriceException;
 
-class RulesParser implements RulesParserInterface
+class RuleParser implements RuleParserInterface
 {
     /**
      * rule parser
      *
-     * @param array $rules
-     * @return void
+     * @param  string $file
+     * @param  array $rule
+     * @return string
      */
-    public function parse(string $file, array $rules)
+    public function parse(string $file, array $rule): string
     {
-        return preg_replace_callback($rules['directive'], function($match) use ($rules, $file)
+        return preg_replace_callback($rule['directive'], function($match) use ($rule, $file)
         {
-            if(is_string($rules['replace']) && !$rules['replace'] instanceof \Closure)
-                return $this->parseClassMethod($rules['replace'], $match, $file);
+            if(is_string($rule['replace']) && !$rule['replace'] instanceof \Closure)
+                return $this->parseClassMethod($rule['replace'], $match, $file);
 
-            return $this->parseCallback($rules['replace'], $match, $file);
+            return $this->parseCallback($rule['replace'], $match, $file);
             
         }, $file);
     }
@@ -55,7 +56,7 @@ class RulesParser implements RulesParserInterface
      *
      * @param  mixed $class
      * @param  array $parameters
-     * @param string $file
+     * @param  string $file
      * @return void
      */
     protected function parseClassMethod($class, $parameters, $file)
