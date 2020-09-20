@@ -65,7 +65,7 @@ class Caprice implements CapriceInterface
     public function __construct()
     {
         $this->rules  = new CapriceRules;
-        $this->parser = new RulesParser;
+        $this->parser = new RuleParser;
     }
 
     /**

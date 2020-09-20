@@ -15,7 +15,7 @@ namespace Caprice;
  */
 
 use Caprice\Contracts\CompilerInterface;
-use Caprice\Contracts\RulesParserInterface;
+use Caprice\Contracts\RuleParserInterface;
 use Caprice\Exception\CapriceException;
 
 class Compiler implements CompilerInterface
@@ -46,7 +46,7 @@ class Compiler implements CompilerInterface
      *
      * @param RulesParserInterface $rules
      */
-    public function __construct(RulesParserInterface $parser, CapriceRules $rules, bool $recompile)
+    public function __construct(RuleParserInterface $parser, CapriceRules $rules, bool $recompile)
     {
         $this->parser    = $parser;
         $this->rules     = $rules;

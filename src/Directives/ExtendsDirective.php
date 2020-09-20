@@ -15,6 +15,7 @@ namespace Caprice\Directives;
  */
 
 use Caprice\Contracts\DirectiveInterface;
+use Caprice\Exception\CapriceException;
 
 class ExtendsDirective implements DirectiveInterface
 {

@@ -1,35 +1,22 @@
 # code block
 - you can write any php inside code blocks
 
-```js
-    (<
+```cpp
+    #php
         $var1 = "foo";
         $var2 = "bar";
         echo $var1 . " and " . $var2;
-     >)
+    #endphp
 ```
 
 # echo statement
-- you should use single quotes or double quotes for strings otherwise it will be evaluated as a constant
-```js
-    (- " hello caprice " -)
-```
-
-# echo escaped statement
-- echo with escape using UTF-8 charset
-```js
-    (= " hello caprice " =)
-```
-
-# array access
-- you can access array keys using dot notation
-```js
-    $array.key  // evaluates $array["key"]
+```cpp
+    {{ " hello caprice " }}
 ```
 
 # if statement
 - if only
-```js
+```cpp
    // if statement
     #if ($condition)
 
@@ -37,7 +24,7 @@
     #endif
 ```
 - if else
-```js
+```cpp
    // if statement
     #if ($condition)
         // if logic
@@ -46,11 +33,11 @@
     #endif
 ```
 - if elseif
-```js
+```cpp
     #if ($condiftion)
      // if logic
 
-    #elif ($condition2)
+    #elseif ($condition2)
 
       // elseif logic
     #else
@@ -60,58 +47,58 @@
 
 # for in loop
 - for in loop value only
-```js
+```cpp
     // for in loop key only
     #for ($name in $array)
-        (- $name -)
-    #endfor
+        {{ $name }}
+    #endforin
 ```
 - for in loop key, value
-```js
+```cpp
     // for in loop key value
     #for ($name => $age in $array)
-        (- $name . '-' . $age -)
-    #endfor
+        {{ $name }} => {{ $age }}
+    #endforin
 ```
 
 # for loop
 - for loop syntax
-```js
+```cpp
     // for loop
     #for ($i = 0; $i <= 10; $i++)
-        (- $i . "<br>" -)
+        {{ $i }} <br>
     #endfor
 ```
 
 # while loop
 - while loop syntax
-```js
+```cpp
     // while loop
-    #while (TRUE)
-        (- " do something" -)
+    #while ($condition)
+        // loop
     #endwhile
 ```
 
 # do while loop
 - do while syntax
-```js
+```cpp
     // do while 
     #do
-        (- " do something" -)
-    #while(TRUE)
+        {{ "do something" }}
+    #enddo($whileCondition)
 ```
 
 # continue & break loop
-```js
+```cpp
     // continue & break statements
     #while (TRUE)
-        #if(condition) #continue
-        #if(another_condition) #break
+        #if(condition) #continue #endif
+        #if(another_condition) #break #endif
     #endwhile
 ```
 
 # include / require statements
-```js
+```cpp
     // include/require statements
     // you can remove .cap.php extension for both
     // you use . to access folder instead of /
@@ -119,8 +106,8 @@
     #include("file.cap.php")
 ```
 
-# layout directives
-```js
+# layout
+```cpp
     // extends a base layout
     // here we are extending master.cap.php from layouts folder
     #extends("layouts.master")
@@ -133,8 +120,8 @@
     #endsection
 ```
 
-# available functions
-```js
+# helpers
+```cpp
     // functions
     // dump
     #dump($variable) OR #dd($variable)
