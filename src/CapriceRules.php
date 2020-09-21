@@ -43,11 +43,11 @@ class CapriceRules
     }
 
     /**
-     * list all available rules
+     * get available rules
      *
      * @return array
      */
-    public function &list() : array
+    public function &getRules() : array
     {
         return $this->rules;
     }

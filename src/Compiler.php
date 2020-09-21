@@ -70,7 +70,7 @@ class Compiler implements CompilerInterface
             throw new CapriceException("file $filename not found.");
 
         // apply parsing to al rules
-        $rules    = $this->rules->list();
+        $rules    = $this->rules->getRules();
 
         $content  = \file_get_contents($filename);
         $tempFile = $outputLocation . SHA1($filename) . '.php';
