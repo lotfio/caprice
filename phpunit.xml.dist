@@ -12,6 +12,7 @@
     <testsuites>
         <testsuite name="caprice">
             <directory suffix=".php">./tests/</directory>
+            <exclude>./tests/stub</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

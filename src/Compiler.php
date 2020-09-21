@@ -89,6 +89,6 @@ class Compiler implements CompilerInterface
         if(!file_exists($tempFile))
             throw new CapriceException("error compiling, file $tempFile not found.");
 
-        return require_once $tempFile;
+        return $tempFile;
     }
 }

@@ -59,7 +59,7 @@ class CapriceRulesTest extends TestCase
      */
     public function testGetCapriceRules()
     {
-        $this->rules->add("#test/", "callback", false);
+        $this->rules->add("#test", "callback", false);
         $this->rules->add("/#test/", "callback", true);
 
         $this->assertCount(2, $this->rules->getRules());
