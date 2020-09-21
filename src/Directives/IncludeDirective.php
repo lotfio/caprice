@@ -27,7 +27,7 @@ class IncludeDirective implements DirectiveInterface
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        $file = dotPath(\trim($expression, (')(\'"')));
+        $file = COMPILE_FROM . dotPath(\trim($expression, (')(\'"')));
 
         if(!\file_exists($file))
             throw new CapriceException("file $file not found");
