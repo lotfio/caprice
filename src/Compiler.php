@@ -82,7 +82,7 @@ class Compiler implements CompilerInterface
                     $content = $this->parser->parse($content, $rule);
 
             //save file 
-            if(file_put_contents($tempFile, $content))
+            if(file_put_contents($tempFile, trim($content)))
                 touch($filename); touch($tempFile);
         }
         
