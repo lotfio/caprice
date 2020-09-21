@@ -19,8 +19,18 @@ use PHPUnit\Framework\TestCase;
 
 class CapriceRulesTest extends TestCase
 {
+    /**
+     * caprice rules
+     *
+     * @var object
+     */
     private $rules;
 
+    /**
+     * set up
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         $this->rules = new CapriceRules;

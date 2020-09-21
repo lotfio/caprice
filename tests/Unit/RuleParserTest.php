@@ -20,8 +20,18 @@ use Caprice\Exception\CapriceException;
 
 class RuleParserTest extends TestCase
 {
+    /**
+     * parser
+     *
+     * @var object
+     */
     private $parser;
 
+    /**
+     * set up
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         $this->parser = new RuleParser;

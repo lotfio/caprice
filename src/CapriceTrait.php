@@ -14,6 +14,8 @@ namespace Caprice;
  *
  */
 
+use Caprice\Exception\CapriceException;
+
 trait CapriceTrait
 {
     /**
@@ -31,8 +33,8 @@ trait CapriceTrait
         if(!is_dir($compileToDir) || !is_writable($compileToDir))
             throw new CapriceException("input location $compileToDir is not a valid writable directory.");
 
-        $this->compileFromDir = trim($compileFromDir, '/') .'/';
-        $this->compileToDir   = trim($compileToDir,   '/') .'/';
+        $this->compileFromDir = rtrim($compileFromDir, '/') .'/';
+        $this->compileToDir   = rtrim($compileToDir,   '/') .'/';
         
         return $this;
     }

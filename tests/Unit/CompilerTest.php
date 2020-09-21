@@ -60,11 +60,11 @@ class CompilerTest extends TestCase
     public function testCompileMethod()
     {
         $dir = dirname(__DIR__) . "/stub/";
-        define('RE_COMPILE', true);
+        //define('RE_COMPILE', true);
         
-        $compiled = $this->compiler->compile($dir . "test.cap.php", $dir);
+        $compiled = $this->compiler->compile($dir . "test.cap.php", $dir . "cache/");
 
-        $this->assertSame($dir.SHA1($dir . "test.cap.php") . ".php", $compiled);
+        $this->assertSame($dir .'cache/' .SHA1($dir . "test.cap.php") . ".php", $compiled);
         
         $content =  file_get_contents($compiled);
         $this->assertSame("<?php?>", $content);
