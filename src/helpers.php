@@ -25,7 +25,7 @@ if (!function_exists('dotPath')) {
     function dotPath(string $filePath): string
     {
         $path = preg_replace('/\'|"/', null, $filePath);
-        $path = preg_replace('/(.php|.cap.php)/', null, $path);
+        $path = preg_replace('/(.php|.cap.php)$/', null, $path);
         $path = str_replace('.', '/', $path);
 
         return $path.'.cap.php';
