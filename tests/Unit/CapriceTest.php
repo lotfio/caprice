@@ -61,8 +61,7 @@ class CapriceTest extends TestCase
         $this->caprice->directive('/[\r\n]+/', \Caprice\Directives\ClearLinesDirective::class, true);
         $out = $this->caprice->compile("clear-lines-directive.cap.php");
         $out = file_get_contents($out);
-        $this->assertSame("clearLine
-end", $out);
+        $this->assertSame("clearLine\r\nend", $out);
     }
 
     /**
