@@ -39,6 +39,16 @@ class CapriceTest extends TestCase
     }
 
     /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    protected function assertCompileOutput(string $expected, string $actual)
+    {
+        return $this->assertSame($expected, file_get_contents($actual));
+    }
+
+    /**
      * test break
      *
      * @return void
@@ -47,8 +57,19 @@ class CapriceTest extends TestCase
     {
         $this->caprice->directive("#break", \Caprice\Directives\BreakDirective::class);
         $out = $this->caprice->compile("break-directive.cap.php");
-        $out = file_get_contents($out);
-        $this->assertSame('<?php break;?>', $out);
+        $this->assertCompileOutput('<?php break;?>', $out);
+    }
+
+    /**
+     * test clear comment
+     *
+     * @return void
+     */
+    public function testCompileClearCommentsDirective()
+    {
+        $this->caprice->directive('~<!--(.*)-->~sUm', \Caprice\Directives\ClearCommentDirective::class, true);
+        $out = $this->caprice->compile("comments-directive.cap.php");
+        $this->assertCompileOutput('', $out);
     }
 
     /**
@@ -60,8 +81,7 @@ class CapriceTest extends TestCase
     {
         $this->caprice->directive('/[\r\n]+/', \Caprice\Directives\ClearLinesDirective::class, true);
         $out = $this->caprice->compile("clear-lines-directive.cap.php");
-        $out = file_get_contents($out);
-        $this->assertSame("clearLine\r\nend", $out);
+        $this->assertCompileOutput("clearLine\r\nend", $out);
     }
 
     /**
@@ -73,8 +93,126 @@ class CapriceTest extends TestCase
     {
         $this->caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', \Caprice\Directives\ClearLinesDirective::class, true);
         $out = $this->caprice->compile("clear-sections-directive.cap.php");
-        $out = file_get_contents($out);
-        $this->assertSame('', $out);
+        $this->assertCompileOutput('', $out);
     }
 
+    /**
+     * test continue 
+     *
+     * @return void
+     */
+    public function testCompileContinueDirective()
+    {
+        $this->caprice->directive('#continue', \Caprice\Directives\ContinueDirective::class, false);
+        $out = $this->caprice->compile("continue-directive.cap.php");
+        $this->assertCompileOutput('<?php continue;?>', $out);
+    }
+
+    /**
+     * test do while
+     *
+     * @return void
+     */
+    public function testCompileDoWhileDirective()
+    {
+        $this->caprice->directive('#do', \Caprice\Directives\DoWhileDirective::class, false);
+        $out = $this->caprice->compile("do-while-directive.cap.php");
+        $this->assertCompileOutput('<?php do {;?>', $out);
+    }
+
+    /**
+     * test dump 
+     *
+     * @return void
+     */
+    public function testCompileDumpDirective()
+    {
+        $this->caprice->directive('#dd', \Caprice\Directives\DumpDirective::class, false);
+        $out = $this->caprice->compile("dump-directive.cap.php");
+        $this->assertCompileOutput('<?php dump($var);?>', $out);
+    }
+
+    /**
+     * test echo closing tag 
+     *
+     * @return void
+     */
+    public function testCompileEchoCloseDirective()
+    {
+        $this->caprice->directive('}}', \Caprice\Directives\EchoCloseDirective::class, false);
+        $out = $this->caprice->compile("echo-close-directive.cap.php");
+        $this->assertCompileOutput(');?>', $out);
+    }
+
+    /**
+     * test echo open tag 
+     *
+     * @return void
+     */
+    public function testCompileEchoOpenDirective()
+    {
+        $this->caprice->directive('{{', \Caprice\Directives\EchoOpenDirective::class, false);
+        $out = $this->caprice->compile("echo-open-directive.cap.php");
+        $this->assertCompileOutput('<?=__escape(', $out);
+    }
+
+    /**
+     * test else 
+     *
+     * @return void
+     */
+    public function testCompileElseDirective()
+    {
+        $this->caprice->directive('#else', \Caprice\Directives\ElseDirective::class, false);
+        $out = $this->caprice->compile("else-directive.cap.php");
+        $this->assertCompileOutput('<?php else:?>', $out);
+    }
+
+    /**
+     * test else 
+     *
+     * @return void
+     */
+    public function testCompileElseIfDirective()
+    {
+        $this->caprice->directive('#elseif', \Caprice\Directives\ElseIfDirective::class, false);
+        $out = $this->caprice->compile("else-if-directive.cap.php");
+        $this->assertCompileOutput('<?php elseif($expression):?>', $out);
+    }
+
+    /**
+     * test end do while 
+     *
+     * @return void
+     */
+    public function testCompileEndDoWhileDirective()
+    {
+        $this->caprice->directive('#enddo', \Caprice\Directives\EndDoWhileDirective::class, false);
+        $out = $this->caprice->compile("end-do-while-directive.cap.php");
+        $this->assertCompileOutput('<?php } while($expression);?>', $out);
+    }
+
+    /**
+     * test end for
+     *
+     * @return void
+     */
+    public function testCompileEndForDirective()
+    {
+        $this->caprice->directive('#endfor', \Caprice\Directives\EndForDirective::class, false);
+        $out = $this->caprice->compile("end-for-directive.cap.php");
+        $this->assertCompileOutput('<?php endfor;?>', $out);
+    }
+
+    /**
+     * test end for
+     *
+     * @return void
+     */
+    public function testCompileEndForInDirective()
+    {
+        $this->caprice->directive('#endforin', \Caprice\Directives\EndForInDirective::class, false);
+        $out = $this->caprice->compile("end-for-in-directive.cap.php");
+        $this->assertCompileOutput('<?php endforeach;?>', $out);
+    }
 }
