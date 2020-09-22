@@ -16,7 +16,7 @@ namespace Caprice\Directives;
 
 use Caprice\Contracts\DirectiveInterface;
 
-class CommentDirective implements DirectiveInterface
+class ClearCommentDirective implements DirectiveInterface
 {
     /**
      * replace

@@ -13,7 +13,7 @@
  */
 
 // comments
-$caprice->directive('~<!--(.*)-->~sUm', Caprice\Directives\CommentDirective::class, true);
+$caprice->directive('~<!--(.*)-->~sUm', Caprice\Directives\ClearCommentDirective::class, true);
 
 // if statement
 $caprice->directive('#if', Caprice\Directives\IfDirective::class);
