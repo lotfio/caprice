@@ -47,7 +47,7 @@ $caprice->directive('#extends', Caprice\Directives\ExtendsDirective::class);
 $caprice->directive('#yield', Caprice\Directives\YieldDirective::class);
 
 // section 
-$caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', Caprice\Directives\ClearLinesDirective::class, true);
+$caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', Caprice\Directives\ClearSectionsDirective::class, true);
 
 // require & include 
 $caprice->directive('#include', Caprice\Directives\IncludeDirective::class);

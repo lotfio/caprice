@@ -45,34 +45,37 @@ class CapriceTest extends TestCase
      */
     public function testCompileBreakDirective()
     {
-        $this->caprice->add("#break", \Caprice\Directives\BreakDirective::class);
+        $this->caprice->directive("#break", \Caprice\Directives\BreakDirective::class);
         $out = $this->caprice->compile("break-directive.cap.php");
         $out = file_get_contents($out);
         $this->assertSame('<?php break;?>', $out);
     }
 
-    /*
+    /**
      * test clear lines
      *
      * @return void
-     *
+     */
     public function testCompileClearLinesDirective()
     {
-        $this->caprice->add("#break", \Caprice\Directives\BreakDirective::class);
+        $this->caprice->directive('/[\r\n]+/', \Caprice\Directives\ClearLinesDirective::class, true);
         $out = $this->caprice->compile("clear-lines-directive.cap.php");
         $out = file_get_contents($out);
-        $this->assertSame('clearLine', $out);
+        $this->assertSame("clearLine
+end", $out);
     }
 
-    /*
-     * test clear lines
+    /**
+     * test clear sections
      *
      * @return void
-     *
+     */
     public function testCompileClearSectionsDirective()
     {
+        $this->caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', \Caprice\Directives\ClearLinesDirective::class, true);
         $out = $this->caprice->compile("clear-sections-directive.cap.php");
         $out = file_get_contents($out);
-        $this->assertSame('clearLine', $out);
-    }*/
+        $this->assertSame('', $out);
+    }
+
 }

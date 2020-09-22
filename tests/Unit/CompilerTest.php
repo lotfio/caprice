@@ -60,7 +60,6 @@ class CompilerTest extends TestCase
     public function testCompileMethod()
     {
         $dir = dirname(__DIR__) . "/stub/";
-        //define('RE_COMPILE', true);
         
         $compiled = $this->compiler->compile($dir . "test.cap.php", $dir . "cache/");
 
