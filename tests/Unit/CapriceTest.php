@@ -205,7 +205,7 @@ class CapriceTest extends TestCase
     }
 
     /**
-     * test end for
+     * test end for in
      *
      * @return void
      */
@@ -214,5 +214,138 @@ class CapriceTest extends TestCase
         $this->caprice->directive('#endforin', \Caprice\Directives\EndForInDirective::class, false);
         $out = $this->caprice->compile("end-for-in-directive.cap.php");
         $this->assertCompileOutput('<?php endforeach;?>', $out);
+    }
+
+    /**
+     * test end if
+     *
+     * @return void
+     */
+    public function testCompileEndIfDirective()
+    {
+        $this->caprice->directive('#endif', \Caprice\Directives\EndIfDirective::class, false);
+        $out = $this->caprice->compile("end-if-directive.cap.php");
+        $this->assertCompileOutput('<?php endif;?>', $out);
+    }
+
+    /**
+     * test end php
+     *
+     * @return void
+     */
+    public function testCompileEndPhpDirective()
+    {
+        $this->caprice->directive('#endphp', \Caprice\Directives\EndPhpDirective::class, false);
+        $out = $this->caprice->compile("end-php-directive.cap.php");
+        $this->assertCompileOutput('?>', $out);
+    }
+
+    /**
+     * test end while
+     *
+     * @return void
+     */
+    public function testCompileEndWhileDirective()
+    {
+        $this->caprice->directive('#endwhile', \Caprice\Directives\EndWhileDirective::class, false);
+        $out = $this->caprice->compile("end-while-directive.cap.php");
+        $this->assertCompileOutput('<?php endwhile;?>', $out);
+    }
+
+    /**
+     * test extends
+     *
+     * @return void
+     */
+    public function testCompileExtendsDirective()
+    {
+        $this->caprice->directive('#extends', \Caprice\Directives\ExtendsDirective::class, false);
+        $out = $this->caprice->compile("extends-directive.cap.php");
+        $this->assertCompileOutput('#test', $out); // test if extends & get other file content only not multi parse
+    }
+
+    /**
+     * test for
+     *
+     * @return void
+     */
+    public function testCompileForDirective()
+    {
+        $this->caprice->directive('#for', \Caprice\Directives\ForDirective::class, false);
+        $out = $this->caprice->compile("for-directive.cap.php");
+        $this->assertCompileOutput('<?php for($expression):?>', $out);
+    }
+
+    /**
+     * test if
+     *
+     * @return void
+     */
+    public function testCompileIfDirective()
+    {
+        $this->caprice->directive('#if', \Caprice\Directives\IfDirective::class, false);
+        $out = $this->caprice->compile("if-directive.cap.php");
+        $this->assertCompileOutput('<?php if($expression):?>', $out);
+    }
+
+    /**
+     * test include
+     *
+     * @return void
+     */
+    public function testCompileIncludeDirective()
+    {
+        $this->caprice->directive('#include', \Caprice\Directives\IncludeDirective::class, false);
+        $out = $this->caprice->compile("include-directive.cap.php");
+        $this->assertCompileOutput('#test', $out);
+    }
+
+    /**
+     * test require
+     *
+     * @return void
+     */
+    public function testCompileRequireDirective()
+    {
+        $this->caprice->directive('#require', \Caprice\Directives\IncludeDirective::class, false);
+        $out = $this->caprice->compile("require-directive.cap.php");
+        $this->assertCompileOutput('#test', $out);
+    }
+
+    /**
+     * test php
+     *
+     * @return void
+     */
+    public function testCompilePhpDirective()
+    {
+        $this->caprice->directive('#php', \Caprice\Directives\PhpDirective::class, false);
+        $out = $this->caprice->compile("php-directive.cap.php");
+        $this->assertCompileOutput('<?php', $out);
+    }
+
+    /**
+     * test while
+     *
+     * @return void
+     */
+    public function testCompileWhileDirective()
+    {
+        $this->caprice->directive('#while', \Caprice\Directives\WhileDirective::class, false);
+        $out = $this->caprice->compile("while-directive.cap.php");
+        $this->assertCompileOutput('<?php while($expression):?>', $out);
+    }
+
+    /**
+     * test yield
+     *
+     * @return void
+     */
+    public function testCompileYieldDirective()
+    {
+        $this->caprice->directive('#yield', \Caprice\Directives\YieldDirective::class, false);
+        $this->caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', \Caprice\Directives\ClearLinesDirective::class, true);
+        $out = $this->caprice->compile("yield-directive.cap.php");
+        $this->assertCompileOutput('this is a header', $out);
     }
 }
