@@ -187,6 +187,26 @@ caprice compiles the syntax and generate php files which means no performance lo
     // dump
     #dump($variable) OR #dd($variable)
 ```
+# :hand: Custom directives:
+ - you can define your custom directives:
+ - ***make sure that the definition of your directives goes before calling compile***
+ ```php
+
+    // simple directives
+    $caprice->directive("#test", function(){
+        return 'replace test directive with this string';
+    });
+
+    // expression directive
+    // example #call($var)
+    $caprice->directive("#call", function($expression){
+        return '<?php call'. $expression . ';?>'; // this will evaluate to <?php call($var);\?\>
+    });
+
+    // class method directive
+    // MyDirective class should implement DirectiveInterface
+    $caprice->directive("#call", MyDirective::class);
+```
 
 # :inbox_tray: Available syntax directives:
 - check the documentation here [Docs](https://github.com/lotfio/caprice/blob/master/docs/exapmles.md).
