@@ -1,1 +1,1 @@
-#test
+#require("test")
