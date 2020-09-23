@@ -20,57 +20,57 @@ use PHPUnit\Framework\TestCase;
 class CapriceRulesTest extends TestCase
 {
     /**
-     * caprice rules
+     * caprice rules.
      *
      * @var object
      */
     private $rules;
 
     /**
-     * set up
+     * set up.
      *
      * @return void
      */
     public function setUp(): void
     {
-        $this->rules = new CapriceRules;
+        $this->rules = new CapriceRules();
     }
 
     /**
-     * test add rule
+     * test add rule.
      *
      * @return void
      */
     public function testAddCapriceRule()
     {
-        $this->rules->add("#test", "callback", false);
-        
+        $this->rules->add('#test', 'callback', false);
+
         $this->assertSame("~#test(\s*\(((.*))\))?~", $this->rules->getRules()[0]['directive']);
-        $this->assertSame("callback", $this->rules->getRules()[0]['replace']);
+        $this->assertSame('callback', $this->rules->getRules()[0]['replace']);
     }
 
     /**
-     * test add rule (custom regex)
+     * test add rule (custom regex).
      *
      * @return void
      */
     public function testAddCustomCapriceRule()
     {
-        $this->rules->add("/regex/", "callback", true);
-        
-        $this->assertSame("/regex/", $this->rules->getRules()[0]['directive']);
-        $this->assertSame("callback", $this->rules->getRules()[0]['replace']);
+        $this->rules->add('/regex/', 'callback', true);
+
+        $this->assertSame('/regex/', $this->rules->getRules()[0]['directive']);
+        $this->assertSame('callback', $this->rules->getRules()[0]['replace']);
     }
 
     /**
-     * test get rules
+     * test get rules.
      *
      * @return void
      */
     public function testGetCapriceRules()
     {
-        $this->rules->add("#test", "callback", false);
-        $this->rules->add("/#test/", "callback", true);
+        $this->rules->add('#test', 'callback', false);
+        $this->rules->add('/#test/', 'callback', true);
 
         $this->assertCount(2, $this->rules->getRules());
     }

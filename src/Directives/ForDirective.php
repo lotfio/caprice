@@ -19,16 +19,18 @@ use Caprice\Contracts\DirectiveInterface;
 class ForDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        if(preg_match('/\(((.*)(in)(.*))\)/', $expression, $match))
-            return '<?php foreach('.$match[4]." as ". $match[2] ."):?>";
-    
-        return '<?php for'.$expression.":?>";
+        if (preg_match('/\(((.*)(in)(.*))\)/', $expression, $match)) {
+            return '<?php foreach('.$match[4].' as '.$match[2].'):?>';
+        }
+
+        return '<?php for'.$expression.':?>';
     }
 }

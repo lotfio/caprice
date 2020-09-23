@@ -21,11 +21,11 @@ $caprice->directive('#endif', Caprice\Directives\EndIfDirective::class);
 $caprice->directive('#elseif', Caprice\Directives\ElseIfDirective::class);
 $caprice->directive('#else', Caprice\Directives\ElseDirective::class);
 
-// echo 
+// echo
 $caprice->directive('{{', Caprice\Directives\EchoOpenDirective::class);
 $caprice->directive('}}', Caprice\Directives\EchoCloseDirective::class);
 
-// for loop / forin 
+// for loop / forin
 $caprice->directive('#for', Caprice\Directives\ForDirective::class);
 $caprice->directive('#endforin', Caprice\Directives\EndForInDirective::class);
 $caprice->directive('#endfor', Caprice\Directives\EndForDirective::class);
@@ -46,21 +46,20 @@ $caprice->directive('#continue', Caprice\Directives\ContinueDirective::class);
 $caprice->directive('#extends', Caprice\Directives\ExtendsDirective::class);
 $caprice->directive('#yield', Caprice\Directives\YieldDirective::class);
 
-// section 
+// section
 $caprice->directive('/#section\s*\((.*?)\)(.*?)#endsection/s', Caprice\Directives\ClearSectionsDirective::class, true);
 
-// require & include 
+// require & include
 $caprice->directive('#include', Caprice\Directives\IncludeDirective::class);
 $caprice->directive('#require', Caprice\Directives\IncludeDirective::class);
 
-// php code 
+// php code
 $caprice->directive('#php', Caprice\Directives\PhpDirective::class);
 $caprice->directive('#endphp', Caprice\Directives\EndPhpDirective::class);
 
 // helpers
 $caprice->directive('#dump', Caprice\Directives\DumpDirective::class);
 $caprice->directive('#dd', Caprice\Directives\DumpDirective::class);
-
 
 // additional helpers directives
 $caprice->directive('~[\r\n]+~', Caprice\Directives\ClearLinesDirective::class, true);

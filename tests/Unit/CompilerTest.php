@@ -14,58 +14,58 @@ namespace Tests\Unit;
  *
  */
 
-use Caprice\Compiler;
-use Caprice\RuleParser;
 use Caprice\CapriceRules;
+use Caprice\Compiler;
 use Caprice\Exception\CapriceException;
+use Caprice\RuleParser;
 use PHPUnit\Framework\TestCase;
 
 class CompilerTest extends TestCase
 {
     /**
-     * compiler
+     * compiler.
      *
      * @var object
      */
     protected $compiler;
 
     /**
-     * set up
+     * set up.
      *
      * @return void
      */
     public function setUp(): void
     {
-        $rules = new CapriceRules;
-        $rules->add("#test", function(){ return "<?php?>"; },false);
-        $this->compiler = new Compiler(new RuleParser, $rules);
+        $rules = new CapriceRules();
+        $rules->add('#test', function () { return '<?php?>'; }, false);
+        $this->compiler = new Compiler(new RuleParser(), $rules);
     }
 
     /**
-     * compile no file
+     * compile no file.
      *
      * @return void
      */
     public function testCompileNoFile()
     {
         $this->expectException(CapriceException::class);
-        $compiled = $this->compiler->compile("test.cap.php", ".");
+        $compiled = $this->compiler->compile('test.cap.php', '.');
     }
 
     /**
-     * test compile
+     * test compile.
      *
      * @return void
      */
     public function testCompileMethod()
     {
-        $dir = dirname(__DIR__) . "/stub/";
-        
-        $compiled = $this->compiler->compile($dir . "test.cap.php", $dir . "cache/");
+        $dir = dirname(__DIR__).'/stub/';
 
-        $this->assertSame($dir .'cache/' .SHA1($dir . "test.cap.php") . ".php", $compiled);
-        
-        $content =  file_get_contents($compiled);
-        $this->assertSame("<?php?>", $content);
+        $compiled = $this->compiler->compile($dir.'test.cap.php', $dir.'cache/');
+
+        $this->assertSame($dir.'cache/'.sha1($dir.'test.cap.php').'.php', $compiled);
+
+        $content = file_get_contents($compiled);
+        $this->assertSame('<?php?>', $content);
     }
 }

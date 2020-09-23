@@ -14,76 +14,76 @@ namespace Tests\Unit;
  *
  */
 
+use Caprice\Exception\CapriceException;
 use Caprice\RuleParser;
 use PHPUnit\Framework\TestCase;
-use Caprice\Exception\CapriceException;
 
 class RuleParserTest extends TestCase
 {
     /**
-     * parser
+     * parser.
      *
      * @var object
      */
     private $parser;
 
     /**
-     * set up
+     * set up.
      *
      * @return void
      */
     public function setUp(): void
     {
-        $this->parser = new RuleParser;
+        $this->parser = new RuleParser();
     }
 
     /**
-     * test parse callback
+     * test parse callback.
      *
      * @return void
      */
     public function testParseCallback()
     {
-        $file = "#test";
+        $file = '#test';
         $rule = [
             'directive' => '~#test(\s*\(((.*))\))?~',
-            'replace' => function(){ return 'replaced !';}
+            'replace'   => function () { return 'replaced !'; },
         ];
 
         $out = $this->parser->parse($file, $rule);
-        
+
         $this->assertSame('replaced !', $out);
     }
 
     /**
-     * test parse callback with match
+     * test parse callback with match.
      *
      * @return void
      */
     public function testParseCallbackWithMatch()
     {
-        $file = "#test";
+        $file = '#test';
         $rule = [
             'directive' => '~#test(\s*\(((.*))\))?~',
-            'replace' => function($match){ return 'replaced !' . $match;}
+            'replace'   => function ($match) { return 'replaced !'.$match; },
         ];
 
         $out = $this->parser->parse($file, $rule);
-        
+
         $this->assertSame('replaced !#test', $out);
     }
 
     /**
-     * test class method not class found
+     * test class method not class found.
      *
      * @return void
      */
     public function testParseNoClass()
     {
-        $file = "#test";
+        $file = '#test';
         $rule = [
             'directive' => '~#test(\s*\(((.*))\))?~',
-            'replace'   => \Caprice\Directives\PhpDirectives::class // wrong class
+            'replace'   => \Caprice\Directives\PhpDirectives::class, // wrong class
         ];
 
         $this->expectException(CapriceException::class);
@@ -91,20 +91,20 @@ class RuleParserTest extends TestCase
     }
 
     /**
-     * test parse class method
+     * test parse class method.
      *
      * @return void
      */
     public function testParseClassMethod()
     {
-        $file = "#test";
+        $file = '#test';
         $rule = [
             'directive' => '~#test(\s*\(((.*))\))?~',
-            'replace'   => \Caprice\Directives\PhpDirective::class
+            'replace'   => \Caprice\Directives\PhpDirective::class,
         ];
 
         $out = $this->parser->parse($file, $rule);
-        
+
         $this->assertSame('<?php ', $out);
     }
 }

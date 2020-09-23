@@ -15,66 +15,66 @@ namespace Caprice;
  */
 
 use Caprice\Contracts\CapriceInterface;
-use Caprice\Exception\CapriceException;
 
 class Caprice implements CapriceInterface
-{   
+{
     /**
-     * caprice trait
+     * caprice trait.
      */
     use CapriceTrait;
 
     /**
-     * rules array
+     * rules array.
      *
      * @var array
      */
     protected $rules;
 
     /**
-     * parser 
+     * parser.
      *
      * @var object
      */
     protected $parser;
 
     /**
-     * compile from directory
+     * compile from directory.
      *
-     * @var  string
+     * @var string
      */
     protected $compileFromDir = './';
 
     /**
-     * compile to directory
+     * compile to directory.
      *
-     * @var  string
+     * @var string
      */
-    protected $compileToDir   = './';
+    protected $compileToDir = './';
 
     /**
-     * recompile mode
+     * recompile mode.
      *
-     * @var  bool
+     * @var bool
      */
     protected $recompile = false;
 
     /**
-     * set up
+     * set up.
      */
     public function __construct()
     {
-        $this->rules  = new CapriceRules;
-        $this->parser = new RuleParser;
+        $this->rules = new CapriceRules();
+        $this->parser = new RuleParser();
     }
 
     /**
-     * add directive method 
+     * add directive method.
      *
-     * @param   string $directive
-     * @param   mixed $callback
-     * @param   bool $custom 
-     * @return  CapriceRules
+     * @param string $directive
+     * @param mixed  $callback
+     * @param bool   $custom
+     *
+     * @return CapriceRules
      */
     public function directive(string $directive, $callback, $custom = false): CapriceRules
     {
@@ -82,22 +82,22 @@ class Caprice implements CapriceInterface
     }
 
     /**
-     * compile cap file
+     * compile cap file.
      *
-     * @param  string $filename
-     * 
+     * @param string $filename
+     *
      * @return string
      */
-    public function compile(string $filename) : string
+    public function compile(string $filename): string
     {
         defined('COMPILE_FROM') || define('COMPILE_FROM', $this->compileFromDir);
-        defined('RE_COMPILE')   || define('RE_COMPILE'  , $this->recompile);
+        defined('RE_COMPILE') || define('RE_COMPILE', $this->recompile);
 
         $compiler = new Compiler($this->parser, $this->rules);
 
         return $compiler->compile(
-            $this->compileFromDir . dotPath($filename), 
+            $this->compileFromDir.dotPath($filename),
             $this->compileToDir
-        ); 
+        );
     }
 }

@@ -19,13 +19,14 @@ use Caprice\Contracts\DirectiveInterface;
 class ElseIfDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        return "<?php elseif" . ($expression) . ":?>";
+        return '<?php elseif'.($expression).':?>';
     }
 }

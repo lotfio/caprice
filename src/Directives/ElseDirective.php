@@ -19,13 +19,14 @@ use Caprice\Contracts\DirectiveInterface;
 class ElseDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        return "<?php else:?>";
+        return '<?php else:?>';
     }
 }

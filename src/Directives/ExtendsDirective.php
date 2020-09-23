@@ -20,17 +20,19 @@ use Caprice\Exception\CapriceException;
 class ExtendsDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        $path = COMPILE_FROM . dotPath(trim(str_replace('.', '/', $expression), ')("\''));
+        $path = COMPILE_FROM.dotPath(trim(str_replace('.', '/', $expression), ')("\''));
 
-        if(!\file_exists($path))
+        if (!\file_exists($path)) {
             throw new CapriceException("file $path not found");
+        }
 
         return file_get_contents($path);
     }

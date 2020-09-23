@@ -20,17 +20,19 @@ use Caprice\Exception\CapriceException;
 class IncludeDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        $file = COMPILE_FROM . dotPath(\trim($expression, (')(\'"')));
+        $file = COMPILE_FROM.dotPath(\trim($expression, (')(\'"')));
 
-        if(!\file_exists($file))
+        if (!\file_exists($file)) {
             throw new CapriceException("file $file not found");
+        }
 
         return file_get_contents($file);
     }

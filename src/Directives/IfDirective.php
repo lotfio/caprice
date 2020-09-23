@@ -19,13 +19,14 @@ use Caprice\Contracts\DirectiveInterface;
 class IfDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
     {
-        return "<?php if" . ($expression) . ":?>";
+        return '<?php if'.($expression).':?>';
     }
 }

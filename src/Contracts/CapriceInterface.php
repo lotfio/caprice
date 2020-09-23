@@ -18,10 +18,11 @@ use Caprice\CapriceRules;
 interface CapriceInterface
 {
     /**
-     * add a directive method
+     * add a directive method.
      *
-     * @param  string $directive
-     * @param  mixed $callback
+     * @param string $directive
+     * @param mixed  $callback
+     *
      * @return CapriceRules
      */
     public function directive(string $directive, $callback): CapriceRules;

@@ -19,9 +19,10 @@ use Caprice\Contracts\DirectiveInterface;
 class EndWhileDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
