@@ -32,6 +32,11 @@ caprice compiles the syntax and generate php files which means no performance lo
     composer require lotfio/caprice
 ```
 
+# 💥 testing :
+```php
+    composer test
+```
+
 # :pencil2: Usage :
 ```php
 
@@ -56,8 +61,7 @@ caprice compiles the syntax and generate php files which means no performance lo
 
   require $compiled; // require your compiled file
 ```
-### :pencil2: Usage :
- - Available directives:
+# :inbox_tray: Available syntax directives:
 
 ### code block
 - you can write any php inside code blocks
@@ -208,11 +212,9 @@ caprice compiles the syntax and generate php files which means no performance lo
     $caprice->directive("#call", MyDirective::class);
 ```
 
-# :inbox_tray: Available syntax directives:
-- check the documentation here [Docs](https://github.com/lotfio/caprice/blob/master/docs/exapmles.md).
-
 # :helicopter: TODO
-- Adding support for custom directives.
+- Adding helpers
+- Adding unit test helpers
 
 # :computer: Contributing
 
