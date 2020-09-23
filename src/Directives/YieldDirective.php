@@ -19,9 +19,10 @@ use Caprice\Contracts\DirectiveInterface;
 class YieldDirective implements DirectiveInterface
 {
     /**
-     * replace
+     * replace.
      *
-     * @param  string $expression
+     * @param string $expression
+     *
      * @return string
      */
     public function replace(string $expression, ?string $file = null): string
@@ -29,7 +30,7 @@ class YieldDirective implements DirectiveInterface
         $section = trim($expression, ')(');
 
         $secPattern = '/#section\s*\(('.$section.')\)(.*?)#endsection/s';
-    
+
         preg_match($secPattern, $file, $mt);
 
         return isset($mt[2]) ? trim($mt[2]) : '';

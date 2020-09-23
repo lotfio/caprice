@@ -17,7 +17,7 @@ namespace Caprice;
 class CapriceRules
 {
     /**
-     * caprice rules
+     * caprice rules.
      *
      * @var array
      */
@@ -26,28 +26,29 @@ class CapriceRules
     ];
 
     /**
-     * add new directive rule
+     * add new directive rule.
      *
-     * @param  string $directive
-     * @param  mixed $callback
+     * @param string $directive
+     * @param mixed  $callback
+     *
      * @return void
      */
-    public function add(string $directive, $callback, bool $custom) : self
+    public function add(string $directive, $callback, bool $custom): self
     {
         $this->rules[] = [
-            'directive' => $custom ? $directive : '~' . $directive . '(\s*\(((.*))\))?~',
-            'replace'   => $callback
+            'directive' => $custom ? $directive : '~'.$directive.'(\s*\(((.*))\))?~',
+            'replace'   => $callback,
         ];
 
         return $this;
     }
 
     /**
-     * get available rules
+     * get available rules.
      *
      * @return array
      */
-    public function &getRules() : array
+    public function &getRules(): array
     {
         return $this->rules;
     }

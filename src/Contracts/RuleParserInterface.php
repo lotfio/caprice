@@ -17,10 +17,11 @@ namespace Caprice\Contracts;
 interface RuleParserInterface
 {
     /**
-     * parse file applying a rule
+     * parse file applying a rule.
      *
-     * @param  string $file
-     * @param  array $rule
+     * @param string $file
+     * @param array  $rule
+     *
      * @return string
      */
     public function parse(string $file, array $rule): string;

@@ -21,35 +21,36 @@ use Caprice\Exception\CapriceException;
 class Compiler implements CompilerInterface
 {
     /**
-     * rules array
+     * rules array.
      *
      * @var array
      */
     protected $rules;
 
     /**
-     * parser 
+     * parser.
      *
      * @var object
      */
     protected $parser;
 
     /**
-     * setup compiler
+     * setup compiler.
      *
      * @param RulesParserInterface $rules
      */
     public function __construct(RuleParserInterface $parser, CapriceRules $rules)
     {
-        $this->parser    = $parser;
-        $this->rules     = $rules;
+        $this->parser = $parser;
+        $this->rules = $rules;
     }
 
     /**
-     * check if file is modified
+     * check if file is modified.
      *
-     * @param  string $filename
-     * @return boolean
+     * @param string $filename
+     *
+     * @return bool
      */
     protected function isModified(string $file, string $tempFile): bool
     {
@@ -57,37 +58,41 @@ class Compiler implements CompilerInterface
     }
 
     /**
-     * compile caprice file
+     * compile caprice file.
      *
-     * @param  string $filename
-     * @param  string $outputLocation
-     * 
+     * @param string $filename
+     * @param string $outputLocation
+     *
      * @return string
      */
     public function compile(string $filename, string $outputLocation): string
     {
-        if(!file_exists($filename))
+        if (!file_exists($filename)) {
             throw new CapriceException("file $filename not found.");
-
-        // apply parsing to al rules
-        $rules    = $this->rules->getRules();
-
-        $content  = \file_get_contents($filename);
-        $tempFile = $outputLocation . SHA1($filename) . '.php';
-
-        if(RE_COMPILE || $this->isModified($filename, $tempFile)) // if cap file is modified or doesn't exists
-        {
-            for($i = 0; $i < count($rules); $i++)
-                foreach($rules as $rule)
-                    $content = $this->parser->parse($content, $rule);
-
-            //save file 
-            if(file_put_contents($tempFile, trim($content)))
-                touch($filename); touch($tempFile);
         }
-        
-        if(!file_exists($tempFile))
+        // apply parsing to al rules
+        $rules = $this->rules->getRules();
+
+        $content = \file_get_contents($filename);
+        $tempFile = $outputLocation.sha1($filename).'.php';
+
+        if (RE_COMPILE || $this->isModified($filename, $tempFile)) { // if cap file is modified or doesn't exists
+            for ($i = 0; $i < count($rules); $i++) {
+                foreach ($rules as $rule) {
+                    $content = $this->parser->parse($content, $rule);
+                }
+            }
+
+            //save file
+            if (file_put_contents($tempFile, trim($content))) {
+                touch($filename);
+            }
+            touch($tempFile);
+        }
+
+        if (!file_exists($tempFile)) {
             throw new CapriceException("error compiling, file $tempFile not found.");
+        }
 
         return $tempFile;
     }
