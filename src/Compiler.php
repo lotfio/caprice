@@ -35,16 +35,24 @@ class Compiler implements CompilerInterface
     protected CapriceRules $rules;
 
     /**
+     * recompile state
+     * 
+     * @var bool $recompile
+     */
+    protected bool $recompile;
+
+    /**
      * setup compiler.
      *
      * @param RuleParserInterface $parser
      * @param CapriceRules        $rules
      * 
      */
-    public function __construct(RuleParserInterface $parser, CapriceRules $rules)
+    public function __construct(RuleParserInterface $parser, CapriceRules $rules, bool $recompile)
     {
         $this->parser = $parser;
         $this->rules = $rules;
+        $this->recompile = $recompile;
     }
 
     /**
@@ -79,7 +87,10 @@ class Compiler implements CompilerInterface
         $content = \file_get_contents($filename);
         $tempFile = $outputLocation.sha1($filename).'.php';
 
-        if (RE_COMPILE || $this->isModified($filename, $tempFile)) { // if cap file is modified or doesn't exists
+        // from location for directives like require to get content from
+        $GLOBALS['compileFrom'] =  pathinfo($filename, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
+
+        if ($this->recompile || $this->isModified($filename, $tempFile)) { // if cap file is modified or doesn't exists
             for ($i = 0; $i < count($rules); $i++) {
                 foreach ($rules as $rule) {
                     $content = $this->parser->parse($content, $rule);

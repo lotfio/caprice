@@ -38,7 +38,7 @@ class CompilerTest extends TestCase
     {
         $rules = new CapriceRules();
         $rules->add('#test', function () { return '<?php?>'; }, false);
-        $this->compiler = new Compiler(new RuleParser(), $rules);
+        $this->compiler = new Compiler(new RuleParser(), $rules, true);
     }
 
     /**

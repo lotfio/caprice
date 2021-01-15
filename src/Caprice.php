@@ -42,7 +42,7 @@ class Caprice implements CapriceInterface
      */
     public function __construct()
     {
-        $this->rules = new CapriceRules();
+        $this->rules  = new CapriceRules();
         $this->parser = new RuleParser();
     }
 
@@ -69,10 +69,7 @@ class Caprice implements CapriceInterface
      */
     public function compile(string $filename): string
     {
-        defined('COMPILE_FROM') || define('COMPILE_FROM', $this->compileFromDir);
-        defined('RE_COMPILE') || define('RE_COMPILE', $this->recompile);
-
-        $compiler = new Compiler($this->parser, $this->rules);
+        $compiler = new Compiler($this->parser, $this->rules, $this->recompile);
 
         return $compiler->compile(
             $this->compileFromDir.dotPath($filename),

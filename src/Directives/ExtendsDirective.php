@@ -29,7 +29,8 @@ class ExtendsDirective implements DirectiveInterface
      */
     public function replace(string $expression, string $file): string
     {
-        $path = COMPILE_FROM.dotPath(trim(str_replace('.', '/', $expression), ')("\''));
+        global  $compileFrom;
+        $path = $compileFrom.dotPath(trim(str_replace('.', '/', $expression), ')("\''));
 
         if (!\file_exists($path)) {
             throw new CapriceException("file $path not found");
