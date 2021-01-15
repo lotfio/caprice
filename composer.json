@@ -36,6 +36,9 @@
     "scripts": {
         "test": [
             "phpunit"
+        ],
+        "psalm" : [
+            "psalm --show-info=true"
         ]
     },
 
