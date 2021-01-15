@@ -57,7 +57,7 @@ caprice compiles the syntax and generate php files which means no performance lo
   
   // file to compile  => views/test.cap.php
   // you can remove .cap.php extension for both
-  $compiled = $compiler->compile("test");
+  $compiled = $caprice->compile("test");
 
   require $compiled; // require your compiled file
 ```
