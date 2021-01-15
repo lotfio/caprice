@@ -19,6 +19,27 @@ use Caprice\Exception\CapriceException;
 trait CapriceTrait
 {
     /**
+     * compile from directory.
+     *
+     * @var string
+     */
+    protected string $compileFromDir = './';
+
+    /**
+     * compile to directory.
+     *
+     * @var string
+     */
+    protected string $compileToDir = './';
+
+    /**
+     * recompile mode.
+     *
+     * @var bool
+     */
+    protected bool $recompile = false;
+
+    /**
      * set compile locations.
      *
      * @param string $compileFromDir
@@ -39,6 +60,19 @@ trait CapriceTrait
 
         return $this;
     }
+    
+    /**
+     * enable recompile.
+     *
+     * @return Caprice
+     */
+    public function enableRecompile(): self
+    {
+        $this->recompile = true;
+
+        return $this;
+    }
+
 
     /**
      * load predefined directives.
@@ -49,18 +83,6 @@ trait CapriceTrait
     {
         $caprice = $this;
         require_once 'rules.php';
-
-        return $this;
-    }
-
-    /**
-     * enable recompile.
-     *
-     * @return Caprice
-     */
-    public function enableRecompile(): self
-    {
-        $this->recompile = true;
 
         return $this;
     }

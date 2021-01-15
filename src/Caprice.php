@@ -38,27 +38,6 @@ class Caprice implements CapriceInterface
     protected RuleParser $parser;
 
     /**
-     * compile from directory.
-     *
-     * @var string
-     */
-    protected string $compileFromDir = './';
-
-    /**
-     * compile to directory.
-     *
-     * @var string
-     */
-    protected string $compileToDir = './';
-
-    /**
-     * recompile mode.
-     *
-     * @var bool
-     */
-    protected bool $recompile = false;
-
-    /**
      * set up.
      */
     public function __construct()
