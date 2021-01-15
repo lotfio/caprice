@@ -25,5 +25,5 @@ interface CapriceInterface
      *
      * @return CapriceRules
      */
-    public function directive(string $directive, $callback): CapriceRules;
+    public function directive(string $directive, mixed $callback): CapriceRules;
 }

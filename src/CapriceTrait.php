@@ -56,7 +56,7 @@ trait CapriceTrait
     /**
      * enable recompile.
      *
-     * @return void
+     * @return Caprice
      */
     public function enableRecompile(): self
     {

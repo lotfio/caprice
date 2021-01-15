@@ -21,23 +21,25 @@ use Caprice\Exception\CapriceException;
 class Compiler implements CompilerInterface
 {
     /**
-     * rules array.
-     *
-     * @var array
-     */
-    protected $rules;
-
-    /**
      * parser.
      *
-     * @var object
+     * @var RuleParserInterface
      */
-    protected $parser;
+    protected RuleParserInterface $parser;
+
+    /**
+     * rules.
+     *
+     * @var CapriceRules
+     */
+    protected CapriceRules $rules;
 
     /**
      * setup compiler.
      *
-     * @param RulesParserInterface $rules
+     * @param RuleParserInterface $parser
+     * @param CapriceRules        $rules
+     * 
      */
     public function __construct(RuleParserInterface $parser, CapriceRules $rules)
     {
@@ -49,6 +51,7 @@ class Compiler implements CompilerInterface
      * check if file is modified.
      *
      * @param string $filename
+     * @param string $tempFile
      *
      * @return bool
      */

@@ -24,8 +24,8 @@ if (!function_exists('dotPath')) {
      */
     function dotPath(string $filePath): string
     {
-        $path = preg_replace('/\'|"/', null, $filePath);
-        $path = preg_replace('/(.php|.cap.php)$/', null, $path);
+        $path = preg_replace('/\'|"/', '', $filePath);
+        $path = preg_replace('/(.php|.cap.php)$/', '', $path);
         $path = str_replace('.', '/', $path);
 
         return $path.'.cap.php';
@@ -40,7 +40,7 @@ if (!function_exists('dump')) {
      *
      * @return void
      */
-    function dump($variable)
+    function dump(mixed $variable): void
     {
         echo  '<pre>';
         print_r($variable);
@@ -52,11 +52,11 @@ if (!function_exists('__escape')) {
     /**
      * dump data method.
      *
-     * @param mixed $variable
+     * @param string $variable
      *
-     * @return void
+     * @return string
      */
-    function __escape($variable)
+    function __escape(string $variable): string
     {
         return htmlentities($variable, ENT_QUOTES, 'UTF-8');
     }

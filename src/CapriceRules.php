@@ -21,7 +21,7 @@ class CapriceRules
      *
      * @var array
      */
-    private $rules = [
+    private array $rules = [
 
     ];
 
@@ -31,7 +31,7 @@ class CapriceRules
      * @param string $directive
      * @param mixed  $callback
      *
-     * @return void
+     * @return self
      */
     public function add(string $directive, $callback, bool $custom): self
     {

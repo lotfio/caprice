@@ -24,39 +24,39 @@ class Caprice implements CapriceInterface
     use CapriceTrait;
 
     /**
-     * rules array.
+     * rules object.
      *
-     * @var array
+     * @var CapriceRules
      */
-    protected $rules;
+    protected CapriceRules $rules;
 
     /**
-     * parser.
+     * parser object.
      *
-     * @var object
+     * @var RuleParser
      */
-    protected $parser;
+    protected RuleParser $parser;
 
     /**
      * compile from directory.
      *
      * @var string
      */
-    protected $compileFromDir = './';
+    protected string $compileFromDir = './';
 
     /**
      * compile to directory.
      *
      * @var string
      */
-    protected $compileToDir = './';
+    protected string $compileToDir = './';
 
     /**
      * recompile mode.
      *
      * @var bool
      */
-    protected $recompile = false;
+    protected bool $recompile = false;
 
     /**
      * set up.
@@ -76,7 +76,7 @@ class Caprice implements CapriceInterface
      *
      * @return CapriceRules
      */
-    public function directive(string $directive, $callback, $custom = false): CapriceRules
+    public function directive(string $directive, mixed $callback, bool $custom = false): CapriceRules
     {
         return $this->rules->add($directive, $callback, $custom);
     }

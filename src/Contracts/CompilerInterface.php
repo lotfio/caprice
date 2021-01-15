@@ -22,10 +22,10 @@ interface CompilerInterface
      * This method gets a string file, compiles it
      * and generates a PHP file based on the .cap file
      *
-     * @param string $file cap file
-     * @param  string output location
+     * @param string $filename cap file
+     * @param string output location
      *
      * @return string
      */
-    public function compile(string $file, string $outputLocation): string;
+    public function compile(string $filename, string $outputLocation): string;
 }
