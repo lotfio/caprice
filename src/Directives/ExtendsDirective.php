@@ -23,10 +23,11 @@ class ExtendsDirective implements DirectiveInterface
      * replace.
      *
      * @param string $expression
+     * @param string $file
      *
      * @return string
      */
-    public function replace(string $expression, ?string $file = null): string
+    public function replace(string $expression, string $file): string
     {
         $path = COMPILE_FROM.dotPath(trim(str_replace('.', '/', $expression), ')("\''));
 

@@ -22,10 +22,11 @@ class EndForDirective implements DirectiveInterface
      * replace.
      *
      * @param string $expression
+     * @param string $file
      *
      * @return string
      */
-    public function replace(string $expression, ?string $file = null): string
+    public function replace(string $expression, string $file): string
     {
         return '<?php endfor;?>';
     }

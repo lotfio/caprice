@@ -23,10 +23,11 @@ class IncludeDirective implements DirectiveInterface
      * replace.
      *
      * @param string $expression
+     * @param string $file
      *
      * @return string
      */
-    public function replace(string $expression, ?string $file = null): string
+    public function replace(string $expression, string $file): string
     {
         $file = COMPILE_FROM.dotPath(\trim($expression, (')(\'"')));
 
