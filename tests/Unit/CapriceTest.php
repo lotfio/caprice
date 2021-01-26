@@ -31,7 +31,7 @@ class CapriceTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->caprice = (new Caprice())
              ->setCompileLocations(dirname(__DIR__).'/stub', dirname(__DIR__).'/stub/cache')

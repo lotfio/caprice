@@ -34,7 +34,7 @@ class CompilerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $rules = new CapriceRules();
         $rules->add('#test', function () { return '<?php?>'; }, false);
