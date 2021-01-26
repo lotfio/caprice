@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     1.0.0
+ * @version     1.1.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -29,12 +29,12 @@ class RuleParser implements RuleParserInterface
      */
     public function parse(string $file, array $rule): string
     {
-        return preg_replace_callback($rule['directive'], function ($match) use ($rule, $file) {
-            if (is_string($rule['replace']) && !$rule['replace'] instanceof \Closure) {
-                return $this->parseClassMethod($rule['replace'], $match, $file);
+        return preg_replace_callback($rule['directive'], function (mixed $match) use ($rule, $file) {
+            if ($rule['replace'] instanceof \Closure) {
+                return $this->parseCallback($rule['replace'], $match, $file);
             }
 
-            return $this->parseCallback($rule['replace'], $match, $file);
+            return $this->parseClassMethod($rule['replace'], $match, $file);
         }, $file);
     }
 
@@ -45,9 +45,9 @@ class RuleParser implements RuleParserInterface
      * @param array  $parameters
      * @param string $file
      *
-     * @return void
+     * @return string
      */
-    protected function parseCallback($callback, $parameters, $file)
+    protected function parseCallback($callback, $parameters, $file): string
     {
         return call_user_func($callback, $parameters[1] ?? $parameters[0], $file);
     }
@@ -59,9 +59,9 @@ class RuleParser implements RuleParserInterface
      * @param array  $parameters
      * @param string $file
      *
-     * @return void
+     * @return string
      */
-    protected function parseClassMethod($class, $parameters, $file)
+    protected function parseClassMethod($class, $parameters, $file): string
     {
         if (!\class_exists($class)) {
             throw new CapriceException("class $class not found");

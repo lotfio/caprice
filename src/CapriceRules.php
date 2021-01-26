@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     1.0.0
+ * @version     1.1.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -21,7 +21,7 @@ class CapriceRules
      *
      * @var array
      */
-    private $rules = [
+    private array $rules = [
 
     ];
 
@@ -31,7 +31,7 @@ class CapriceRules
      * @param string $directive
      * @param mixed  $callback
      *
-     * @return void
+     * @return self
      */
     public function add(string $directive, $callback, bool $custom): self
     {

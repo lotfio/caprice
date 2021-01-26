@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     1.0.0
+ * @version     1.1.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -24,46 +24,25 @@ class Caprice implements CapriceInterface
     use CapriceTrait;
 
     /**
-     * rules array.
+     * rules object.
      *
-     * @var array
+     * @var CapriceRules
      */
-    protected $rules;
+    protected CapriceRules $rules;
 
     /**
-     * parser.
+     * parser object.
      *
-     * @var object
+     * @var RuleParser
      */
-    protected $parser;
-
-    /**
-     * compile from directory.
-     *
-     * @var string
-     */
-    protected $compileFromDir = './';
-
-    /**
-     * compile to directory.
-     *
-     * @var string
-     */
-    protected $compileToDir = './';
-
-    /**
-     * recompile mode.
-     *
-     * @var bool
-     */
-    protected $recompile = false;
+    protected RuleParser $parser;
 
     /**
      * set up.
      */
     public function __construct()
     {
-        $this->rules = new CapriceRules();
+        $this->rules  = new CapriceRules();
         $this->parser = new RuleParser();
     }
 
@@ -76,7 +55,7 @@ class Caprice implements CapriceInterface
      *
      * @return CapriceRules
      */
-    public function directive(string $directive, $callback, $custom = false): CapriceRules
+    public function directive(string $directive, mixed $callback, bool $custom = false): CapriceRules
     {
         return $this->rules->add($directive, $callback, $custom);
     }
@@ -90,10 +69,7 @@ class Caprice implements CapriceInterface
      */
     public function compile(string $filename): string
     {
-        defined('COMPILE_FROM') || define('COMPILE_FROM', $this->compileFromDir);
-        defined('RE_COMPILE') || define('RE_COMPILE', $this->recompile);
-
-        $compiler = new Compiler($this->parser, $this->rules);
+        $compiler = new Compiler($this->parser, $this->rules, $this->recompile);
 
         return $compiler->compile(
             $this->compileFromDir.dotPath($filename),

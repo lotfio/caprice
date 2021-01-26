@@ -6,7 +6,7 @@ namespace Tests\Unit;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     1.0.0
+ * @version     1.1.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -34,11 +34,11 @@ class CompilerTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $rules = new CapriceRules();
         $rules->add('#test', function () { return '<?php?>'; }, false);
-        $this->compiler = new Compiler(new RuleParser(), $rules);
+        $this->compiler = new Compiler(new RuleParser(), $rules, true);
     }
 
     /**

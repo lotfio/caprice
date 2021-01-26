@@ -6,7 +6,7 @@ namespace Caprice;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     1.0.0
+ * @version     1.1.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -18,6 +18,27 @@ use Caprice\Exception\CapriceException;
 
 trait CapriceTrait
 {
+    /**
+     * compile from directory.
+     *
+     * @var string
+     */
+    protected string $compileFromDir = './';
+
+    /**
+     * compile to directory.
+     *
+     * @var string
+     */
+    protected string $compileToDir = './';
+
+    /**
+     * recompile mode.
+     *
+     * @var bool
+     */
+    protected bool $recompile = false;
+
     /**
      * set compile locations.
      *
@@ -39,6 +60,19 @@ trait CapriceTrait
 
         return $this;
     }
+    
+    /**
+     * enable recompile.
+     *
+     * @return Caprice
+     */
+    public function enableRecompile(): self
+    {
+        $this->recompile = true;
+
+        return $this;
+    }
+
 
     /**
      * load predefined directives.
@@ -49,18 +83,6 @@ trait CapriceTrait
     {
         $caprice = $this;
         require_once 'rules.php';
-
-        return $this;
-    }
-
-    /**
-     * enable recompile.
-     *
-     * @return void
-     */
-    public function enableRecompile(): self
-    {
-        $this->recompile = true;
 
         return $this;
     }

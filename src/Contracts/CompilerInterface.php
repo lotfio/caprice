@@ -6,7 +6,7 @@ namespace Caprice\Contracts;
  * This file is a part of Caprice package
  *
  * @package     Caprice
- * @version     1.0.0
+ * @version     1.1.0
  * @author      Lotfio Lakehal <contact@lotfio.net>
  * @copyright   Lotfio Lakehal 2019
  * @license     MIT
@@ -22,10 +22,10 @@ interface CompilerInterface
      * This method gets a string file, compiles it
      * and generates a PHP file based on the .cap file
      *
-     * @param string $file cap file
-     * @param  string output location
+     * @param string $filename cap file
+     * @param string output location
      *
      * @return string
      */
-    public function compile(string $file, string $outputLocation): string;
+    public function compile(string $filename, string $outputLocation): string;
 }
