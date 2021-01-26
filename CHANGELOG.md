@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+- migrating ci to jenkins
+- adding Psalm for static analysis (fixing some bits of code)
+- adding php 8 support
+- upgrading phpunit version 9
+
 ## 1.0.0
 - first stable release v1
 - ability to define custom directives (callback or class method)

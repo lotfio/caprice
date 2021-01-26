@@ -2,8 +2,8 @@
   <img src="https://github.com/lotfio/caprice/blob/master/docs/logo.png" width="200"  alt="caprice Preview">
   <p align="center">
     <img src="https://img.shields.io/badge/Licence-MIT-ffd32a.svg" alt="License">
-    <img src="https://img.shields.io/badge/PHP-7.2-808e9b.svg" alt="PHP version">
-    <img src="https://img.shields.io/badge/Version-1.0.0-f53b57.svg" alt="Version">
+    <img src="https://img.shields.io/badge/PHP-8-808e9b.svg" alt="PHP version">
+    <img src="https://img.shields.io/badge/Version-1.1.0-f53b57.svg" alt="Version">
     <img src="https://img.shields.io/badge/coverage-10%25-27ae60.svg" alt="Coverage">
     <img src="https://jenkins.lotfio.net/buildStatus/icon?job=caprice+-+ci" alt="Build Status">
     <img src="https://jenkins.lotfio.net/buildStatus/icon?job=caprice+-+Psalm&subject=Psalm&color=darkturquoise" alt="Static Analysis">
@@ -18,8 +18,8 @@ Caprice is PHP templating engine that aims to write clean PHP syntax along side 
 caprice compiles the syntax and generate php files which means no performance loss but a clean html files with a friendly syntax.
 
 # :pushpin: Requirements :
-- PHP 7.2 or newer versions
-- PHPUnit >= 8 (for testing purpose)
+- PHP 8 or newer versions
+- PHPUnit >= 9 (for testing purpose)
 
 # :ok_hand: Features :
 - easy to use.
