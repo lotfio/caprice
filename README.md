@@ -5,8 +5,7 @@
     <img src="https://img.shields.io/badge/PHP-7.2-808e9b.svg" alt="PHP version">
     <img src="https://img.shields.io/badge/Version-1.0.0-f53b57.svg" alt="Version">
     <img src="https://img.shields.io/badge/coverage-10%25-27ae60.svg" alt="Coverage">
-    <img src="https://travis-ci.org/lotfio/caprice.svg?branch=master" alt="Build Status">
-    <img src="https://github.styleci.io/repos/211069554/shield?branch=master" alt="StyleCi">
+    <img src="https://jenkins.lotfio.net/buildStatus/icon?job=caprice+-+ci" alt="Build Status">
     </p>
   <p align="center">
     <strong>:candy: easy weezy templating engine for php :candy:</strong>
