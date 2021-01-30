@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/Licence-MIT-ffd32a.svg" alt="License">
     <img src="https://img.shields.io/badge/PHP-8-808e9b.svg" alt="PHP version">
     <img src="https://img.shields.io/badge/Version-1.1.0-f53b57.svg" alt="Version">
-    <img src="https://img.shields.io/badge/coverage-10%25-27ae60.svg" alt="Coverage">
+    <img src="https://img.shields.io/badge/coverage-98%25-27ae60.svg" alt="Coverage">
     <img src="https://jenkins.lotfio.net/buildStatus/icon?job=caprice+-+ci" alt="Build Status">
     <img src="https://jenkins.lotfio.net/buildStatus/icon?job=caprice+-+Psalm&subject=Psalm&color=darkturquoise" alt="Static Analysis">
     </p>
