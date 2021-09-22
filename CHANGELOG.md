@@ -1,6 +1,10 @@
 # Changelog
 
 ## 1.1.0
+- Fix issue with compile path (extends + include always start from base path)
+- require minimum stable
+
+## 1.1.0
 - migrating ci to jenkins
 - adding Psalm for static analysis (fixing some bits of code)
 - adding php 8 support
