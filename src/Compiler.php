@@ -35,24 +35,16 @@ class Compiler implements CompilerInterface
     protected CapriceRules $rules;
 
     /**
-     * recompile state
-     * 
-     * @var bool $recompile
-     */
-    protected bool $recompile;
-
-    /**
      * setup compiler.
      *
      * @param RuleParserInterface $parser
      * @param CapriceRules        $rules
-     * 
+     * @param bool $recompile
      */
-    public function __construct(RuleParserInterface $parser, CapriceRules $rules, bool $recompile)
+    public function __construct(RuleParserInterface $parser, CapriceRules $rules)
     {
         $this->parser = $parser;
         $this->rules = $rules;
-        $this->recompile = $recompile;
     }
 
     /**
@@ -69,37 +61,41 @@ class Compiler implements CompilerInterface
     }
 
     /**
-     * compile caprice file.
+     * compile method
      *
-     * @param string $filename
-     * @param string $outputLocation
-     *
+     * @param string  $from location
+     * @param string  $to location 
+     * @param string  $file
+     * @param boolean $recompile
+     * 
      * @return string
      */
-    public function compile(string $filename, string $outputLocation): string
+    public function compile(string $from, string $to, string $file, bool $recompile): string
     {
-        if (!file_exists($filename)) {
-            throw new CapriceException("file $filename not found.");
+        $file = $from . dotPath($file);
+
+        if (!file_exists($file)) {
+            throw new CapriceException("file $file not found.");
         }
         // apply parsing to al rules
         $rules = $this->rules->getRules();
 
-        $content = \file_get_contents($filename);
-        $tempFile = $outputLocation.sha1($filename).'.php';
+        $content = \file_get_contents($file);
+        $tempFile = $to.sha1($file).'.php';
 
-        // from location for directives like require to get content from
-        $GLOBALS['compileFrom'] =  pathinfo($filename, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
-
-        if ($this->recompile || $this->isModified($filename, $tempFile)) { // if cap file is modified or doesn't exists
+        if ($recompile || $this->isModified($file, $tempFile)) { // if cap file is modified or doesn't exists
             for ($i = 0; $i < count($rules); $i++) {
                 foreach ($rules as $rule) {
-                    $content = $this->parser->parse($content, $rule);
+                    $content = $this->parser->parse($content, $rule, [ // passing extra parameters needed for parsing
+                        "compileFrom" => $from,
+                        "compileTo"   => $to
+                    ]);
                 }
             }
 
             //save file
             if (file_put_contents($tempFile, trim($content))) {
-                touch($filename);
+                touch($file);
             }
             touch($tempFile);
         }

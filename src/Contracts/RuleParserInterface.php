@@ -21,8 +21,9 @@ interface RuleParserInterface
      *
      * @param string $file
      * @param array  $rule
+     * @param array  $extras
      *
      * @return string
      */
-    public function parse(string $file, array $rule): string;
+    public function parse(string $file, array $rule, array $extras): string;
 }

@@ -50,7 +50,9 @@ class RuleParserTest extends TestCase
             'replace'   => function () { return 'replaced !'; },
         ];
 
-        $out = $this->parser->parse($file, $rule);
+        $extras = []; // extra needed parameters like paths 
+
+        $out = $this->parser->parse($file, $rule, $extras);
 
         $this->assertSame('replaced !', $out);
     }
@@ -67,8 +69,9 @@ class RuleParserTest extends TestCase
             'directive' => '~#test(\s*\(((.*))\))?~',
             'replace'   => function ($match) { return 'replaced !'.$match; },
         ];
+        $extras = []; // extra needed parameters like paths 
 
-        $out = $this->parser->parse($file, $rule);
+        $out = $this->parser->parse($file, $rule, $extras);
 
         $this->assertSame('replaced !#test', $out);
     }
@@ -85,9 +88,10 @@ class RuleParserTest extends TestCase
             'directive' => '~#test(\s*\(((.*))\))?~',
             'replace'   => \Caprice\Directives\PhpDirectives::class, // wrong class
         ];
+        $extras = []; // extra needed parameters like paths 
 
         $this->expectException(CapriceException::class);
-        $this->parser->parse($file, $rule);
+        $this->parser->parse($file, $rule, $extras);
     }
 
     /**
@@ -102,8 +106,9 @@ class RuleParserTest extends TestCase
             'directive' => '~#test(\s*\(((.*))\))?~',
             'replace'   => \Caprice\Directives\PhpDirective::class,
         ];
+        $extras = []; // extra needed parameters like paths 
 
-        $out = $this->parser->parse($file, $rule);
+        $out = $this->parser->parse($file, $rule, $extras);
 
         $this->assertSame('<?php ', $out);
     }

@@ -203,7 +203,7 @@ caprice compiles the syntax and generate php files which means no performance lo
 
     // expression directive
     // example #call($var)
-    $caprice->directive("#call", function($expression){
+    $caprice->directive("#call", function(string $expression, string $match, array $extras){
         return '<?php call'. $expression . ';?>'; // this will evaluate to <?php call($var);\?\>
     });
 

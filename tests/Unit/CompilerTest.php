@@ -38,7 +38,7 @@ class CompilerTest extends TestCase
     {
         $rules = new CapriceRules();
         $rules->add('#test', function () { return '<?php?>'; }, false);
-        $this->compiler = new Compiler(new RuleParser(), $rules, true);
+        $this->compiler = new Compiler(new RuleParser(), $rules);
     }
 
     /**
@@ -49,7 +49,7 @@ class CompilerTest extends TestCase
     public function testCompileNoFile()
     {
         $this->expectException(CapriceException::class);
-        $compiled = $this->compiler->compile('test.cap.php', '.');
+        $compiled = $this->compiler->compile('.', '.', 'test.cap.php', true);
     }
 
     /**
@@ -59,11 +59,13 @@ class CompilerTest extends TestCase
      */
     public function testCompileMethod()
     {
-        $dir = dirname(__DIR__).'/stub/';
+        $from  = dirname(__DIR__).'/stub/';
+        $to    = $from . "cache/"; 
+        $file  = 'test.cap.php';
 
-        $compiled = $this->compiler->compile($dir.'test.cap.php', $dir.'cache/');
+        $compiled = $this->compiler->compile($from, $to, $file, true);
 
-        $this->assertSame($dir.'cache/'.sha1($dir.'test.cap.php').'.php', $compiled);
+        $this->assertSame($to . sha1($from . 'test.cap.php') . '.php', $compiled);
 
         $content = file_get_contents($compiled);
         $this->assertSame('<?php?>', $content);

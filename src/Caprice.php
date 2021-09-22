@@ -38,12 +38,20 @@ class Caprice implements CapriceInterface
     protected RuleParser $parser;
 
     /**
+     * compiler object
+     *
+     * @var Compiler
+     */
+    protected Compiler $compiler;
+
+    /**
      * set up.
      */
     public function __construct()
     {
-        $this->rules  = new CapriceRules();
-        $this->parser = new RuleParser();
+        $this->rules    = new CapriceRules();
+        $this->parser   = new RuleParser();
+        $this->compiler = new Compiler($this->parser, $this->rules);
     }
 
     /**
@@ -57,23 +65,23 @@ class Caprice implements CapriceInterface
      */
     public function directive(string $directive, mixed $callback, bool $custom = false): CapriceRules
     {
-        return $this->rules->add($directive, $callback, $custom);
+        return $this->rules->add(
+            $directive, $callback, $custom
+        );
     }
 
     /**
      * compile cap file.
      *
-     * @param string $filename
+     * @param string $file
      *
      * @return string
      */
-    public function compile(string $filename): string
+    public function compile(string $file): string
     {
-        $compiler = new Compiler($this->parser, $this->rules, $this->recompile);
-
-        return $compiler->compile(
-            $this->compileFromDir.dotPath($filename),
-            $this->compileToDir
+        return $this->compiler->compile(
+            $this->compileFromDir, $this->compileToDir,
+            $file, $this->recompile
         );
     }
 }

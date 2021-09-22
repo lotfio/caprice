@@ -24,44 +24,47 @@ class RuleParser implements RuleParserInterface
      *
      * @param string $file
      * @param array  $rule
-     *
+     * @param array  $extras
+     * 
      * @return string
      */
-    public function parse(string $file, array $rule): string
+    public function parse(string $file, array $rule, array $extras): string
     {
-        return preg_replace_callback($rule['directive'], function (mixed $match) use ($rule, $file) {
+        return preg_replace_callback($rule['directive'], function (mixed $match) use ($rule, $file, $extras): string {
             if ($rule['replace'] instanceof \Closure) {
-                return $this->parseCallback($rule['replace'], $match, $file);
+                return $this->parseCallback($rule['replace'], $match, $file, $extras);
             }
 
-            return $this->parseClassMethod($rule['replace'], $match, $file);
+            return $this->parseClassMethod($rule['replace'], $match, $file, $extras);
         }, $file);
     }
 
     /**
      * parse callback.
      *
-     * @param mixed  $callback
-     * @param array  $parameters
-     * @param string $file
+     * @param callable  $callback
+     * @param array     $parameters
+     * @param string    $file
+     * @param array     $extras
      *
      * @return string
      */
-    protected function parseCallback($callback, $parameters, $file): string
+    protected function parseCallback(callable $callback, array $parameters, string $file, array $extras): string
     {
-        return call_user_func($callback, $parameters[1] ?? $parameters[0], $file);
+        return call_user_func($callback, $parameters[1] ?? $parameters[0], $file, $extras);
     }
 
     /**
      * parse class method.
      *
-     * @param mixed  $class
-     * @param array  $parameters
-     * @param string $file
-     *
+     * @param string  $class
+     * @param array   $parameters
+     * @param string  $file
+     * @param array   $extras
+     * 
      * @return string
      */
-    protected function parseClassMethod($class, $parameters, $file): string
+    protected function parseClassMethod(string $class, array $parameters, string $file, array $extras): string
     {
         if (!\class_exists($class)) {
             throw new CapriceException("class $class not found");
@@ -72,6 +75,6 @@ class RuleParser implements RuleParserInterface
             throw new CapriceException('class method parse not found');
         }
 
-        return call_user_func_array([$obj, 'replace'], [$parameters[1] ?? $parameters[0], $file]);
+        return call_user_func_array([$obj, 'replace'], [$parameters[1] ?? $parameters[0], $file, $extras]);
     }
 }

@@ -21,8 +21,9 @@ interface DirectiveInterface
      *
      * @param string $expression
      * @param string $file
-     *
+     * @param array  $extras parameters
+     * 
      * @return string
      */
-    public function replace(string $expression, string $file): string;
+    public function replace(string $expression, string $file, array $extras): string;
 }
