@@ -1,6 +1,5 @@
 /vendor/
 .idea
-composer.lock
 *.cache
 tests/stub/cache/*
 !tests/stub/cache/.gitkeep
